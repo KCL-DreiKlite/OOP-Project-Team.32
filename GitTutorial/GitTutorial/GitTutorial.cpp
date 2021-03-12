@@ -12,6 +12,7 @@ bool Guess(int number) {
 	static int target =-1;
 	srand(time(NULL));
 	//Interesting
+	//hehe
 	if(target==-1){
 		target =rand() %100+1;
 	}
