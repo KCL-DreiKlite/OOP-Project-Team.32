@@ -11,6 +11,7 @@
 bool Guess(int number) {
 	static int target =-1;
 	srand(time(NULL));
+	//Interesting
 	if(target==-1){
 		target =rand() %100+1;
 	}
@@ -22,7 +23,7 @@ int main() {
     //std::cout << "Hello World!\n";
 	int guess;
 	do {
-		std::cout << "Choose a number between 1 - 100: ";
+		// std::cout << "Choose a number between 1 - 100: ";
 		std::cin >> guess;
 
 	} while (!Guess(guess));
