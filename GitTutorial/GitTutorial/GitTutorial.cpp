@@ -2,7 +2,9 @@
 //
 //#include "stdafx.h"
 #include <iostream>
-//#include <string>
+#include <string>
+#include <cstdlib>
+#include <ctime>
 
 //using namespace System;
 
