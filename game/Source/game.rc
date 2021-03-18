@@ -104,9 +104,9 @@ IDB_HELP                BITMAP                  "..\\res\\help.bmp"
 
 IDB_LOADING             BITMAP                  "..\\res\\loading.bmp"
 
-IDB_CHAPTER             BITMAP                  "D:\\OOPL2021s\\game\\RES\\Chapter 9.bmp"
+IDB_CHAPTER             BITMAP                  "..\\RES\\Chapter 9.bmp"
 
-IDB_MAP                 BITMAP                  "D:\\OOPL2021s\\game\\RES\\Chapter 9-1.bmp"
+IDB_MAP                 BITMAP                  "..\\RES\\Chapter 9-1.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -17,6 +17,6 @@ namespace game_framework {
 		bool rising;			// true表上升、false表下降
 		int initial_velocity;	// 初始速度
 		int velocity;			// 目前的速度(點/次)
-		CAnimation animation;	// 利用動畫作圖形
+		CAnimation animation = CAnimation(1);	// 利用動畫作圖形
 	};
 }

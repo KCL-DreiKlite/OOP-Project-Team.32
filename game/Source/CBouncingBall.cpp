@@ -13,25 +13,26 @@ namespace game_framework {
 
 	CBouncingBall::CBouncingBall()
 	{
-		const int INITIAL_VELOCITY = 20;	// 初始上升速度
+		const int INITIAL_VELOCITY = 5;	// 初始上升速度
 		const int FLOOR = 400;				// 地板座標
 		floor = FLOOR;
 		x = 95; y = FLOOR - 1;				// y座標比地板高1點(站在地板上)
 		rising = true;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
+		
 	}
 
 	void CBouncingBall::LoadBitmap()
 	{
-		char *filename[8] = { ".\\bitmaps\\Azazel1.bmp",".\\bitmaps\\Azazel2.bmp",".\\bitmaps\\Azazel3.bmp",".\\bitmaps\\Azazel4.bmp",".\\bitmaps\\Azazel5.bmp",".\\bitmaps\\Azazel6.bmp",".\\bitmaps\\Azazel7.bmp",".\\bitmaps\\Azazel8.bmp" };
+		char *filename[12] = { ".\\Bitmaps\\LUCIFER\\lucifer_0.png",".\\Bitmaps\\LUCIFER\\lucifer_1.png",".\\Bitmaps\\LUCIFER\\lucifer_2.png",".\\Bitmaps\\LUCIFER\\lucifer_3.png",".\\Bitmaps\\LUCIFER\\lucifer_4.png",".\\Bitmaps\\LUCIFER\\lucifer_5.png",".\\Bitmaps\\LUCIFER\\lucifer_6.png",".\\Bitmaps\\LUCIFER\\lucifer_7.png",".\\Bitmaps\\LUCIFER\\lucifer_8.png",".\\Bitmaps\\LUCIFER\\lucifer_9.png",".\\Bitmaps\\LUCIFER\\lucifer_10.png",".\\Bitmaps\\LUCIFER\\lucifer_11.png"};
 		for (int i = 0; i < 8; i++)	// 載入動畫(由4張圖形構成)
 			animation.AddBitmap(filename[i], RGB(0, 0, 0));
 	}
 
 	void CBouncingBall::OnMove()
 	{
-		/*if (rising) {			// 上升狀態
+		if (rising) {			// 上升狀態
 			if (velocity > 0) {
 				y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
 				velocity--;		// 受重力影響，下次的上升速度降低
@@ -51,7 +52,7 @@ namespace game_framework {
 				rising = true;	// 探底反彈，下次改為上升
 				velocity = initial_velocity; // 重設上升初始速度
 			}
-		}*/
+		}
 		animation.OnMove();		// 執行一次animation.OnMove()，animation才會換圖
 	}
 
