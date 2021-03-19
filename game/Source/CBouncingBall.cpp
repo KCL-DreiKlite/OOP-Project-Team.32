@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "CBouncingBall.h"
 
+
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// CBouncingBall: BouncingBall class
@@ -25,9 +26,14 @@ namespace game_framework {
 
 	void CBouncingBall::LoadBitmap()
 	{
-		char *filename[12] = { ".\\Bitmaps\\LUCIFER\\lucifer_0.png",".\\Bitmaps\\LUCIFER\\lucifer_1.png",".\\Bitmaps\\LUCIFER\\lucifer_2.png",".\\Bitmaps\\LUCIFER\\lucifer_3.png",".\\Bitmaps\\LUCIFER\\lucifer_4.png",".\\Bitmaps\\LUCIFER\\lucifer_5.png",".\\Bitmaps\\LUCIFER\\lucifer_6.png",".\\Bitmaps\\LUCIFER\\lucifer_7.png",".\\Bitmaps\\LUCIFER\\lucifer_8.png",".\\Bitmaps\\LUCIFER\\lucifer_9.png",".\\Bitmaps\\LUCIFER\\lucifer_10.png",".\\Bitmaps\\LUCIFER\\lucifer_11.png"};
-		for (int i = 0; i < 8; i++)	// 載入動畫(由4張圖形構成)
-			animation.AddBitmap(filename[i], RGB(0, 0, 0));
+		//char *filename[12] = { ".\\Bitmaps\\LUCIFER\\lucifer_0.png",".\\Bitmaps\\LUCIFER\\lucifer_1.png",".\\Bitmaps\\LUCIFER\\lucifer_2.png",".\\Bitmaps\\LUCIFER\\lucifer_3.png",".\\Bitmaps\\LUCIFER\\lucifer_4.png",".\\Bitmaps\\LUCIFER\\lucifer_5.png",".\\Bitmaps\\LUCIFER\\lucifer_6.png",".\\Bitmaps\\LUCIFER\\lucifer_7.png",".\\Bitmaps\\LUCIFER\\lucifer_8.png",".\\Bitmaps\\LUCIFER\\lucifer_9.png",".\\Bitmaps\\LUCIFER\\lucifer_10.png",".\\Bitmaps\\LUCIFER\\lucifer_11.png"};
+		//for (int i = 0; i < 8; i++)	// 載入動畫(由4張圖形構成)
+		//	animation.AddBitmap(filename[i], RGB(0, 0, 0));
+		char imagePath[] = ".\\Bitmaps\\HERO\\hero_x.bmp";
+		for (int i = 0; i < 10; i++) {
+			imagePath[20] = '0' + i;
+			animation.AddBitmap(imagePath, RGB(0, 255, 0));
+		}
 	}
 
 	void CBouncingBall::OnMove()

@@ -224,6 +224,7 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
+	hero.Initialize();
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -269,6 +270,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 移動彈跳的球
 	//
 	bball.OnMove();
+	hero.OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -306,6 +308,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 	gamemap.LoadBitMap(); //地圖
+
+
+	hero.LoadBitmap();
+
+
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -314,14 +321,30 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x26; // keyboard上箭頭
 	const char KEY_RIGHT = 0x27; // keyboard右箭頭
 	const char KEY_DOWN  = 0x28; // keyboard下箭頭
-	if (nChar == KEY_LEFT)
-		eraser.SetMovingLeft(true);
-	if (nChar == KEY_RIGHT)
-		eraser.SetMovingRight(true);
-	if (nChar == KEY_UP)
-		eraser.SetMovingUp(true);
-	if (nChar == KEY_DOWN)
-		eraser.SetMovingDown(true);
+	//if (nChar == KEY_LEFT)
+	//	eraser.SetMovingLeft(true);
+	//if (nChar == KEY_RIGHT)
+	//	eraser.SetMovingRight(true);
+	//if (nChar == KEY_UP)
+	//	eraser.SetMovingUp(true);
+	//if (nChar == KEY_DOWN)
+	//	eraser.SetMovingDown(true);
+	switch (nChar) {
+	case KEY_UP:
+		hero.SetMovingDirection(HERO_MOVE_UP);
+		break;
+	case KEY_DOWN:
+		hero.SetMovingDirection(HERO_MOVE_DOWN);
+		break;
+	case KEY_LEFT:
+		hero.SetMovingDirection(HERO_MOVE_LEFT);
+		break;
+	case KEY_RIGHT:
+		hero.SetMovingDirection(HERO_MOVE_RIGHT);
+		break;
+	default:
+		break;
+	}
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -330,14 +353,14 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x26; // keyboard上箭頭
 	const char KEY_RIGHT = 0x27; // keyboard右箭頭
 	const char KEY_DOWN  = 0x28; // keyboard下箭頭
-	if (nChar == KEY_LEFT)
-		eraser.SetMovingLeft(false);
-	if (nChar == KEY_RIGHT)
-		eraser.SetMovingRight(false);
-	if (nChar == KEY_UP)
-		eraser.SetMovingUp(false);
-	if (nChar == KEY_DOWN)
-		eraser.SetMovingDown(false);
+	//if (nChar == KEY_LEFT)
+	//	eraser.SetMovingLeft(false);
+	//if (nChar == KEY_RIGHT)
+	//	eraser.SetMovingRight(false);
+	//if (nChar == KEY_UP)
+	//	eraser.SetMovingUp(false);
+	//if (nChar == KEY_DOWN)
+	//	eraser.SetMovingDown(false);
 }
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
@@ -390,6 +413,8 @@ void CGameStateRun::OnShow()
 	corner.ShowBitmap();
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();
+
+	hero.OnShow();
 }
 
 CGameMap::CGameMap() :x(25), y(-80), mh(400), mw(400) {
