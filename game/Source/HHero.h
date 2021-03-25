@@ -26,7 +26,7 @@ namespace game_framework {
 		void SetMovingDirection(char direction);
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 	protected:
-		const int animation_tickPerFrame = 3;
+		const int animation_tickPerFrame = 2;
 		CAnimation animation = CAnimation(animation_tickPerFrame);		// 擦子的動畫
 		int x, y;					// 擦子左上角座標
 		//bool isMovingDown;			// 是否正在往下移動
