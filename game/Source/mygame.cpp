@@ -271,6 +271,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	//bball.OnMove();
 	hero.OnMove();
+	//GET_MOVABLE(2, 3);
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定

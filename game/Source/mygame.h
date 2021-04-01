@@ -43,6 +43,8 @@
 #include "CBouncingBall.h"
 #include "HHero.h"
 
+#define GET_MOVABLE(x,y) mapEdge[y][x]
+
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants

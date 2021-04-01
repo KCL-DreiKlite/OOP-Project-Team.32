@@ -42,7 +42,7 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
-	void HHero::OnMove() {
+	void HHero::OnMove(bool movableMap[][], int x, int y) {
 		animation.OnMove();
 		if (!isMoving)
 			return;
