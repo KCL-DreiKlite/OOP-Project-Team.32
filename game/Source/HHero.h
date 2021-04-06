@@ -17,7 +17,7 @@ namespace game_framework {
 		int  GetY2();					// 擦子右下角 y 座標
 		void Initialize();				// 設定擦子為初始值
 		void LoadBitmap();				// 載入圖形
-		void OnMove();					// 移動擦子
+		void OnMove(bool mapEdge[][11]);					// 移動擦子
 		void OnShow();					// 將擦子圖形貼到畫面
 		//void SetMovingDown(bool flag);	// 設定是否正在往下移動
 		//void SetMovingLeft(bool flag);	// 設定是否正在往左移動
@@ -29,6 +29,7 @@ namespace game_framework {
 		const int animation_tickPerFrame = 2;
 		CAnimation animation = CAnimation(animation_tickPerFrame);		// 擦子的動畫
 		int x, y;					// 擦子左上角座標
+		int situationX,situationY;
 		//bool isMovingDown;			// 是否正在往下移動
 		//bool isMovingLeft;			// 是否正在往左移動
 		//bool isMovingRight;			// 是否正在往右移動
@@ -41,5 +42,14 @@ namespace game_framework {
 		int stepCounter;
 		char movingDirection;
 
+		bool	mapEdge[9][11] = { {0,0,0,0,0,0,0,0,0,0,0},
+									{0,0,0,0,0,0,0,0,0,0,0},
+									{0,0,0,0,1,1,1,0,0,0,0},
+									{0,0,0,0,1,1,1,0,0,0,0},
+									{0,0,1,0,1,1,1,0,1,0,0},
+									{0,1,1,1,1,1,1,1,1,1,0},
+									{0,1,1,1,1,1,1,1,1,1,0},
+									{0,0,1,1,1,1,1,1,1,0,0},
+									{0,0,0,0,0,0,0,0,0,0,0} };
 	};
 }

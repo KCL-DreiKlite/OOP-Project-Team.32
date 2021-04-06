@@ -11,10 +11,12 @@ namespace game_framework {
 		
 	}
 	void HHero::Initialize() {
-		const int X_POS = 200;
-		const int Y_POS = 100;
+		const int X_POS = 100;
+		const int Y_POS = 600;
 		x = X_POS;
 		y = Y_POS;
+		situationX = 1;
+		situationY = 6;
 		isMoving = false;
 		stepCounter = 0;
 		movingDirection = HERO_NOT_MOVING;
@@ -30,6 +32,10 @@ namespace game_framework {
 		animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_11.bmp", RGB(0, 255, 0));
 	}
 
+	//void HHero::OnMove(bool mapEdge, int x, int y)
+	//{
+	//}
+
 	void HHero::SetMovingDirection(char direction) {
 		if (isMoving)
 			return;
@@ -42,28 +48,51 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
-	void HHero::OnMove(bool movableMap[][], int x, int y) {
+	void HHero::OnMove(bool movableMap[][11]) {
 		animation.OnMove();
 		if (!isMoving)
 			return;
 
+		stepCounter += stepPerTick;
 		switch (movingDirection) {
 		case HERO_MOVE_UP:
-			y -= stepPerTick;
+			if (movableMap[situationY-1][situationX]){
+				y -= stepPerTick;
+				if (stepCounter == 100) {
+					situationY -= 1;
+				}
+			}
 			break;
 		case HERO_MOVE_DOWN:
-			y += stepPerTick;
+			if (movableMap[situationY + 1][situationX]){
+				y += stepPerTick;
+				if (stepCounter == 100) {
+					situationY += 1;
+				}
+			}
 			break;
 		case HERO_MOVE_LEFT:
-			x -= stepPerTick;
+			if (movableMap[situationY][situationX-1]) {
+				x -= stepPerTick;
+				if (stepCounter == 100) {
+					situationX -= 1;
+				}
+			}
+			
 			break;
 		case HERO_MOVE_RIGHT:
-			x += stepPerTick;
+			if (movableMap[situationY][situationX + 1]) {
+				x += stepPerTick;
+				if (stepCounter == 100) {
+					situationX += 1;
+				}
+			}
+			
 			break;
 		default:
 			break;
 		}
-		stepCounter += stepPerTick;
+		
 
 		if (stepCounter >= maximumSteps) {
 			isMoving = false;

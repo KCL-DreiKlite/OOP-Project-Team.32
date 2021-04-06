@@ -270,7 +270,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 移動彈跳的球
 	//
 	//bball.OnMove();
-	hero.OnMove();
+	hero.OnMove(mapEdge);
 	//GET_MOVABLE(2, 3);
 }
 
