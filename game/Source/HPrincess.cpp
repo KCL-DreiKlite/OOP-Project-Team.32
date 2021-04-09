@@ -45,7 +45,7 @@ namespace game_framework {
 	}
 
 	void HPrincess::OnMove() {
-
+		animation.OnMove();
 	}
 
 	void HPrincess::OnShow() {
