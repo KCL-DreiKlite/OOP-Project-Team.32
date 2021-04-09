@@ -14,35 +14,37 @@ namespace game_framework {
 
 	}
 
-	void HPrincess::Initialize(int whichPrincess) {
-		this->whichPrincess = whichPrincess;
-
+	void HPrincess::Initialize() {
 		x = 500; y = 300;
 		onMapX = 5;
 		onMapY = 3;
 
 	}
 
-	void HPrincess::LoadBitmap() {
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_0.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_1.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_2.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_3.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_4.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_5.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_6.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_7.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_8.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_9.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_10.bmp", RGB(255, 242, 0));
-		animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_11.bmp", RGB(255, 242, 0));
+	void HPrincess::LoadBitmap(int whichPrincess) {
+		this->whichPrincess = whichPrincess;
+
+		if (whichPrincess == PRINCESS_LUCIFER) {
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_0.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_1.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_2.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_3.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_4.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_5.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_6.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_7.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_8.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_9.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_10.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_11.bmp", RGB(255, 242, 0));
+		}
 	}
 
 	void HPrincess::SetXY(int nx, int ny) {
 		x = nx; y = ny;
 	}
 
-	void HPrincess::OnMove(bool mapEdge[][11]) {
+	void HPrincess::OnMove() {
 
 	}
 

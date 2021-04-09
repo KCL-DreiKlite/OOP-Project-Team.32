@@ -48,7 +48,7 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
-	void HHero::OnMove(bool movableMap[][11]) {
+	void HHero::OnMove() {
 		animation.OnMove();
 		if (!isMoving)
 			return;
@@ -56,36 +56,28 @@ namespace game_framework {
 		stepCounter += stepPerTick;
 		switch (movingDirection) {
 		case HERO_MOVE_UP:
-			if (movableMap[onMapY-1][onMapX]){
-				y -= stepPerTick;
-				if (stepCounter >= 100) {
-					onMapY -= 1;
-				}
+			y -= stepPerTick;
+			if (stepCounter >= maximumSteps) {
+				onMapY -= 1;
 			}
 			break;
 		case HERO_MOVE_DOWN:
-			if (movableMap[onMapY + 1][onMapX]){
-				y += stepPerTick;
-				if (stepCounter >= 100) {
-					onMapY += 1;
-				}
+			y += stepPerTick;
+			if (stepCounter >= maximumSteps) {
+				onMapY += 1;
 			}
 			break;
 		case HERO_MOVE_LEFT:
-			if (movableMap[onMapY][onMapX-1]) {
-				x -= stepPerTick;
-				if (stepCounter >= 100) {
-					onMapX -= 1;
-				}
+			x -= stepPerTick;
+			if (stepCounter >= maximumSteps) {
+				onMapX -= 1;
 			}
 			
 			break;
 		case HERO_MOVE_RIGHT:
-			if (movableMap[onMapY][onMapX + 1]) {
-				x += stepPerTick;
-				if (stepCounter >= 100) {
-					onMapX += 1;
-				}
+			x += stepPerTick;
+			if (stepCounter >= maximumSteps) {
+				onMapX += 1;
 			}
 			
 			break;

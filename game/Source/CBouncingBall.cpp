@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Resource.h"
 #include <mmsystem.h>
 #include <ddraw.h>
@@ -14,10 +14,10 @@ namespace game_framework {
 
 	CBouncingBall::CBouncingBall()
 	{
-		const int INITIAL_VELOCITY = 5;	// ªì©l¤W¤É³t«×
-		const int FLOOR = 400;				// ¦aªO®y¼Ğ
+		const int INITIAL_VELOCITY = 5;	// åš™è¸è•­låš™ç£•åš™è¤•é€Ÿåš™è¸è•­
+		const int FLOOR = 400;				// åš™çª®åš™çŒåš™ç·™åš™è¸è•­
 		floor = FLOOR;
-		x = 95; y = FLOOR - 1;				// y®y¼Ğ¤ñ¦aªO°ª1ÂI(¯¸¦b¦aªO¤W)
+		x = 95; y = FLOOR - 1;				// yåš™ç·™åš™è«‹æ­¹è•­aåš™çŒåš™è¸è•­1åš™ç˜¢(åš™è¸è•­åš™ç®­åš™çª®åš™çŒåš™ç£•)
 		rising = true;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
@@ -27,7 +27,7 @@ namespace game_framework {
 	void CBouncingBall::LoadBitmap()
 	{
 		//char *filename[12] = { ".\\Bitmaps\\LUCIFER\\lucifer_0.png",".\\Bitmaps\\LUCIFER\\lucifer_1.png",".\\Bitmaps\\LUCIFER\\lucifer_2.png",".\\Bitmaps\\LUCIFER\\lucifer_3.png",".\\Bitmaps\\LUCIFER\\lucifer_4.png",".\\Bitmaps\\LUCIFER\\lucifer_5.png",".\\Bitmaps\\LUCIFER\\lucifer_6.png",".\\Bitmaps\\LUCIFER\\lucifer_7.png",".\\Bitmaps\\LUCIFER\\lucifer_8.png",".\\Bitmaps\\LUCIFER\\lucifer_9.png",".\\Bitmaps\\LUCIFER\\lucifer_10.png",".\\Bitmaps\\LUCIFER\\lucifer_11.png"};
-		//for (int i = 0; i < 8; i++)	// ¸ü¤J°Êµe(¥Ñ4±i¹Ï§Îºc¦¨)
+		//for (int i = 0; i < 8; i++)	// åš™è¸è•­åš™çššåš™è¤Šç•«(åš™è¸è•­4åš™ç® åš™èª•å½¢æ§‹åš™è¸è•­)
 		//	animation.AddBitmap(filename[i], RGB(0, 0, 0));
 		char imagePath[] = ".\\Bitmaps\\HERO\\0\\hero_x.bmp";
 		for (int i = 0; i < 10; i++) {
@@ -38,28 +38,28 @@ namespace game_framework {
 
 	void CBouncingBall::OnMove()
 	{
-		if (rising) {			// ¤W¤Éª¬ºA
+		if (rising) {			// åš™ç£•åš™è¤•è¿è•­åš™ç’€
 			if (velocity > 0) {
-				y -= velocity;	// ·í³t«× > 0®É¡Ay¶b¤W¤É(²¾°Êvelocity­ÓÂI¡Avelocityªº³æ¦ì¬° ÂI/¦¸)
-				velocity--;		// ¨ü­«¤O¼vÅT¡A¤U¦¸ªº¤W¤É³t«×­°§C
+				y -= velocity;	// åš™è¸è•­åš™ç·£åš™è¸è•­ > 0åš™è¤•ï¼Œyåš™ç®­åš™ç£•åš™è¸è•­(åš™è¸è•­åš™è¸è•­velocityåš™è¸è•­åš™ç˜¢åš™ç’€velocityåš™è¸è•­åš™è¸è•­é´ï¿½ åš™ç˜¢/åš™è¸è•­)
+				velocity--;		// åš™è¸è•­åš™è¸è•­åš™çŒåš™ç·åš™ç¢ºåš™ç’€åš™ç£Šåš™è¸è•­åš™è¸è•­åš™ç£•åš™è¤•é€Ÿåš™è«–å“¨è•­åš™ç˜ 
 			}
 			else {
-				rising = false; // ·í³t«× <= 0¡A¤W¤É²×¤î¡A¤U¦¸§ï¬°¤U­°
-				velocity = 1;	// ¤U­°ªºªì³t(velocity)¬°1
+				rising = false; // åš™è¸è•­åš™ç·£åš™è¸è•­ <= 0åš™ç’€åš™ç£•åš™è¤•çµ‚æ­¹è•­Aåš™ç£Šåš™è¸è•­åš™è¸ç‚ºåš™ç£Šåš™è¸è•­
+				velocity = 1;	// åš™ç£Šåš™è¸è•­åš™è¸è•­åš™è¸è•­t(velocity)åš™è¸è•­1
 			}
 		}
-		else {				// ¤U­°ª¬ºA
-			if (y < floor - 1) {  // ·íy®y¼ĞÁÙ¨S¸I¨ì¦aªO
-				y += velocity;	// y¶b¤U­°(²¾°Êvelocity­ÓÂI¡Avelocityªº³æ¦ì¬° ÂI/¦¸)
-				velocity++;		// ¨ü­«¤O¼vÅT¡A¤U¦¸ªº¤U­°³t«×¼W¥[
+		else {				// åš™ç£Šåš™è¸è•­åš™è¸è•­åš™ç’€
+			if (y < floor - 1) {  // åš™è¸è•­yåš™ç·™åš™è¸è•­åš™èª¶æ²’åš™ç˜¢åš™è¸è•­aåš™çŒ
+				y += velocity;	// yåš™ç®­åš™ç£Šåš™è¸è•­(åš™è¸è•­åš™è¸è•­velocityåš™è¸è•­åš™ç˜¢åš™ç’€velocityåš™è¸è•­åš™è¸è•­é´ï¿½ åš™ç˜¢/åš™è¸è•­)
+				velocity++;		// åš™è¸è•­åš™è¸è•­åš™çŒåš™ç·åš™ç¢ºåš™ç’€åš™ç£Šåš™è¸è•­åš™è¸è•­åš™ç£Šåš™è¸è•­åš™ç·£åš™è«–å¢åš™ç¨¼
 			}
 			else {
-				y = floor - 1;  // ·íy®y¼Ğ§C©ó¦aªO¡A§ó¥¿¬°¦aªO¤W
-				rising = true;	// ±´©³¤Ï¼u¡A¤U¦¸§ï¬°¤W¤É
-				velocity = initial_velocity; // ­«³]¤W¤Éªì©l³t«×
+				y = floor - 1;  // åš™è¸è•­yåš™ç·™åš™è«‹ä½åš™è¸è•­aåš™çŒåš™ç’€åš™è¸Ÿæ­£ç©¿è•­åš™çª®åš™çŒåš™ç£•
+				rising = true;	// åš™è¸è•­åš™è¸è•­åš™èª•å½ˆåš™ç’€åš™ç£Šåš™è¸è•­åš™è¸ç‚ºåš™ç£•åš™è¸è•­
+				velocity = initial_velocity; // åš™è¸è•­åš™ç¨½åš™ç£•åš™è¤•è¿è•­låš™ç·£åš™è¸è•­
 			}
 		}
-		animation.OnMove();		// °õ¦æ¤@¦¸animation.OnMove()¡Aanimation¤~·|´«¹Ï
+		animation.OnMove();		// åš™è¸è•­åš™è¸è•­@åš™è¸è•­animation.OnMove()åš™ç’€animationåš™ç¾¯åš™ç½µåš™è¸è•­åš™è¸è•­
 	}
 
 	void CBouncingBall::OnShow()

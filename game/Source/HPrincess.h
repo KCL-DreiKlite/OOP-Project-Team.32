@@ -10,9 +10,9 @@ namespace game_framework {
 		int GetY1();
 		int GetX2();
 		int GetY2();
-		void Initialize(int whichPrincess);
-		void LoadBitmap();				// 載入圖形
-		void OnMove(bool mapEdge[][11]);					// 移動擦子
+		void Initialize();
+		void LoadBitmap(int whichPrincess);				// 載入圖形
+		void OnMove();					// 移動擦子
 		void OnShow();					// 將擦子圖形貼到畫面
 		void SetXY(int nx, int ny);
 		int getXOnMap();
