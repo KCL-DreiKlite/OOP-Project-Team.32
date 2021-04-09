@@ -14,6 +14,9 @@
     <Filter Include="MyGame">
       <UniqueIdentifier>{0c798913-b7d2-4e26-8241-0f83266cd626}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyGame\HelltakerSrc">
+      <UniqueIdentifier>{efd58e45-9836-4695-8b9b-c12ba1f559a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -130,10 +133,13 @@
       <Filter>MyGame</Filter>
     </ClCompile>
     <ClCompile Include="Source\HHero.cpp">
-      <Filter>MyGame</Filter>
+      <Filter>MyGame\HelltakerSrc</Filter>
     </ClCompile>
     <ClCompile Include="Source\HRock.cpp">
-      <Filter>MyGame</Filter>
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HPrincess.cpp">
+      <Filter>MyGame\HelltakerSrc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,10 +180,13 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\HHero.h">
-      <Filter>MyGame</Filter>
+      <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
     <ClInclude Include="Source\HRock.h">
-      <Filter>MyGame</Filter>
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HPrincess.h">
+      <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

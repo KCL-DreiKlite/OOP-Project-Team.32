@@ -42,6 +42,8 @@
 #include "CBall.h"
 #include "CBouncingBall.h"
 #include "HHero.h"
+#include "HPrincess.h"
+#include "HRock.h"
 
 #define GET_MOVABLE(x,y) mapEdge[y][x]
 
@@ -105,6 +107,7 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+		void HeroWantToMove(char direction);
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
@@ -118,7 +121,7 @@ namespace game_framework {
 		CInteger		hits_left;	// 剩下的撞擊數
 		//CBouncingBall   bball;		// 反覆彈跳的球
 		CGameMap		gamemap;
-		bool			mapEdge[9][11] = {	{0,0,0,0,0,0,0,0,0,0,0},
+		bool			stg1_mapEdge[9][11] = {	{0,0,0,0,0,0,0,0,0,0,0},
 											{0,0,0,0,0,0,0,0,0,0,0},
 											{0,0,0,0,1,1,1,0,0,0,0},
 											{0,0,0,0,1,1,1,0,0,0,0},
@@ -128,6 +131,7 @@ namespace game_framework {
 											{0,0,1,1,1,1,1,1,1,0,0},
 											{0,0,0,0,0,0,0,0,0,0,0} };
 		HHero			hero;
+		HPrincess		princess;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

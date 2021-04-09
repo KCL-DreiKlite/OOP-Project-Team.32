@@ -25,11 +25,14 @@ namespace game_framework {
 		//void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetMovingDirection(char direction);
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
+
+		int getXOnMap();
+		int getYOnMap();
 	protected:
 		const int animation_tickPerFrame = 2;
 		CAnimation animation = CAnimation(animation_tickPerFrame);		// 擦子的動畫
 		int x, y;					// 擦子左上角座標
-		int situationX,situationY;
+		int onMapX,onMapY;		// The coordinate on mapEdge
 		//bool isMovingDown;			// 是否正在往下移動
 		//bool isMovingLeft;			// 是否正在往左移動
 		//bool isMovingRight;			// 是否正在往右移動
@@ -42,14 +45,14 @@ namespace game_framework {
 		int stepCounter;
 		char movingDirection;
 
-		bool	mapEdge[9][11] = { {0,0,0,0,0,0,0,0,0,0,0},
-									{0,0,0,0,0,0,0,0,0,0,0},
-									{0,0,0,0,1,1,1,0,0,0,0},
-									{0,0,0,0,1,1,1,0,0,0,0},
-									{0,0,1,0,1,1,1,0,1,0,0},
-									{0,1,1,1,1,1,1,1,1,1,0},
-									{0,1,1,1,1,1,1,1,1,1,0},
-									{0,0,1,1,1,1,1,1,1,0,0},
-									{0,0,0,0,0,0,0,0,0,0,0} };
+		//bool	mapEdge[9][11] = { {0,0,0,0,0,0,0,0,0,0,0},
+		//							{0,0,0,0,0,0,0,0,0,0,0},
+		//							{0,0,0,0,1,1,1,0,0,0,0},
+		//							{0,0,0,0,1,1,1,0,0,0,0},
+		//							{0,0,1,0,1,1,1,0,1,0,0},
+		//							{0,1,1,1,1,1,1,1,1,1,0},
+		//							{0,1,1,1,1,1,1,1,1,1,0},
+		//							{0,0,1,1,1,1,1,1,1,0,0},
+		//							{0,0,0,0,0,0,0,0,0,0,0} };
 	};
 }

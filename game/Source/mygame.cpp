@@ -192,6 +192,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g), NUMBALLS(28)
 {
 	ball = new CBall [NUMBALLS];
+
 }
 
 CGameStateRun::~CGameStateRun()
@@ -221,10 +222,12 @@ void CGameStateRun::OnBeginState()
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
 	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// 指定剩下撞擊數的座標
-	CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
+	//CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
+
 	hero.Initialize();
+	princess.Initialize(PRINCESS_LUCIFER);
 }
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
@@ -270,7 +273,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 移動彈跳的球
 	//
 	//bball.OnMove();
-	hero.OnMove(mapEdge);
+	hero.OnMove(stg1_mapEdge);
+	princess.OnMove(stg1_mapEdge);
 	//GET_MOVABLE(2, 3);
 }
 
@@ -303,7 +307,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//bball.LoadBitmap();										// 載入圖形
 	hits_left.LoadBitmap();									
 	CAudio::Instance()->Load(AUDIO_DING,  "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
-	CAudio::Instance()->Load(AUDIO_LAKE,  "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
+	//CAudio::Instance()->Load(AUDIO_LAKE,  "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
 	CAudio::Instance()->Load(AUDIO_NTUT,  "sounds\\bgm1.mp3");	// 載入編號2的聲音ntut.mid
 	//
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
@@ -312,8 +316,56 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 
 
 	hero.LoadBitmap();
+	princess.LoadBitmap();
+	
 
 
+}
+
+void CGameStateRun::HeroWantToMove(char direction) {
+	// Check if hero touched princess
+	const int pX = princess.getXOnMap(), pY = princess.getYOnMap();
+	const int hX = hero.getXOnMap(), hY = hero.getYOnMap();
+
+	switch (direction) {
+	case HERO_MOVE_UP:
+		if (hX == pX && hY - 1 == pY) {
+			CAudio::Instance()->Stop(AUDIO_NTUT);
+			GotoGameState(GAME_STATE_OVER);
+		}
+		else
+			hero.SetMovingDirection(HERO_MOVE_UP);
+		break;
+	case HERO_MOVE_DOWN:
+		if (hX == pX && hY + 1 == pY) {
+			CAudio::Instance()->Stop(AUDIO_NTUT);
+			GotoGameState(GAME_STATE_OVER);
+
+		}
+		else
+			hero.SetMovingDirection(HERO_MOVE_DOWN);
+		break;
+	case HERO_MOVE_LEFT:
+		if (hX - 1 == pX && hY == pY) {
+			CAudio::Instance()->Stop(AUDIO_NTUT);
+			GotoGameState(GAME_STATE_OVER);
+
+		}
+		else
+			hero.SetMovingDirection(HERO_MOVE_LEFT);
+		break;
+	case HERO_MOVE_RIGHT:
+		if (hX + 1 == pX && hY == pY) {
+			CAudio::Instance()->Stop(AUDIO_NTUT);
+			GotoGameState(GAME_STATE_OVER);
+
+		}
+		else
+			hero.SetMovingDirection(HERO_MOVE_RIGHT);
+		break;
+	default:
+		break;
+	}
 }
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -332,16 +384,16 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//	eraser.SetMovingDown(true);
 	switch (nChar) {
 	case KEY_UP:
-		hero.SetMovingDirection(HERO_MOVE_UP);
+		HeroWantToMove(HERO_MOVE_UP);
 		break;
 	case KEY_DOWN:
-		hero.SetMovingDirection(HERO_MOVE_DOWN);
+		HeroWantToMove(HERO_MOVE_DOWN);
 		break;
 	case KEY_LEFT:
-		hero.SetMovingDirection(HERO_MOVE_LEFT);
+		HeroWantToMove(HERO_MOVE_LEFT);
 		break;
 	case KEY_RIGHT:
-		hero.SetMovingDirection(HERO_MOVE_RIGHT);
+		HeroWantToMove(HERO_MOVE_RIGHT);
 		break;
 	default:
 		break;
@@ -416,6 +468,7 @@ void CGameStateRun::OnShow()
 	corner.ShowBitmap();
 
 	hero.OnShow();
+	princess.OnShow();
 }
 
 CGameMap::CGameMap() :x(0), y(0), mh(400), mw(400) {

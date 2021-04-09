@@ -15,8 +15,8 @@ namespace game_framework {
 		const int Y_POS = 600;
 		x = X_POS;
 		y = Y_POS;
-		situationX = 1;
-		situationY = 6;
+		onMapX = 1;
+		onMapY = 6;
 		isMoving = false;
 		stepCounter = 0;
 		movingDirection = HERO_NOT_MOVING;
@@ -56,35 +56,35 @@ namespace game_framework {
 		stepCounter += stepPerTick;
 		switch (movingDirection) {
 		case HERO_MOVE_UP:
-			if (movableMap[situationY-1][situationX]){
+			if (movableMap[onMapY-1][onMapX]){
 				y -= stepPerTick;
-				if (stepCounter == 100) {
-					situationY -= 1;
+				if (stepCounter >= 100) {
+					onMapY -= 1;
 				}
 			}
 			break;
 		case HERO_MOVE_DOWN:
-			if (movableMap[situationY + 1][situationX]){
+			if (movableMap[onMapY + 1][onMapX]){
 				y += stepPerTick;
-				if (stepCounter == 100) {
-					situationY += 1;
+				if (stepCounter >= 100) {
+					onMapY += 1;
 				}
 			}
 			break;
 		case HERO_MOVE_LEFT:
-			if (movableMap[situationY][situationX-1]) {
+			if (movableMap[onMapY][onMapX-1]) {
 				x -= stepPerTick;
-				if (stepCounter == 100) {
-					situationX -= 1;
+				if (stepCounter >= 100) {
+					onMapX -= 1;
 				}
 			}
 			
 			break;
 		case HERO_MOVE_RIGHT:
-			if (movableMap[situationY][situationX + 1]) {
+			if (movableMap[onMapY][onMapX + 1]) {
 				x += stepPerTick;
-				if (stepCounter == 100) {
-					situationX += 1;
+				if (stepCounter >= 100) {
+					onMapX += 1;
 				}
 			}
 			
@@ -113,4 +113,6 @@ namespace game_framework {
 	int HHero::GetX2() { return x + animation.Width(); }
 	int HHero::GetY2() { return y + animation.Height(); }
 
+	int HHero::getXOnMap() { return onMapX; }
+	int HHero::getYOnMap() { return onMapY; }
 }
