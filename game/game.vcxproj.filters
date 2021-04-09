@@ -141,6 +141,9 @@
     <ClCompile Include="Source\HPrincess.cpp">
       <Filter>MyGame\HelltakerSrc</Filter>
     </ClCompile>
+    <ClCompile Include="Source\HEnemy.cpp">
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -186,6 +189,9 @@
       <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
     <ClInclude Include="Source\HPrincess.h">
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HEnemy.h">
       <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
   </ItemGroup>

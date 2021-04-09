@@ -45,7 +45,6 @@
 #include "HPrincess.h"
 #include "HRock.h"
 
-#define GET_MOVABLE(x,y) mapEdge[y][x]
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////

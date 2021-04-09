@@ -276,6 +276,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Source\HEnemy.cpp" />
     <ClCompile Include="Source\HHero.cpp" />
     <ClCompile Include="Source\HPrincess.cpp" />
     <ClCompile Include="Source\HRock.cpp" />
@@ -313,6 +314,7 @@
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
     <ClInclude Include="Source\gameView.h" />
+    <ClInclude Include="Source\HEnemy.h" />
     <ClInclude Include="Source\HHero.h" />
     <ClInclude Include="Source\HPrincess.h" />
     <ClInclude Include="Source\HRock.h" />
