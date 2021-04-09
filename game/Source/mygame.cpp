@@ -370,7 +370,8 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedRock != -1) {
-			rocks[touchedRock].SetMovingDirection(ROCK_MOVE_UP);
+			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() - 1][rocks[touchedRock].getXOnMap()])
+				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_UP);
 		}
 
 		// Check if hero touched princess
@@ -399,7 +400,8 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedRock != -1) {
-			rocks[touchedRock].SetMovingDirection(ROCK_MOVE_DOWN);
+			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() + 1][rocks[touchedRock].getXOnMap()])
+				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_DOWN);
 		}
 
 		// Check if hero touched princess
@@ -428,7 +430,8 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedRock != -1) {
-			rocks[touchedRock].SetMovingDirection(ROCK_MOVE_LEFT);
+			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() - 1])
+				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_LEFT);
 		}
 
 		// Check if hero touched princess
@@ -457,7 +460,8 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedRock != -1) {
-			rocks[touchedRock].SetMovingDirection(ROCK_MOVE_RIGHT);
+			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() + 1])
+				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_RIGHT);
 		}
 
 		// Check if hero touched princess

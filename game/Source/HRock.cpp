@@ -13,7 +13,7 @@ namespace game_framework {
 
 	void HRock::Initialize(int x, int y, int xOnMap, int yOnMap) {
 		this->x = x; this->y = y;
-		this->onMapX = xOnMap; this->onMapY = onMapY;
+		this->onMapX = xOnMap; this->onMapY = yOnMap;
 
 		isMoving = false;
 		stepCounter = 0;
