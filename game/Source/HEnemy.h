@@ -22,6 +22,7 @@ namespace game_framework {
 		void SetXY(int nx, int ny);
 		int getXOnMap();
 		int getYOnMap();
+		void SetIsAlive(bool alive);    //是否活著
 	protected:
 		const int animation_tickPerFrame = 2;
 		CAnimation animation = CAnimation(animation_tickPerFrame);		// 擦子的動畫
@@ -38,5 +39,6 @@ namespace game_framework {
 		bool isMoving;
 		int stepCounter;
 		char movingDirection;
+		bool is_alive;				// 是否活著
 	};
 }

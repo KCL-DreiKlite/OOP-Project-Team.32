@@ -8,7 +8,7 @@
 
 namespace game_framework {
 	HEnemy::HEnemy() {
-
+		is_alive = true;
 	}
 
 	void HEnemy::Initialize(int x, int y, int xOnMap, int yOnMap) {
@@ -50,6 +50,8 @@ namespace game_framework {
 	void HEnemy::OnMove() {
 		animation.OnMove();
 		if (!isMoving)
+			return;
+		if (!is_alive)
 			return;
 
 		stepCounter += stepPerTick;
@@ -94,9 +96,19 @@ namespace game_framework {
 
 	}
 
+	void HEnemy::SetIsAlive(bool alive) {
+		is_alive = alive;
+		if (!is_alive) {
+			onMapX = 0;
+			onMapY = 0;
+		}
+	}
+
 	void HEnemy::OnShow() {
-		animation.SetTopLeft(x, y);
-		animation.OnShow();
+		if (is_alive) {
+			animation.SetTopLeft(x, y);
+			animation.OnShow();
+		}
 	}
 
 	int HEnemy::getX1() { return x; }
