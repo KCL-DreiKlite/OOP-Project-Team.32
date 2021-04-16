@@ -21,8 +21,8 @@ namespace game_framework {
 	}
 
 	/*
-	In init, define this stage's map by the passed argument, and initialize every
-	Helltaker object (class like HHero, HRock, etc.)
+	In this method, define this stage's map by the passed argument, and
+	initialize every Helltaker object (class like HHero, HRock, etc.)
 	*/
 	void HStage::Initialize(vector<vector<int>> init_map, int whichPrincess, int whichImage) {
 		map = init_map;
@@ -39,7 +39,7 @@ namespace game_framework {
 				break;
 			}
 
-		// Find out how many rocks and eemies in map
+		// Find out how many rocks and enemies in map
 		for (int x = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
 				if (objectInMap(x, y) == MAPOBJ_ROCK) {
@@ -50,6 +50,13 @@ namespace game_framework {
 				}
 			}
 		}
+
+		// Define Hero
+		hero->Initialize();
+
+		// Define Princess
+		princess->Initialize();
+
 
 		// Define rocks
 		*rocks = vector<HRock>(rocksCount, HRock());
@@ -66,10 +73,14 @@ namespace game_framework {
 		// Define enemies
 		*enemies = vector<HEnemy>(enemiesCount, HEnemy());
 		int cur_enem = 0;
+		for (int x = 0; x < map_width; x++) {
+			for (int y = 0; y < map_height; y++) {
+				if (objectInMap(x, y) == MAPOBJ_ENEMY) {
+					enemies->at(cur_enem).Initialize(findObjectsX(x), findObjectsY(y), x, y);
+				}
+			}
+		}
 
-
-		hero->Initialize();
-		princess->Initialize();
 
 
 	}
@@ -93,9 +104,15 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
+	int HStage::findObjectsX(int xInMap) { return x + xInMap * objectWidth; }
+	int HStage::findObjectsY(int yInMap) { return y + yInMap * objectWidth; }
+
 	int HStage::getX() { return x; }
 	int HStage::getY() { return y; }
 
-	int HStage::findObjectsX(int xInMap) { return x + xInMap * objectWidth; }
-	int HStage::findObjectsY(int yInMap) { return y + yInMap * objectWidth; }
+	HHero* HStage::getHero() { return hero; }
+	HPrincess* HStage::getPrincess() { return princess; }
+	vector<HRock>* HStage::getRocks() { return rocks; }
+	vector<HEnemy>* HStage::getEnemies() { return enemies; }
+
 }

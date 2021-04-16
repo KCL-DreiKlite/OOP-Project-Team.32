@@ -148,7 +148,10 @@
       <Filter>MyGame\HelltakerSrc</Filter>
     </ClCompile>
     <ClCompile Include="Source\HStage.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
+      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Stage_1.cpp">
+      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +204,10 @@
       <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
     <ClInclude Include="Source\HStage.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
+      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Stage_1.h">
+      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

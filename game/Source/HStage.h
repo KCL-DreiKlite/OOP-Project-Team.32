@@ -11,7 +11,7 @@ namespace game_framework {
 #define MAPOBJ_ROCK			4
 #define MAPOBJ_ENEMY		5
 
-#define IMAGE_CHAPTER9		".\\Bitmaps\\Chapter 9-1.bmp"
+#define IMAGE_STAGE_1		".\\Bitmaps\\Chapter 9-1.bmp"
 
 #define objectInMap(x, y)	map[y][x]
 
@@ -26,10 +26,16 @@ namespace game_framework {
 
 		void setXY(int nx, int ny);
 
-		int getX();
-		int getY();
 		int findObjectsX(int xInMap);
 		int findObjectsY(int yInMap);
+
+		int getX();
+		int getY();
+
+		HHero* getHero();
+		HPrincess* getPrincess();
+		vector<HRock>* getRocks();
+		vector<HEnemy>* getEnemies();
 
 	protected:
 		// The background image of the stage.
