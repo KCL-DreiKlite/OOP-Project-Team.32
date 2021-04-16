@@ -17,6 +17,9 @@
     <Filter Include="MyGame\HelltakerSrc">
       <UniqueIdentifier>{efd58e45-9836-4695-8b9b-c12ba1f559a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyGame\HelltakerSrc\HelltakerStages">
+      <UniqueIdentifier>{569c20d1-644c-493f-85ca-c29dd262588b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -144,6 +147,9 @@
     <ClCompile Include="Source\HEnemy.cpp">
       <Filter>MyGame\HelltakerSrc</Filter>
     </ClCompile>
+    <ClCompile Include="Source\HStage.cpp">
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -192,6 +198,9 @@
       <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
     <ClInclude Include="Source\HEnemy.h">
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HStage.h">
       <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
   </ItemGroup>
