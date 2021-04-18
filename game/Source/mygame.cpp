@@ -231,6 +231,10 @@ void CGameStateRun::OnBeginState()
 
 	hero.Initialize();
 	princess.Initialize();
+	key.Initialize();
+	key.SetIsAlive(true);
+	lock.Initialize();
+	lock.SetIsAlive(true);
 	rocks[0].Initialize(600, 400, 6, 4);
 	rocks[1].Initialize(300, 600, 3, 6);
 	enemy[0].Initialize(500, 500, 5, 5);
@@ -287,6 +291,8 @@ void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝
 		rocks[i].OnMove();
 	for (int i = 0; i < stg1_enemy_count; i++)
 		enemy[i].OnMove();
+	key.OnMove();
+	lock.OnMove();
 
 	//GET_MOVABLE(2, 3);
 }
@@ -348,7 +354,8 @@ void CGameStateRun::OnInit()  								// 嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭�及
 	}
 	for (int i = 0; i < stg1_enemy_count; i++)
 		enemy[i].LoadBitmap();
-
+	key.LoadBitmap();
+	lock.LoadBitmap();
 
 }
 
@@ -356,6 +363,8 @@ void CGameStateRun::HeroWantToMove(char direction) {
 	// Check if hero touched princess
 	const int px = princess.getXOnMap(), py = princess.getYOnMap();
 	const int hx = hero.getXOnMap(), hy = hero.getYOnMap();
+	const int kx = key.getXOnMap(), ky = key.getYOnMap();
+	const int lx = lock.getXOnMap(), ly = lock.getYOnMap();
 
 	// 4 steps to move hero:
 	// 1. Check if hero want to crash the edge
@@ -400,6 +409,18 @@ void CGameStateRun::HeroWantToMove(char direction) {
 					rockTouchedObject = 1;
 					break;
 				}
+				// Check if the rock touched the key
+				if (rx == kx && ry - 1 == ky) {
+					touchedRock = -1;
+					rockTouchedObject = 1;
+					break;
+				}
+				// Check if the rock touched the lock
+				if (rx == lx && ry - 1 == ly) {
+					touchedRock = -1;
+					rockTouchedObject = 1;
+					break;
+				}
 				break;
 			}
 		}
@@ -425,7 +446,7 @@ void CGameStateRun::HeroWantToMove(char direction) {
 				for (int i = 0; i < stg1_rock_count; i++) {
 					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
 					if (ex == rx && ey - 1 == ry) {
-						enemy[touchedEnemy].SetIsAlive(false);    //enemy died
+						enemy[touchedEnemy].SetIsAlive(false);
 						touchedEnemy = -1;
 						enemyTouchedRock = 1;
 						break;
@@ -438,12 +459,27 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() - 1][enemy[touchedEnemy].getXOnMap()])
 				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_UP);	//enemy moved
 			else {
-				enemy[touchedEnemy].SetIsAlive(false);    //enemy died
+				enemy[touchedEnemy].SetIsAlive(false);
+			}
+		}
+
+		// Check if hero touched the key
+		if (hx == kx && hy - 1 == ky) {
+			key.SetIsAlive(false);
+		}
+		// Check if hero touched the lock
+		int touchedLock = -1;
+		if (hx == lx && hy - 1 == ly) {
+			if (!key.IsAlive()){
+				lock.SetIsAlive(false);
+			}
+			else {
+				touchedLock = 1;
 			}
 		}
 
 		// Everything's clear. Move hero
-		if(touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 )
+		if(touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
 			hero.SetMovingDirection(HERO_MOVE_UP);	//hero moved
 
 	}
@@ -483,6 +519,18 @@ void CGameStateRun::HeroWantToMove(char direction) {
 					rockTouchedObject = 1;
 					break;
 				}
+				// Check if the rock touched the key
+				if (rx == kx && ry + 1 == ky) {
+					touchedRock = -1;
+					rockTouchedObject = 1;
+					break;
+				}
+				// Check if the rock touched the lock
+				if (rx == lx && ry + 1 == ly) {
+					touchedRock = -1;
+					rockTouchedObject = 1;
+					break;
+				}
 				break;
 			}
 		}
@@ -508,7 +556,7 @@ void CGameStateRun::HeroWantToMove(char direction) {
 				for (int i = 0; i < stg1_rock_count; i++) {
 					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
 					if (ex == rx && ey + 1 == ry) {
-						enemy[touchedEnemy].SetIsAlive(false);    //enemy died
+						enemy[touchedEnemy].SetIsAlive(false);
 						touchedEnemy = -1;
 						enemyTouchedRock = 1;
 						break;
@@ -521,11 +569,26 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() + 1][enemy[touchedEnemy].getXOnMap()])
 				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_DOWN);	//enemy moved
 			else
-				enemy[touchedEnemy].SetIsAlive(false);    //enemy died
+				enemy[touchedEnemy].SetIsAlive(false);
+		}
+
+		// Check if hero touched the key
+		if (hx == kx && hy + 1 == ky) {
+			key.SetIsAlive(false);
+		}
+		// Check if hero touched the lock
+		int touchedLock = -1;
+		if (hx == lx && hy + 1 == ly) {
+			if (!key.IsAlive()) {
+				lock.SetIsAlive(false);
+			}
+			else {
+				touchedLock = 1;
+			}
 		}
 
 		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 )
+		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
 			hero.SetMovingDirection(HERO_MOVE_DOWN);	//hero moved
 
 	}
@@ -565,6 +628,18 @@ void CGameStateRun::HeroWantToMove(char direction) {
 					rockTouchedObject = 1;
 					break;
 				}
+				// Check if the rock touched the key
+				if (rx - 1 == kx && ry == ky) {
+					touchedRock = -1;
+					rockTouchedObject = 1;
+					break;
+				}
+				// Check if the rock touched the lock
+				if (rx - 1 == lx && ry == ly) {
+					touchedRock = -1;
+					rockTouchedObject = 1;
+					break;
+				}
 				break;
 			}
 		}
@@ -590,7 +665,7 @@ void CGameStateRun::HeroWantToMove(char direction) {
 				for (int i = 0; i < stg1_rock_count; i++) {
 					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
 					if (ex - 1 == rx && ey == ry) {
-						enemy[touchedEnemy].SetIsAlive(false);    //enemy died
+						enemy[touchedEnemy].SetIsAlive(false);
 						touchedEnemy = -1;
 						enemyTouchedRock = 1;
 						break;
@@ -603,11 +678,26 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() - 1])
 				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_LEFT);	//enemy moved
 			else
-				enemy[touchedEnemy].SetIsAlive(false);    //enemy died
+				enemy[touchedEnemy].SetIsAlive(false);
+		}
+
+		// Check if hero touched the key
+		if (hx - 1 == kx && hy == ky) {
+			key.SetIsAlive(false);
+		}
+		// Check if hero touched the lock
+		int touchedLock = -1;
+		if (hx - 1 == lx && hy == ly) {
+			if (!key.IsAlive()){
+				lock.SetIsAlive(false);
+			}
+			else {
+				touchedLock = 1;
+			}
 		}
 
 		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 )
+		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
 			hero.SetMovingDirection(HERO_MOVE_LEFT);	//hero moved
 
 	}
@@ -647,6 +737,18 @@ void CGameStateRun::HeroWantToMove(char direction) {
 					rockTouchedObject = 1;
 					break;
 				}
+				// Check if the rock touched the key
+				if (rx + 1 == kx && ry == ky) {
+					touchedRock = -1;
+					rockTouchedObject = 1;
+					break;
+				}
+				// Check if the rock touched the lock
+				if (rx + 1 == lx && ry == ly) {
+					touchedRock = -1;
+					rockTouchedObject = 1;
+					break;
+				}
 				break;
 			}
 		}
@@ -672,7 +774,7 @@ void CGameStateRun::HeroWantToMove(char direction) {
 				for (int i = 0; i < stg1_rock_count; i++) {
 					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
 					if (ex + 1 == rx && ey == ry) {
-						enemy[touchedEnemy].SetIsAlive(false);    //enemy died
+						enemy[touchedEnemy].SetIsAlive(false);
 						touchedEnemy = -1;
 						enemyTouchedRock = 1;
 						break;
@@ -685,11 +787,26 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() + 1])
 				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_RIGHT);	//enemy moved
 			else
-				enemy[touchedEnemy].SetIsAlive(false);    //enemy died
+				enemy[touchedEnemy].SetIsAlive(false);
+		}
+
+		// Check if hero touched the key
+		if (hx + 1 == kx && hy == ky) {
+			key.SetIsAlive(false);
+		}
+		// Check if hero touched the lock
+		int touchedLock = -1;
+		if (hx + 1 == lx && hy == ly) {
+			if (!key.IsAlive()) {
+				lock.SetIsAlive(false);
+			}
+			else {
+				touchedLock = 1;
+			}
 		}
 
 		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 )
+		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
 			hero.SetMovingDirection(HERO_MOVE_RIGHT);	//hero moved
 
 	}
@@ -804,6 +921,8 @@ void CGameStateRun::OnShow()
 		rocks[i].OnShow();
 	for (int i = 0; i < stg1_enemy_count; i++)
 		enemy[i].OnShow();
+	key.OnShow();
+	lock.OnShow();
 }
 
 CGameMap::CGameMap() :x(0), y(0), mh(400), mw(400) {

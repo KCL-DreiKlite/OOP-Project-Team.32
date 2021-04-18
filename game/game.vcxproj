@@ -278,6 +278,8 @@
     </ClCompile>
     <ClCompile Include="Source\HEnemy.cpp" />
     <ClCompile Include="Source\HHero.cpp" />
+    <ClCompile Include="Source\HKey.cpp" />
+    <ClCompile Include="Source\HLock.cpp" />
     <ClCompile Include="Source\HPrincess.cpp" />
     <ClCompile Include="Source\HRock.cpp" />
     <ClCompile Include="Source\HStage.cpp" />
@@ -318,6 +320,8 @@
     <ClInclude Include="Source\gameView.h" />
     <ClInclude Include="Source\HEnemy.h" />
     <ClInclude Include="Source\HHero.h" />
+    <ClInclude Include="Source\HKey.h" />
+    <ClInclude Include="Source\HLock.h" />
     <ClInclude Include="Source\HPrincess.h" />
     <ClInclude Include="Source\HRock.h" />
     <ClInclude Include="Source\HStage.h" />

@@ -15,9 +15,9 @@ namespace game_framework {
 	}
 
 	void HPrincess::Initialize() {
-		x = 500; y = 300;
+		x = 500; y = 200;
 		onMapX = 5;
-		onMapY = 3;
+		onMapY = 2;
 
 	}
 
@@ -25,18 +25,18 @@ namespace game_framework {
 		this->whichPrincess = whichPrincess;
 
 		if (whichPrincess == PRINCESS_LUCIFER) {
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_0.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_1.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_2.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_3.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_4.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_5.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_6.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_7.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_8.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_9.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_10.bmp", RGB(255, 242, 0));
-			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_11.bmp", RGB(255, 242, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_0.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_1.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_2.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_3.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_4.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_5.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_6.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_7.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_8.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_9.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_10.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_11.bmp", RGB(0, 255, 0));
 		}
 	}
 

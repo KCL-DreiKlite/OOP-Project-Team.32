@@ -45,6 +45,8 @@
 #include "HPrincess.h"
 #include "HRock.h"
 #include "HEnemy.h"
+#include "HKey.h"
+#include "HLock.h"
 
 
 namespace game_framework {
@@ -136,6 +138,8 @@ namespace game_framework {
 		HPrincess		princess;
 		HRock			*rocks;
 		HEnemy			*enemy;
+		HKey			key;
+		HLock			lock;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
