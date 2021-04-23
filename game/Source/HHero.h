@@ -7,6 +7,9 @@ namespace game_framework {
 #define HERO_MOVE_RIGHT 'r'
 #define HERO_NOT_MOVING 'n'
 
+#define HERO_FACING_LEFT	'l'
+#define HERO_FACING_RIGHT	'r'
+
 	class HHero
 	{
 	public:

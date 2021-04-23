@@ -840,11 +840,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case KEY_LEFT:
 		HeroWantToMove(HERO_MOVE_LEFT);
-		hero.SetHeroDirectionBitmap('l');
+		hero.SetHeroDirectionBitmap(HERO_FACING_LEFT);
 		break;
 	case KEY_RIGHT:
 		HeroWantToMove(HERO_MOVE_RIGHT);
-		hero.SetHeroDirectionBitmap('r');
+		hero.SetHeroDirectionBitmap(HERO_FACING_RIGHT);
 		break;
 	default:
 		break;

@@ -129,6 +129,11 @@ namespace game_framework {
 		for (int e = 0; e < rocksCount; e++)
 			enemies->at(e).LoadBitmap();
 
+		// Load lock and key's bitmap
+		if (hasLock) {
+			key->LoadBitmap();
+			lock->LoadBitmap();
+		}
 	}
 
 	void HStage::OnShow() {
