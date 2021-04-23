@@ -158,6 +158,13 @@ void CAnimation::AddBitmap(char *filename, COLORREF colorkey)
 	Reset();
 }
 
+void CAnimation::AddBitmapOnce(char *filename, COLORREF colorkey)
+{
+	CMovingBitmap add_bmp;
+	add_bmp.LoadBitmap(filename, colorkey);
+	bmp.insert(bmp.end(), add_bmp);
+}
+
 void CAnimation::eraser() {
 	bmp.clear();
 }

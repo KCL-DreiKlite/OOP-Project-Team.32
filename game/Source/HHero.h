@@ -26,6 +26,7 @@ namespace game_framework {
 		void SetMovingDirection(char direction);
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 		void SetHeroDirectionBitmap(char face);
+		void HeroAttacking();
 
 		int getXOnMap();
 		int getYOnMap();

@@ -51,8 +51,8 @@ namespace game_framework {
 	}
 
 	void HHero::SetHeroDirectionBitmap(char face) {
-		if (face == 'r' && faceDirection == 'l') {
-			faceDirection = 'r';
+		if (face == HERO_MOVE_RIGHT && faceDirection == HERO_MOVE_LEFT) {
+			faceDirection = HERO_MOVE_RIGHT;
 			animation.eraser();
 			char imagePath[] = ".\\Bitmaps\\HERO\\0\\hero_x.bmp";
 			for (int i = 0; i < 10; i++) {
@@ -62,8 +62,8 @@ namespace game_framework {
 			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_10.bmp", RGB(0, 255, 0));
 			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_11.bmp", RGB(0, 255, 0));
 		}
-		else if (face == 'l' && faceDirection == 'r') {
-			faceDirection = 'l';
+		else if (face == HERO_MOVE_LEFT && faceDirection == HERO_MOVE_RIGHT) {
+			faceDirection = HERO_MOVE_LEFT;
 			animation.eraser();
 			char imagePath[] = ".\\Bitmaps\\HERO\\0\\hero_x_flip.bmp";
 			for (int i = 0; i < 10; i++) {
@@ -72,6 +72,29 @@ namespace game_framework {
 			}
 			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_10_flip.bmp", RGB(0, 255, 0));
 			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_11_flip.bmp", RGB(0, 255, 0));
+		}
+	}
+
+	void HHero::HeroAttacking() {
+		if (faceDirection == HERO_MOVE_RIGHT) {
+			animation.eraser();
+			char image[] = ".\\Bitmaps\\HERO\\1\\hero_x.bmp";
+			for (int i = 0; i < 10; i++) {
+				image[22] = '0' + i;
+				animation.AddBitmapOnce(image, RGB(0, 255, 0));
+			}
+			animation.AddBitmapOnce(".\\Bitmaps\\HERO\\1\\hero_10.bmp", RGB(0, 255, 0));
+			animation.AddBitmapOnce(".\\Bitmaps\\HERO\\1\\hero_11.bmp", RGB(0, 255, 0));
+		}
+		else if (faceDirection == HERO_MOVE_LEFT) {
+			animation.eraser();
+			char image[] = ".\\Bitmaps\\HERO\\1\\hero_x_flip.bmp";
+			for (int i = 0; i < 10; i++) {
+				image[22] = '0' + i;
+				animation.AddBitmapOnce(image, RGB(0, 255, 0));
+			}
+			animation.AddBitmapOnce(".\\Bitmaps\\HERO\\1\\hero_10_flip.bmp", RGB(0, 255, 0));
+			animation.AddBitmapOnce(".\\Bitmaps\\HERO\\1\\hero_11_flip.bmp", RGB(0, 255, 0));
 		}
 	}
 
