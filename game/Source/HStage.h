@@ -10,19 +10,26 @@ namespace game_framework {
 #define MAPOBJ_PRINCESS		3
 #define MAPOBJ_ROCK			4
 #define MAPOBJ_ENEMY		5
+#define MAPOBJ_KEY			6
+#define MAPOBJ_LOCK			7
 
 #define IMAGE_STAGE_1		".\\Bitmaps\\Chapter 9-1.bmp"
 
 #define objectInMap(x, y)	map[y][x]
+#define getRandom(min, max)	 (rand() % (max-max+1)) + min
 
 	class HStage {
 	public:
 		HStage();
-		void Initialize(vector<vector<int>> init_map, int whichPrincess, int whichImage);
-		void LoadBitmap();
+		~HStage();
+		void Initialize(vector<vector<int>> init_map);
+
+		void LoadBitmap(int whichPrincess);
 
 		void OnShow();
 		void OnMove();
+
+		void heroWantsToMove(int direction);
 
 		void setXY(int nx, int ny);
 
@@ -36,10 +43,18 @@ namespace game_framework {
 		HPrincess* getPrincess();
 		vector<HRock>* getRocks();
 		vector<HEnemy>* getEnemies();
+		HKey* getKey();
+		HLock* getLock();
 
 	protected:
+		// Load my background bitmap. This method must be overwrited by
+		// inherit classes.
+		virtual void loadMyBitmap();
+		// Load other objects' bitmaps.
+		void loadOtherBitmaps(int whichPrincess);
+
 		// The background image of the stage.
-		CMovingBitmap stage_background_image;
+		CMovingBitmap backgroundImage;
 
 		// The location in frame.
 		int x, y;
@@ -66,8 +81,14 @@ namespace game_framework {
 		HPrincess* princess;
 		vector<HRock>* rocks;
 		vector<HEnemy>* enemies;
+		HKey* key;
+		HLock* lock;
 
 		int rocksCount = 0;
 		int enemiesCount = 0;
+
+		bool hasLock;
+
+
 	};
 }

@@ -10,6 +10,7 @@ namespace game_framework {
 #define ROCK_BMP_1		'1'
 #define ROCK_BMP_2		'2'
 
+
 	class HRock {
 	public:
 		HRock();
@@ -26,7 +27,7 @@ namespace game_framework {
 		int getXOnMap();
 		int getYOnMap();
 	protected:
-		int whichRock;
+		int whichRockImage;
 
 		CAnimation animation = CAnimation(1);
 		int x, y;

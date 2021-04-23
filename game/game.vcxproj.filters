@@ -150,14 +150,14 @@
     <ClCompile Include="Source\HStage.cpp">
       <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Stage_1.cpp">
-      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
-    </ClCompile>
     <ClCompile Include="Source\HKey.cpp">
-      <Filter>MyGame</Filter>
+      <Filter>MyGame\HelltakerSrc</Filter>
     </ClCompile>
     <ClCompile Include="Source\HLock.cpp">
-      <Filter>MyGame</Filter>
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HStage_1.cpp">
+      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,14 +212,14 @@
     <ClInclude Include="Source\HStage.h">
       <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Stage_1.h">
-      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
-    </ClInclude>
     <ClInclude Include="Source\HKey.h">
-      <Filter>MyGame</Filter>
+      <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
     <ClInclude Include="Source\HLock.h">
-      <Filter>MyGame</Filter>
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HStage_1.h">
+      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

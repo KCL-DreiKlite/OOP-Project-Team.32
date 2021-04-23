@@ -201,6 +201,7 @@ CGameStateRun::~CGameStateRun()
 {
 	delete [] ball;
 	delete[] rocks;
+	delete[] enemy;
 }
 
 void CGameStateRun::OnBeginState()

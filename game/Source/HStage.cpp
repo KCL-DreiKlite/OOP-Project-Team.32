@@ -6,11 +6,14 @@
 #include "gamelib.h"
 
 #include <vector>
+#include <stdlib.h>
 
 #include "HHero.h"
 #include "HPrincess.h"
 #include "HRock.h"
 #include "HEnemy.h"
+#include "HKey.h"
+#include "HLock.h"
 
 #include "HStage.h"
 
@@ -20,11 +23,21 @@ namespace game_framework {
 
 	}
 
+	HStage::~HStage() {
+		delete hero;
+		delete princess;
+		delete[] rocks;
+		delete[] enemies;
+		delete key;
+		delete lock;
+
+	}
+
 	/*
 	In this method, define this stage's map by the passed argument, and
 	initialize every Helltaker object (class like HHero, HRock, etc.)
 	*/
-	void HStage::Initialize(vector<vector<int>> init_map, int whichPrincess, int whichImage) {
+	void HStage::Initialize(vector<vector<int>> init_map) {
 		map = init_map;
 
 		// Find the end of the map
@@ -81,19 +94,54 @@ namespace game_framework {
 			}
 		}
 
-
+		// Define lock and key if this stage need that
+		if (hasLock) {
+			key->Initialize();
+			lock->Initialize();
+		}
 
 	}
 
 	/*
 	When called, I'll not only add my bitmap, but also other objects' bitmaps.
 	*/
-	void HStage::LoadBitmap() {
-		
+	void HStage::LoadBitmap(int whichPrincess) {
+		loadMyBitmap();
+		loadOtherBitmaps(whichPrincess);
+	}
+
+	void HStage::loadMyBitmap() {
+
+	}
+
+	void HStage::loadOtherBitmaps(int whichPrincess) {
+		// Load hero's bitmap
+		hero->LoadBitmap();
+
+		// Load princess' bitmap
+		princess->LoadBitmap(whichPrincess);
+
+		// Load rocks' bitmap
+		for (int r = 0; r < rocksCount; r++)
+			rocks->at(r).LoadBitmap(getRandom(1, 3));
+
+		// Load enemies' bitmap
+		for (int e = 0; e < rocksCount; e++)
+			enemies->at(e).LoadBitmap();
+
 	}
 
 	void HStage::OnShow() {
-
+		hero->OnShow();
+		princess->OnMove();
+		for (int r = 0; r < rocksCount; r++)
+			rocks->at(r).OnShow();
+		for (int e = 0; e < enemiesCount; e++)
+			enemies->at(e).OnShow();
+		if (hasLock) {
+			key->OnShow();
+			lock->OnShow();
+		}
 	}
 
 	void HStage::OnMove() {
