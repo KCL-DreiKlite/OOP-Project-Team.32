@@ -201,6 +201,7 @@ CGameStateRun::~CGameStateRun()
 {
 	delete [] ball;
 	delete[] rocks;
+	delete[] enemy;
 }
 
 void CGameStateRun::OnBeginState()
@@ -839,11 +840,19 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case KEY_LEFT:
 		HeroWantToMove(HERO_MOVE_LEFT);
+<<<<<<< HEAD
 		hero.SetHeroDirectionBitmap(HERO_MOVE_LEFT);
 		break;
 	case KEY_RIGHT:
 		HeroWantToMove(HERO_MOVE_RIGHT);
 		hero.SetHeroDirectionBitmap(HERO_MOVE_RIGHT);
+=======
+		hero.SetHeroDirectionBitmap(HERO_FACING_LEFT);
+		break;
+	case KEY_RIGHT:
+		HeroWantToMove(HERO_MOVE_RIGHT);
+		hero.SetHeroDirectionBitmap(HERO_FACING_RIGHT);
+>>>>>>> bcdc4bc5b3169a8af2b52eadd96f78933da77392
 		break;
 	default:
 		break;

@@ -20,12 +20,12 @@ namespace game_framework {
 		movingDirection = ROCK_NOT_MOVING;
 	}
 
-	void HRock::LoadBitmap(int whichRock) {
-		this->whichRock = whichRock;
+	void HRock::LoadBitmap(int whichRockImage) {
+		this->whichRockImage = whichRockImage;
 		
 		//if (whichRock == ROCK_BMP_0)
 		//	animation.AddBitmap(".\\rock_0.bmp", RGB(0, 255, 0));
-		switch (whichRock) {
+		switch (whichRockImage) {
 		case ROCK_BMP_0:
 			animation.AddBitmap(".\\Bitmaps\\rock\\rock_0.bmp", RGB(0, 255, 0));
 			break;

@@ -61,4 +61,6 @@ namespace game_framework {
 
 	int HPrincess::getXOnMap() { return onMapX; }
 	int HPrincess::getYOnMap() { return onMapY; }
+
+	int HPrincess::getWhichPrincess() { return whichPrincess; }
 }

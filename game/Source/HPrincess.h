@@ -17,11 +17,16 @@ namespace game_framework {
 		void SetXY(int nx, int ny);
 		int getXOnMap();
 		int getYOnMap();
+		int getWhichPrincess();
 	protected:
 		const int animation_tickPerFrame = 2;
 		CAnimation animation = CAnimation(animation_tickPerFrame);		// 擦子的動畫
 		int x, y;					// 擦子左上角座標
-		int onMapX, onMapY;		// The coordinate on mapEdge
+
+		// The coordinate on mapEdge
+		int onMapX, onMapY;
+
+		// Which princess should I load for bitmaps
 		int whichPrincess;
 
 	};
