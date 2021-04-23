@@ -25,6 +25,7 @@ namespace game_framework {
 		//void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetMovingDirection(char direction);
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
+		void SetHeroDirectionBitmap(char face);
 
 		int getXOnMap();
 		int getYOnMap();
@@ -44,6 +45,7 @@ namespace game_framework {
 		bool isMoving;
 		int stepCounter;
 		char movingDirection;
+		char faceDirection;
 
 		//bool	mapEdge[9][11] = { {0,0,0,0,0,0,0,0,0,0,0},
 		//							{0,0,0,0,0,0,0,0,0,0,0},

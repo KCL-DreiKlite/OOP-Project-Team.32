@@ -20,6 +20,7 @@ namespace game_framework {
 		isMoving = false;
 		stepCounter = 0;
 		movingDirection = HERO_NOT_MOVING;
+		faceDirection = 'r';
 	}
 
 	void HHero::LoadBitmap() {
@@ -30,6 +31,7 @@ namespace game_framework {
 		}
 		animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_10.bmp", RGB(0, 255, 0));
 		animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_11.bmp", RGB(0, 255, 0));
+		
 	}
 
 	//void HHero::OnMove(bool mapEdge, int x, int y)
@@ -46,6 +48,31 @@ namespace game_framework {
 
 	void HHero::SetXY(int nx, int ny) {
 		x = nx; y = ny;
+	}
+
+	void HHero::SetHeroDirectionBitmap(char face) {
+		if (face == 'r' && faceDirection == 'l') {
+			faceDirection = 'r';
+			animation.eraser();
+			char imagePath[] = ".\\Bitmaps\\HERO\\0\\hero_x.bmp";
+			for (int i = 0; i < 10; i++) {
+				imagePath[22] = '0' + i;
+				animation.AddBitmap(imagePath, RGB(0, 255, 0));
+			}
+			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_10.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_11.bmp", RGB(0, 255, 0));
+		}
+		else if (face == 'l' && faceDirection == 'r') {
+			faceDirection = 'l';
+			animation.eraser();
+			char imagePath[] = ".\\Bitmaps\\HERO\\0\\hero_x_flip.bmp";
+			for (int i = 0; i < 10; i++) {
+				imagePath[22] = '0' + i;
+				animation.AddBitmap(imagePath, RGB(0, 255, 0));
+			}
+			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_10_flip.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_11_flip.bmp", RGB(0, 255, 0));
+		}
 	}
 
 	void HHero::OnMove() {
