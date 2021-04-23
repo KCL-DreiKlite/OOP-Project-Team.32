@@ -51,13 +51,8 @@ namespace game_framework {
 	}
 
 	void HHero::SetHeroDirectionBitmap(char face) {
-<<<<<<< HEAD
-		if (face == HERO_MOVE_RIGHT && faceDirection == HERO_MOVE_LEFT) {
-			faceDirection = HERO_MOVE_RIGHT;
-=======
 		if (face == HERO_FACING_RIGHT && faceDirection == HERO_FACING_LEFT) {
 			faceDirection = HERO_FACING_RIGHT;
->>>>>>> bcdc4bc5b3169a8af2b52eadd96f78933da77392
 			animation.eraser();
 			char imagePath[] = ".\\Bitmaps\\HERO\\0\\hero_x.bmp";
 			for (int i = 0; i < 10; i++) {
@@ -67,13 +62,8 @@ namespace game_framework {
 			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_10.bmp", RGB(0, 255, 0));
 			animation.AddBitmap(".\\Bitmaps\\HERO\\0\\hero_11.bmp", RGB(0, 255, 0));
 		}
-<<<<<<< HEAD
-		else if (face == HERO_MOVE_LEFT && faceDirection == HERO_MOVE_RIGHT) {
-			faceDirection = HERO_MOVE_LEFT;
-=======
 		else if (face == HERO_FACING_LEFT && faceDirection == HERO_FACING_RIGHT) {
 			faceDirection = HERO_FACING_LEFT;
->>>>>>> bcdc4bc5b3169a8af2b52eadd96f78933da77392
 			animation.eraser();
 			char imagePath[] = ".\\Bitmaps\\HERO\\0\\hero_x_flip.bmp";
 			for (int i = 0; i < 10; i++) {
