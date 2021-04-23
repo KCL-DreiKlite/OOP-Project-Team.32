@@ -33,11 +33,13 @@ namespace game_framework {
 
 		void setXY(int nx, int ny);
 
-		int findObjectsX(int xInMap);
-		int findObjectsY(int yInMap);
+		const int findObjectsX(int xInMap);
+		const int findObjectsY(int yInMap);
 
-		int getX();
-		int getY();
+		const int getX();
+		const int getY();
+
+		const vector<vector<int>>* getMap();
 
 		HHero* getHero();
 		HPrincess* getPrincess();
@@ -76,6 +78,7 @@ namespace game_framework {
 		int MAX_MOVE_STEPS;
 		// How many steps hero can move last.
 		int steps_left;
+
 
 		HHero* hero;
 		HPrincess* princess;

@@ -20,17 +20,17 @@
 
 namespace game_framework {
 	HStage::HStage() {
-
+		map.assign(MAX_AVAILABLE_MAP_HEIGHT, vector<int>(MAX_AVAILABLE_MAP_WIDTH, MAPOBJ_MAPEND));
 	}
 
 	HStage::~HStage() {
-		delete hero;
-		delete princess;
-		delete[] rocks;
-		delete[] enemies;
-		delete key;
-		delete lock;
-
+		//delete hero;
+		//delete princess;
+		//delete[] rocks;
+		//delete[] enemies;
+		//delete key;
+		//delete lock;
+		
 	}
 
 	/*
@@ -157,11 +157,13 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
-	int HStage::findObjectsX(int xInMap) { return x + xInMap * objectWidth; }
-	int HStage::findObjectsY(int yInMap) { return y + yInMap * objectWidth; }
+	const int HStage::findObjectsX(int xInMap) { return x + xInMap * objectWidth; }
+	const int HStage::findObjectsY(int yInMap) { return y + yInMap * objectWidth; }
 
-	int HStage::getX() { return x; }
-	int HStage::getY() { return y; }
+	const int HStage::getX() { return x; }
+	const int HStage::getY() { return y; }
+
+	const vector<vector<int>>* HStage::getMap() { return &map; }
 
 	HHero* HStage::getHero() { return hero; }
 	HPrincess* HStage::getPrincess() { return princess; }

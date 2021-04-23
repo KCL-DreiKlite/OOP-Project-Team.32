@@ -3,12 +3,13 @@ namespace game_framework {
 
 	class HStage_1 : public HStage {
 	public:
-
+		HStage_1();
+		~HStage_1();
 	protected:
 
 
 		// The map of this stage.
-		bool stg1_mapEdge[9][11] = { {0,0,0,0,0,0,0,0,0,0,0},
+		const bool stg1_map[9][11] = { {0,0,0,0,0,0,0,0,0,0,0},
 									{0,0,0,0,0,0,0,0,0,0,0},
 									{0,0,0,0,1,1,1,0,0,0,0},
 									{0,0,0,0,1,1,1,0,0,0,0},
