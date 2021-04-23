@@ -158,6 +158,10 @@ void CAnimation::AddBitmap(char *filename, COLORREF colorkey)
 	Reset();
 }
 
+void CAnimation::eraser() {
+	bmp.clear();
+}
+
 int CAnimation::GetCurrentBitmapNumber()
 {
 	return bmp_counter;
