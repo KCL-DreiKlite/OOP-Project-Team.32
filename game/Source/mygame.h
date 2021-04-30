@@ -48,6 +48,9 @@
 #include "HKey.h"
 #include "HLock.h"
 
+#include "HStage.h"
+#include "HStage_1.h"
+
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -124,22 +127,23 @@ namespace game_framework {
 		//CEraser			eraser;		// 拍子
 		CInteger		hits_left;	// 剩下的撞擊數
 		//CBouncingBall   bball;		// 反覆彈跳的球
-		CGameMap		gamemap;
-		bool			stg1_mapEdge[9][11] = {	{0,0,0,0,0,0,0,0,0,0,0},
-											{0,0,0,0,0,0,0,0,0,0,0},
-											{0,0,0,0,1,1,1,0,0,0,0},
-											{0,0,0,0,1,1,1,0,0,0,0},
-											{0,0,1,0,1,1,1,0,1,0,0},
-											{0,1,1,1,1,1,1,1,1,1,0},
-											{0,1,1,1,1,1,1,1,1,1,0},
-											{0,0,1,1,1,1,1,1,1,0,0},
-											{0,0,0,0,0,0,0,0,0,0,0} };
-		HHero			hero;
-		HPrincess		princess;
-		HRock			*rocks;
-		HEnemy			*enemy;
-		HKey			key;
-		HLock			lock;
+		//CGameMap		gamemap;
+		//bool			stg1_mapEdge[9][11] = {	{0,0,0,0,0,0,0,0,0,0,0},
+		//									{0,0,0,0,0,0,0,0,0,0,0},
+		//									{0,0,0,0,1,1,1,0,0,0,0},
+		//									{0,0,0,0,1,1,1,0,0,0,0},
+		//									{0,0,1,0,1,1,1,0,1,0,0},
+		//									{0,1,1,1,1,1,1,1,1,1,0},
+		//									{0,1,1,1,1,1,1,1,1,1,0},
+		//									{0,0,1,1,1,1,1,1,1,0,0},
+		//									{0,0,0,0,0,0,0,0,0,0,0} };
+		//HHero			hero;
+		//HPrincess		princess;
+		//HRock			*rocks;
+		//HEnemy			*enemy;
+		//HKey			key;
+		//HLock			lock;
+		HStage_1 stg1 = HStage_1();
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

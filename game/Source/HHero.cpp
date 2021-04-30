@@ -10,13 +10,9 @@ namespace game_framework {
 	HHero::HHero() {
 		
 	}
-	void HHero::Initialize() {
-		const int X_POS = 100;
-		const int Y_POS = 600;
-		x = X_POS;
-		y = Y_POS;
-		onMapX = 1;
-		onMapY = 6;
+	void HHero::Initialize(int onMapX, int onMapY, int objectWidth) {
+		this->onMapX = onMapX; this->onMapY = onMapY;
+
 		isMoving = false;
 		stepCounter = 0;
 		movingDirection = HERO_NOT_MOVING;

@@ -64,57 +64,94 @@ namespace game_framework {
 			}
 		}
 
-		// Define Hero
-		hero->Initialize();
-
-		// Define Princess
-		princess->Initialize();
-
-
-		// Define rocks
-		*rocks = vector<HRock>(rocksCount, HRock());
-		int cur_rock = 0;
+		// Call each object's Initialize()
+		int rc = 0, ec = 0;
+		rocks = new vector<HRock>(rocksCount, HRock());
+		enemies = new vector<HEnemy>(enemiesCount, HEnemy());
 		for (int x = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
-				if (objectInMap(x, y) == MAPOBJ_ROCK) {
-					//rocks->at(cur_rock).Initialize(x, y);
-					rocks->at(cur_rock++).Initialize(findObjectsX(x), findObjectsY(y), x, y);
+				switch (objectInMap(x, y)) {
+				case MAPOBJ_MAPEND:
+				case MAPOBJ_EDGE:
+				case MAPOBJ_MOVABLE:
+					continue;
+				case MAPOBJ_HERO:
+					hero->Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_PRINCESS:
+					princess->Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_ROCK:
+					rocks->at(rc++).Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_ENEMY:
+					rocks->at(ec++).Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_KEY:
+					if (hasLock)
+						key->Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_LOCK:
+					if (hasLock)
+						lock->Initialize(x, y, objectWidth);
+					break;
+				default:
+					break;
 				}
 			}
 		}
 
-		// Define enemies
-		*enemies = vector<HEnemy>(enemiesCount, HEnemy());
-		int cur_enem = 0;
-		for (int x = 0; x < map_width; x++) {
-			for (int y = 0; y < map_height; y++) {
-				if (objectInMap(x, y) == MAPOBJ_ENEMY) {
-					enemies->at(cur_enem).Initialize(findObjectsX(x), findObjectsY(y), x, y);
-				}
-			}
-		}
+		//// Define Hero
+		//hero->Initialize();
 
-		// Define lock and key if this stage need that
-		if (hasLock) {
-			key->Initialize();
-			lock->Initialize();
-		}
+		//// Define Princess
+		//princess->Initialize();
+
+
+		//// Define rocks
+		//*rocks = vector<HRock>(rocksCount, HRock());
+		//int cur_rock = 0;
+		//for (int x = 0; x < map_width; x++) {
+		//	for (int y = 0; y < map_height; y++) {
+		//		if (objectInMap(x, y) == MAPOBJ_ROCK) {
+		//			//rocks->at(cur_rock).Initialize(x, y);
+		//			rocks->at(cur_rock++).Initialize(findObjectsX(x), findObjectsY(y), x, y);
+		//		}
+		//	}
+		//}
+
+		//// Define enemies
+		//*enemies = vector<HEnemy>(enemiesCount, HEnemy());
+		//int cur_enem = 0;
+		//for (int x = 0; x < map_width; x++) {
+		//	for (int y = 0; y < map_height; y++) {
+		//		if (objectInMap(x, y) == MAPOBJ_ENEMY) {
+		//			enemies->at(cur_enem).Initialize(findObjectsX(x), findObjectsY(y), x, y);
+		//		}
+		//	}
+		//}
+
+		//// Define lock and key if this stage need that
+		//if (hasLock) {
+		//	key->Initialize();
+		//	lock->Initialize();
+		//}
 
 	}
 
 	/*
 	When called, I'll not only add my bitmap, but also other objects' bitmaps.
 	*/
-	void HStage::LoadBitmap(int whichPrincess) {
+	void HStage::LoadBitmap() {
 		loadMyBitmap();
-		loadOtherBitmaps(whichPrincess);
+		loadOtherBitmaps();
 	}
 
 	void HStage::loadMyBitmap() {
 
 	}
 
-	void HStage::loadOtherBitmaps(int whichPrincess) {
+	void HStage::loadOtherBitmaps() {
 		// Load hero's bitmap
 		hero->LoadBitmap();
 
@@ -138,7 +175,7 @@ namespace game_framework {
 
 	void HStage::OnShow() {
 		hero->OnShow();
-		princess->OnMove();
+		princess->OnShow();
 		for (int r = 0; r < rocksCount; r++)
 			rocks->at(r).OnShow();
 		for (int e = 0; e < enemiesCount; e++)
@@ -164,6 +201,9 @@ namespace game_framework {
 	const int HStage::getY() { return y; }
 
 	const vector<vector<int>>* HStage::getMap() { return &map; }
+
+	//const int HStage::getWidth() { return map_width * objectWidth; }
+	//const int HStage::getHeight() { return map_height * objectWidth; }
 
 	HHero* HStage::getHero() { return hero; }
 	HPrincess* HStage::getPrincess() { return princess; }

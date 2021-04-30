@@ -15,7 +15,7 @@ namespace game_framework {
 
 #define IMAGE_STAGE_1		".\\Bitmaps\\Chapter 9-1.bmp"
 
-#define objectInMap(x, y)	map[y][x]
+#define objectInMap(x, y)	map.at(y).at(x)
 #define getRandom(min, max)	 (rand() % (max-max+1)) + min
 
 	class HStage {
@@ -24,7 +24,7 @@ namespace game_framework {
 		~HStage();
 		void Initialize(vector<vector<int>> init_map);
 
-		void LoadBitmap(int whichPrincess);
+		void LoadBitmap();
 
 		void OnShow();
 		void OnMove();
@@ -41,6 +41,9 @@ namespace game_framework {
 
 		const vector<vector<int>>* getMap();
 
+		//const int getWidth();
+		//const int getHeight();
+
 		HHero* getHero();
 		HPrincess* getPrincess();
 		vector<HRock>* getRocks();
@@ -53,7 +56,7 @@ namespace game_framework {
 		// inherit classes.
 		virtual void loadMyBitmap();
 		// Load other objects' bitmaps.
-		void loadOtherBitmaps(int whichPrincess);
+		void loadOtherBitmaps();
 
 		// The background image of the stage.
 		CMovingBitmap backgroundImage;
@@ -65,7 +68,7 @@ namespace game_framework {
 		// square, and their actual location in frame should be calculated
 		// by adding the multiply of objectWidth and their location in map
 		// to the actual location of this stage in frame.
-		int objectWidth;
+		int objectWidth = 100;
 
 		// The map of the stage. It's dynamic so object can directly move
 		// on this variable.
@@ -80,12 +83,14 @@ namespace game_framework {
 		int steps_left;
 
 
-		HHero* hero;
-		HPrincess* princess;
+		HHero* hero = new HHero();
+		HPrincess* princess = new HPrincess();
 		vector<HRock>* rocks;
 		vector<HEnemy>* enemies;
-		HKey* key;
-		HLock* lock;
+		HKey* key = new HKey();
+		HLock* lock = new HLock();
+
+		int whichPrincess;
 
 		int rocksCount = 0;
 		int enemiesCount = 0;

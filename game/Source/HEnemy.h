@@ -14,7 +14,7 @@ namespace game_framework {
 		int getY1();
 		int getX2();
 		int getY2();
-		void Initialize(int x, int y, int xOnMap, int yOnMap);				// 設定擦子為初始值
+		void Initialize(int xOnMap, int yOnMap, int objectWidth);				// 設定擦子為初始值
 		void LoadBitmap();				// 載入圖形
 		void OnMove();					// 移動擦子
 		void OnShow();					// 將擦子圖形貼到畫面

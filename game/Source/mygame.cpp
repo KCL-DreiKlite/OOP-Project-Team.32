@@ -191,17 +191,17 @@ void CGameStateOver::OnShow()
 CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g), NUMBALLS(28), stg1_rock_count(2), stg1_enemy_count(1)
 {
-	ball = new CBall [NUMBALLS];
+	//ball = new CBall [NUMBALLS];
 
-	rocks = new HRock[stg1_rock_count];
-	enemy = new HEnemy[stg1_enemy_count];
+	//rocks = new HRock[stg1_rock_count];
+	//enemy = new HEnemy[stg1_enemy_count];
 }
 
 CGameStateRun::~CGameStateRun()
 {
-	delete [] ball;
-	delete[] rocks;
-	delete[] enemy;
+	//delete [] ball;
+	//delete[] rocks;
+	//delete[] enemy;
 }
 
 void CGameStateRun::OnBeginState()
@@ -230,17 +230,18 @@ void CGameStateRun::OnBeginState()
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 嚙踝蕭嚙踝蕭 WAVE
 	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 嚙踝蕭嚙踝蕭 MIDI
 
-	hero.Initialize();
-	princess.Initialize();
-	key.Initialize();
-	key.SetIsAlive(true);
-	lock.Initialize();
-	lock.SetIsAlive(true);
-	rocks[0].Initialize(600, 400, 6, 4);
-	rocks[1].Initialize(300, 600, 3, 6);
-	enemy[0].Initialize(500, 500, 5, 5);
+	//hero.Initialize();
+	//princess.Initialize();
+	//key.Initialize();
+	//key.SetIsAlive(true);
+	//lock.Initialize();
+	//lock.SetIsAlive(true);
+	//rocks[0].Initialize(600, 400, 6, 4);
+	//rocks[1].Initialize(300, 600, 3, 6);
+	//enemy[0].Initialize(500, 500, 5, 5);
 
-	enemy[0].SetIsAlive(true);
+	//enemy[0].SetIsAlive(true);
+	stg1.Initialize();
 }
 
 void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝蕭
@@ -286,14 +287,15 @@ void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝
 	// 嚙踝蕭嚙褊彈嚙踝蕭嚙踝蕭嚙緙
 	//
 	//bball.OnMove();
-	hero.OnMove();
-	princess.OnMove();
-	for (int i = 0; i < stg1_rock_count; i++)
-		rocks[i].OnMove();
-	for (int i = 0; i < stg1_enemy_count; i++)
-		enemy[i].OnMove();
-	key.OnMove();
-	lock.OnMove();
+	//hero.OnMove();
+	//princess.OnMove();
+	//for (int i = 0; i < stg1_rock_count; i++)
+	//	rocks[i].OnMove();
+	//for (int i = 0; i < stg1_enemy_count; i++)
+	//	enemy[i].OnMove();
+	//key.OnMove();
+	//lock.OnMove();
+	stg1.OnMove();
 
 	//GET_MOVABLE(2, 3);
 }
@@ -332,490 +334,490 @@ void CGameStateRun::OnInit()  								// 嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭�及
 	//
 	// 嚙踝蕭OnInit嚙褊作嚙罵嚙踝蕭嚙踝蕭CGameStaterOver::OnInit()嚙璀嚙課以嚙箠嚙踝蕭嚙誶沒嚙踝蕭100%
 	//
-	gamemap.LoadBitMap(); //嚙窮嚙踝蕭
+	//gamemap.LoadBitMap(); //嚙窮嚙踝蕭
 
 
-	hero.LoadBitmap();
-	princess.LoadBitmap(PRINCESS_LUCIFER);
-	//rock_0.LoadBitmap(ROCK_BMP_0);
-	for (int i = 0; i < stg1_rock_count; i++) {
-		switch (i % 3) {
-		case 0:
-			rocks[i].LoadBitmap(ROCK_BMP_0);
-			break;
-		case 1:
-			rocks[i].LoadBitmap(ROCK_BMP_1);
-			break;
-		case 2:
-			rocks[i].LoadBitmap(ROCK_BMP_2);
-			break;
-		default:
-			break;
-		}
-	}
-	for (int i = 0; i < stg1_enemy_count; i++)
-		enemy[i].LoadBitmap();
-	key.LoadBitmap();
-	lock.LoadBitmap();
-
+	//hero.LoadBitmap();
+	//princess.LoadBitmap(PRINCESS_LUCIFER);
+	////rock_0.LoadBitmap(ROCK_BMP_0);
+	//for (int i = 0; i < stg1_rock_count; i++) {
+	//	switch (i % 3) {
+	//	case 0:
+	//		rocks[i].LoadBitmap(ROCK_BMP_0);
+	//		break;
+	//	case 1:
+	//		rocks[i].LoadBitmap(ROCK_BMP_1);
+	//		break;
+	//	case 2:
+	//		rocks[i].LoadBitmap(ROCK_BMP_2);
+	//		break;
+	//	default:
+	//		break;
+	//	}
+	//}
+	//for (int i = 0; i < stg1_enemy_count; i++)
+	//	enemy[i].LoadBitmap();
+	//key.LoadBitmap();
+	//lock.LoadBitmap();
+	stg1.LoadBitmap();
 }
 
-void CGameStateRun::HeroWantToMove(char direction) {
-	// Check if hero touched princess
-	const int px = princess.getXOnMap(), py = princess.getYOnMap();
-	const int hx = hero.getXOnMap(), hy = hero.getYOnMap();
-	const int kx = key.getXOnMap(), ky = key.getYOnMap();
-	const int lx = lock.getXOnMap(), ly = lock.getYOnMap();
-
-	// 4 steps to move hero:
-	// 1. Check if hero want to crash the edge
-	// 2. Check if hero touched the rock. If so, then move rock
-	// 3. Check if hero touched princess. If so, then game over
-	// 4. Check if hero touched the enemy. If so, then move enemy
-	// 5. If non of these conditions is true, then move hero.
-
-	if (direction == HERO_MOVE_UP) {
-		// Check if hero want to crash the edge
-		if (!stg1_mapEdge[hy - 1][hx])
-			return;
-
-		// Check if hero touched the rock
-		int touchedRock = -1;
-		int rockTouchedObject = -1;
-		for (int i = 0; i < stg1_rock_count; i++) {
-			const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
-			if (hx == rx && hy - 1 == ry) {
-				touchedRock = i;
-				// Check if the rock touched the enemy
-				for (int i = 0; i < stg1_enemy_count; i++) {
-					const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
-					if (rx == ex && ry - 1 == ey) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-				}
-				// Check if the rock touched the rock
-				for (int j = 0; j < stg1_rock_count; j++) {
-					const int rx0 = rocks[j].getXOnMap(), ry0 = rocks[j].getYOnMap();
-					if (rx == rx0 && ry - 1 == ry0) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-				}
-				// Check if the rock touched the princess
-				if (rx == px && ry - 1 == py) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				// Check if the rock touched the key
-				if (rx == kx && ry - 1 == ky) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				// Check if the rock touched the lock
-				if (rx == lx && ry - 1 == ly) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				break;
-			}
-		}
-		if (touchedRock != -1) {
-			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() - 1][rocks[touchedRock].getXOnMap()]) 
-				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_UP);	//rock moved
-		}
-
-		// Check if hero touched princess
-		else if (hx == px && hy - 1 == py) {
-			CAudio::Instance()->Stop(AUDIO_NTUT);
-			GotoGameState(GAME_STATE_OVER);
-		}
-
-		// Check if hero touched enemy
-		int touchedEnemy = -1;
-		int enemyTouchedRock = -1;
-		for (int i = 0; i < stg1_enemy_count; i++) {
-			const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
-			if (hx == ex && hy - 1 == ey) {
-				touchedEnemy = i;
-				// Check if the enemy touched the rock
-				for (int i = 0; i < stg1_rock_count; i++) {
-					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
-					if (ex == rx && ey - 1 == ry) {
-						enemy[touchedEnemy].SetIsAlive(false);
-						touchedEnemy = -1;
-						enemyTouchedRock = 1;
-						break;
-					}
-				}
-				break;
-			}
-		}
-		if (touchedEnemy != -1) {
-			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() - 1][enemy[touchedEnemy].getXOnMap()])
-				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_UP);	//enemy moved
-			else {
-				enemy[touchedEnemy].SetIsAlive(false);
-			}
-		}
-
-		// Check if hero touched the key
-		if (hx == kx && hy - 1 == ky) {
-			key.SetIsAlive(false);
-		}
-		// Check if hero touched the lock
-		int touchedLock = -1;
-		if (hx == lx && hy - 1 == ly) {
-			if (!key.IsAlive()){
-				lock.SetIsAlive(false);
-			}
-			else {
-				touchedLock = 1;
-			}
-		}
-
-		// Everything's clear. Move hero
-		if(touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
-			hero.SetMovingDirection(HERO_MOVE_UP);	//hero moved
-
-	}
-	else if (direction == HERO_MOVE_DOWN) {
-		// Check if hero want to crash the edge
-		if (!stg1_mapEdge[hy + 1][hx])
-			return;
-
-		// Check if hero touched the rock
-		int touchedRock = -1;
-		int rockTouchedObject = -1;
-		for (int i = 0; i < stg1_rock_count; i++) {
-			const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
-			if (hx == rx && hy + 1 == ry) {
-				touchedRock = i;
-				// Check if the rock touched the enemy
-				for (int i = 0; i < stg1_enemy_count; i++) {
-					const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
-					if (rx == ex && ry + 1 == ey) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-				}
-				// Check if the rock touched the rock
-				for (int j = 0; j < stg1_rock_count; j++) {
-					const int rx0 = rocks[j].getXOnMap(), ry0 = rocks[j].getYOnMap();
-					if (rx == rx0 && ry + 1 == ry0) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-				}
-				// Check if the rock touched the princess
-				if (rx == px && ry + 1 == py) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				// Check if the rock touched the key
-				if (rx == kx && ry + 1 == ky) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				// Check if the rock touched the lock
-				if (rx == lx && ry + 1 == ly) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				break;
-			}
-		}
-		if (touchedRock != -1) {
-			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() + 1][rocks[touchedRock].getXOnMap()])
-				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_DOWN);	//rock moved
-		}
-
-		// Check if hero touched princess
-		else if (hx == px && hy + 1 == py) {
-			CAudio::Instance()->Stop(AUDIO_NTUT);
-			GotoGameState(GAME_STATE_OVER);
-		}
-
-		// Check if hero touched enemy
-		int touchedEnemy = -1;
-		int enemyTouchedRock = -1;
-		for (int i = 0; i < stg1_enemy_count; i++) {
-			const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
-			if (hx == ex && hy + 1 == ey) {
-				touchedEnemy = i;
-				// Check if the enemy touched the rock
-				for (int i = 0; i < stg1_rock_count; i++) {
-					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
-					if (ex == rx && ey + 1 == ry) {
-						enemy[touchedEnemy].SetIsAlive(false);
-						touchedEnemy = -1;
-						enemyTouchedRock = 1;
-						break;
-					}
-				}
-				break;
-			}
-		}
-		if (touchedEnemy != -1) {
-			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() + 1][enemy[touchedEnemy].getXOnMap()])
-				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_DOWN);	//enemy moved
-			else
-				enemy[touchedEnemy].SetIsAlive(false);
-		}
-
-		// Check if hero touched the key
-		if (hx == kx && hy + 1 == ky) {
-			key.SetIsAlive(false);
-		}
-		// Check if hero touched the lock
-		int touchedLock = -1;
-		if (hx == lx && hy + 1 == ly) {
-			if (!key.IsAlive()) {
-				lock.SetIsAlive(false);
-			}
-			else {
-				touchedLock = 1;
-			}
-		}
-
-		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
-			hero.SetMovingDirection(HERO_MOVE_DOWN);	//hero moved
-
-	}
-	else if (direction == HERO_MOVE_LEFT) {
-		// Check if hero want to crash the edge
-		if (!stg1_mapEdge[hy][hx - 1])
-			return;
-
-		// Check if hero touched the rock
-		int touchedRock = -1;
-		int rockTouchedObject = -1;
-		for (int i = 0; i < stg1_rock_count; i++) {
-			const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
-			if (hx - 1 == rx && hy == ry) {
-				touchedRock = i;
-				// Check if the rock touched the enemy
-				for (int i = 0; i < stg1_enemy_count; i++) {
-					const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
-					if (rx - 1 == ex && ry== ey) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-				}
-				// Check if the rock touched the rock
-				for (int j = 0; j < stg1_rock_count; j++) {
-					const int rx0 = rocks[j].getXOnMap(), ry0 = rocks[j].getYOnMap();
-					if (rx - 1 == rx0 && ry == ry0) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-				}
-				// Check if the rock touched the princess
-				if (rx - 1 == px && ry == py) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				// Check if the rock touched the key
-				if (rx - 1 == kx && ry == ky) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				// Check if the rock touched the lock
-				if (rx - 1 == lx && ry == ly) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				break;
-			}
-		}
-		if (touchedRock != -1) {
-			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() - 1])
-				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_LEFT);	//rock moved
-		}
-
-		// Check if hero touched princess
-		else if (hx - 1 == px && hy == py) {
-			CAudio::Instance()->Stop(AUDIO_NTUT);
-			GotoGameState(GAME_STATE_OVER);
-		}
-
-		// Check if hero touched enemy
-		int touchedEnemy = -1;
-		int enemyTouchedRock = -1;
-		for (int i = 0; i < stg1_enemy_count; i++) {
-			const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
-			if (hx - 1 == ex && hy == ey) {
-				touchedEnemy = i;
-				// Check if the enemy touched the rock
-				for (int i = 0; i < stg1_rock_count; i++) {
-					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
-					if (ex - 1 == rx && ey == ry) {
-						enemy[touchedEnemy].SetIsAlive(false);
-						touchedEnemy = -1;
-						enemyTouchedRock = 1;
-						break;
-					}
-				}
-				break;
-			}
-		}
-		if (touchedEnemy != -1) {
-			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() - 1])
-				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_LEFT);	//enemy moved
-			else
-				enemy[touchedEnemy].SetIsAlive(false);
-		}
-
-		// Check if hero touched the key
-		if (hx - 1 == kx && hy == ky) {
-			key.SetIsAlive(false);
-		}
-		// Check if hero touched the lock
-		int touchedLock = -1;
-		if (hx - 1 == lx && hy == ly) {
-			if (!key.IsAlive()){
-				lock.SetIsAlive(false);
-			}
-			else {
-				touchedLock = 1;
-			}
-		}
-
-		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
-			hero.SetMovingDirection(HERO_MOVE_LEFT);	//hero moved
-
-	}
-	else if (direction == HERO_MOVE_RIGHT) {
-		// Check if hero want to crash the edge
-		if (!stg1_mapEdge[hy][hx + 1])
-			return;
-
-		// Check if hero touched the rock
-		int touchedRock = -1;
-		int rockTouchedObject = -1;
-		for (int i = 0; i < stg1_rock_count; i++) {
-			const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
-			if (hx + 1 == rx && hy == ry) {
-				touchedRock = i;
-				// Check if the rock touched the enemy
-				for (int i = 0; i < stg1_enemy_count; i++) {
-					const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
-					if (rx + 1 == ex && ry == ey) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-				}
-				// Check if the rock touched the rock
-				for (int j = 0; j < stg1_rock_count; j++) {
-					const int rx0 = rocks[j].getXOnMap(), ry0 = rocks[j].getYOnMap();
-					if (rx + 1 == rx0 && ry == ry0) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-				}
-				// Check if the rock touched the princess
-				if (rx + 1 == px && ry == py) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				// Check if the rock touched the key
-				if (rx + 1 == kx && ry == ky) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				// Check if the rock touched the lock
-				if (rx + 1 == lx && ry == ly) {
-					touchedRock = -1;
-					rockTouchedObject = 1;
-					break;
-				}
-				break;
-			}
-		}
-		if (touchedRock != -1) {
-			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() + 1])
-				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_RIGHT);	//rock moved
-		}
-
-		// Check if hero touched princess
-		else if (hx + 1 == px && hy == py) {
-			CAudio::Instance()->Stop(AUDIO_NTUT);
-			GotoGameState(GAME_STATE_OVER);
-		}
-
-		// Check if hero touched enemy
-		int touchedEnemy = -1;
-		int enemyTouchedRock = -1;
-		for (int i = 0; i < stg1_enemy_count; i++) {
-			const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
-			if (hx + 1 == ex && hy == ey) {
-				touchedEnemy = i;
-				// Check if the enemy touched the rock
-				for (int i = 0; i < stg1_rock_count; i++) {
-					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
-					if (ex + 1 == rx && ey == ry) {
-						enemy[touchedEnemy].SetIsAlive(false);
-						touchedEnemy = -1;
-						enemyTouchedRock = 1;
-						break;
-					}
-				}
-				break;
-			}
-		}
-		if (touchedEnemy != -1) {
-			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() + 1])
-				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_RIGHT);	//enemy moved
-			else
-				enemy[touchedEnemy].SetIsAlive(false);
-		}
-
-		// Check if hero touched the key
-		if (hx + 1 == kx && hy == ky) {
-			key.SetIsAlive(false);
-		}
-		// Check if hero touched the lock
-		int touchedLock = -1;
-		if (hx + 1 == lx && hy == ly) {
-			if (!key.IsAlive()) {
-				lock.SetIsAlive(false);
-			}
-			else {
-				touchedLock = 1;
-			}
-		}
-
-		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
-			hero.SetMovingDirection(HERO_MOVE_RIGHT);	//hero moved
-
-	}
-	else {
-
-	}
-
-}
+//void CGameStateRun::HeroWantToMove(char direction) {
+//	// Check if hero touched princess
+//	const int px = princess.getXOnMap(), py = princess.getYOnMap();
+//	const int hx = hero.getXOnMap(), hy = hero.getYOnMap();
+//	const int kx = key.getXOnMap(), ky = key.getYOnMap();
+//	const int lx = lock.getXOnMap(), ly = lock.getYOnMap();
+//
+//	// 4 steps to move hero:
+//	// 1. Check if hero want to crash the edge
+//	// 2. Check if hero touched the rock. If so, then move rock
+//	// 3. Check if hero touched princess. If so, then game over
+//	// 4. Check if hero touched the enemy. If so, then move enemy
+//	// 5. If non of these conditions is true, then move hero.
+//
+//	if (direction == HERO_MOVE_UP) {
+//		// Check if hero want to crash the edge
+//		if (!stg1_mapEdge[hy - 1][hx])
+//			return;
+//
+//		// Check if hero touched the rock
+//		int touchedRock = -1;
+//		int rockTouchedObject = -1;
+//		for (int i = 0; i < stg1_rock_count; i++) {
+//			const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
+//			if (hx == rx && hy - 1 == ry) {
+//				touchedRock = i;
+//				// Check if the rock touched the enemy
+//				for (int i = 0; i < stg1_enemy_count; i++) {
+//					const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
+//					if (rx == ex && ry - 1 == ey) {
+//						touchedRock = -1;
+//						rockTouchedObject = 1;
+//						break;
+//					}
+//				}
+//				// Check if the rock touched the rock
+//				for (int j = 0; j < stg1_rock_count; j++) {
+//					const int rx0 = rocks[j].getXOnMap(), ry0 = rocks[j].getYOnMap();
+//					if (rx == rx0 && ry - 1 == ry0) {
+//						touchedRock = -1;
+//						rockTouchedObject = 1;
+//						break;
+//					}
+//				}
+//				// Check if the rock touched the princess
+//				if (rx == px && ry - 1 == py) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				// Check if the rock touched the key
+//				if (rx == kx && ry - 1 == ky) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				// Check if the rock touched the lock
+//				if (rx == lx && ry - 1 == ly) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				break;
+//			}
+//		}
+//		if (touchedRock != -1) {
+//			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() - 1][rocks[touchedRock].getXOnMap()]) 
+//				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_UP);	//rock moved
+//		}
+//
+//		// Check if hero touched princess
+//		else if (hx == px && hy - 1 == py) {
+//			CAudio::Instance()->Stop(AUDIO_NTUT);
+//			GotoGameState(GAME_STATE_OVER);
+//		}
+//
+//		// Check if hero touched enemy
+//		int touchedEnemy = -1;
+//		int enemyTouchedRock = -1;
+//		for (int i = 0; i < stg1_enemy_count; i++) {
+//			const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
+//			if (hx == ex && hy - 1 == ey) {
+//				touchedEnemy = i;
+//				// Check if the enemy touched the rock
+//				for (int i = 0; i < stg1_rock_count; i++) {
+//					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
+//					if (ex == rx && ey - 1 == ry) {
+//						enemy[touchedEnemy].SetIsAlive(false);
+//						touchedEnemy = -1;
+//						enemyTouchedRock = 1;
+//						break;
+//					}
+//				}
+//				break;
+//			}
+//		}
+//		if (touchedEnemy != -1) {
+//			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() - 1][enemy[touchedEnemy].getXOnMap()])
+//				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_UP);	//enemy moved
+//			else {
+//				enemy[touchedEnemy].SetIsAlive(false);
+//			}
+//		}
+//
+//		// Check if hero touched the key
+//		if (hx == kx && hy - 1 == ky) {
+//			key.SetIsAlive(false);
+//		}
+//		// Check if hero touched the lock
+//		int touchedLock = -1;
+//		if (hx == lx && hy - 1 == ly) {
+//			if (!key.IsAlive()){
+//				lock.SetIsAlive(false);
+//			}
+//			else {
+//				touchedLock = 1;
+//			}
+//		}
+//
+//		// Everything's clear. Move hero
+//		if(touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
+//			hero.SetMovingDirection(HERO_MOVE_UP);	//hero moved
+//
+//	}
+//	else if (direction == HERO_MOVE_DOWN) {
+//		// Check if hero want to crash the edge
+//		if (!stg1_mapEdge[hy + 1][hx])
+//			return;
+//
+//		// Check if hero touched the rock
+//		int touchedRock = -1;
+//		int rockTouchedObject = -1;
+//		for (int i = 0; i < stg1_rock_count; i++) {
+//			const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
+//			if (hx == rx && hy + 1 == ry) {
+//				touchedRock = i;
+//				// Check if the rock touched the enemy
+//				for (int i = 0; i < stg1_enemy_count; i++) {
+//					const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
+//					if (rx == ex && ry + 1 == ey) {
+//						touchedRock = -1;
+//						rockTouchedObject = 1;
+//						break;
+//					}
+//				}
+//				// Check if the rock touched the rock
+//				for (int j = 0; j < stg1_rock_count; j++) {
+//					const int rx0 = rocks[j].getXOnMap(), ry0 = rocks[j].getYOnMap();
+//					if (rx == rx0 && ry + 1 == ry0) {
+//						touchedRock = -1;
+//						rockTouchedObject = 1;
+//						break;
+//					}
+//				}
+//				// Check if the rock touched the princess
+//				if (rx == px && ry + 1 == py) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				// Check if the rock touched the key
+//				if (rx == kx && ry + 1 == ky) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				// Check if the rock touched the lock
+//				if (rx == lx && ry + 1 == ly) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				break;
+//			}
+//		}
+//		if (touchedRock != -1) {
+//			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() + 1][rocks[touchedRock].getXOnMap()])
+//				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_DOWN);	//rock moved
+//		}
+//
+//		// Check if hero touched princess
+//		else if (hx == px && hy + 1 == py) {
+//			CAudio::Instance()->Stop(AUDIO_NTUT);
+//			GotoGameState(GAME_STATE_OVER);
+//		}
+//
+//		// Check if hero touched enemy
+//		int touchedEnemy = -1;
+//		int enemyTouchedRock = -1;
+//		for (int i = 0; i < stg1_enemy_count; i++) {
+//			const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
+//			if (hx == ex && hy + 1 == ey) {
+//				touchedEnemy = i;
+//				// Check if the enemy touched the rock
+//				for (int i = 0; i < stg1_rock_count; i++) {
+//					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
+//					if (ex == rx && ey + 1 == ry) {
+//						enemy[touchedEnemy].SetIsAlive(false);
+//						touchedEnemy = -1;
+//						enemyTouchedRock = 1;
+//						break;
+//					}
+//				}
+//				break;
+//			}
+//		}
+//		if (touchedEnemy != -1) {
+//			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() + 1][enemy[touchedEnemy].getXOnMap()])
+//				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_DOWN);	//enemy moved
+//			else
+//				enemy[touchedEnemy].SetIsAlive(false);
+//		}
+//
+//		// Check if hero touched the key
+//		if (hx == kx && hy + 1 == ky) {
+//			key.SetIsAlive(false);
+//		}
+//		// Check if hero touched the lock
+//		int touchedLock = -1;
+//		if (hx == lx && hy + 1 == ly) {
+//			if (!key.IsAlive()) {
+//				lock.SetIsAlive(false);
+//			}
+//			else {
+//				touchedLock = 1;
+//			}
+//		}
+//
+//		// Everything's clear. Move hero
+//		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
+//			hero.SetMovingDirection(HERO_MOVE_DOWN);	//hero moved
+//
+//	}
+//	else if (direction == HERO_MOVE_LEFT) {
+//		// Check if hero want to crash the edge
+//		if (!stg1_mapEdge[hy][hx - 1])
+//			return;
+//
+//		// Check if hero touched the rock
+//		int touchedRock = -1;
+//		int rockTouchedObject = -1;
+//		for (int i = 0; i < stg1_rock_count; i++) {
+//			const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
+//			if (hx - 1 == rx && hy == ry) {
+//				touchedRock = i;
+//				// Check if the rock touched the enemy
+//				for (int i = 0; i < stg1_enemy_count; i++) {
+//					const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
+//					if (rx - 1 == ex && ry== ey) {
+//						touchedRock = -1;
+//						rockTouchedObject = 1;
+//						break;
+//					}
+//				}
+//				// Check if the rock touched the rock
+//				for (int j = 0; j < stg1_rock_count; j++) {
+//					const int rx0 = rocks[j].getXOnMap(), ry0 = rocks[j].getYOnMap();
+//					if (rx - 1 == rx0 && ry == ry0) {
+//						touchedRock = -1;
+//						rockTouchedObject = 1;
+//						break;
+//					}
+//				}
+//				// Check if the rock touched the princess
+//				if (rx - 1 == px && ry == py) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				// Check if the rock touched the key
+//				if (rx - 1 == kx && ry == ky) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				// Check if the rock touched the lock
+//				if (rx - 1 == lx && ry == ly) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				break;
+//			}
+//		}
+//		if (touchedRock != -1) {
+//			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() - 1])
+//				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_LEFT);	//rock moved
+//		}
+//
+//		// Check if hero touched princess
+//		else if (hx - 1 == px && hy == py) {
+//			CAudio::Instance()->Stop(AUDIO_NTUT);
+//			GotoGameState(GAME_STATE_OVER);
+//		}
+//
+//		// Check if hero touched enemy
+//		int touchedEnemy = -1;
+//		int enemyTouchedRock = -1;
+//		for (int i = 0; i < stg1_enemy_count; i++) {
+//			const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
+//			if (hx - 1 == ex && hy == ey) {
+//				touchedEnemy = i;
+//				// Check if the enemy touched the rock
+//				for (int i = 0; i < stg1_rock_count; i++) {
+//					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
+//					if (ex - 1 == rx && ey == ry) {
+//						enemy[touchedEnemy].SetIsAlive(false);
+//						touchedEnemy = -1;
+//						enemyTouchedRock = 1;
+//						break;
+//					}
+//				}
+//				break;
+//			}
+//		}
+//		if (touchedEnemy != -1) {
+//			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() - 1])
+//				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_LEFT);	//enemy moved
+//			else
+//				enemy[touchedEnemy].SetIsAlive(false);
+//		}
+//
+//		// Check if hero touched the key
+//		if (hx - 1 == kx && hy == ky) {
+//			key.SetIsAlive(false);
+//		}
+//		// Check if hero touched the lock
+//		int touchedLock = -1;
+//		if (hx - 1 == lx && hy == ly) {
+//			if (!key.IsAlive()){
+//				lock.SetIsAlive(false);
+//			}
+//			else {
+//				touchedLock = 1;
+//			}
+//		}
+//
+//		// Everything's clear. Move hero
+//		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
+//			hero.SetMovingDirection(HERO_MOVE_LEFT);	//hero moved
+//
+//	}
+//	else if (direction == HERO_MOVE_RIGHT) {
+//		// Check if hero want to crash the edge
+//		if (!stg1_mapEdge[hy][hx + 1])
+//			return;
+//
+//		// Check if hero touched the rock
+//		int touchedRock = -1;
+//		int rockTouchedObject = -1;
+//		for (int i = 0; i < stg1_rock_count; i++) {
+//			const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
+//			if (hx + 1 == rx && hy == ry) {
+//				touchedRock = i;
+//				// Check if the rock touched the enemy
+//				for (int i = 0; i < stg1_enemy_count; i++) {
+//					const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
+//					if (rx + 1 == ex && ry == ey) {
+//						touchedRock = -1;
+//						rockTouchedObject = 1;
+//						break;
+//					}
+//				}
+//				// Check if the rock touched the rock
+//				for (int j = 0; j < stg1_rock_count; j++) {
+//					const int rx0 = rocks[j].getXOnMap(), ry0 = rocks[j].getYOnMap();
+//					if (rx + 1 == rx0 && ry == ry0) {
+//						touchedRock = -1;
+//						rockTouchedObject = 1;
+//						break;
+//					}
+//				}
+//				// Check if the rock touched the princess
+//				if (rx + 1 == px && ry == py) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				// Check if the rock touched the key
+//				if (rx + 1 == kx && ry == ky) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				// Check if the rock touched the lock
+//				if (rx + 1 == lx && ry == ly) {
+//					touchedRock = -1;
+//					rockTouchedObject = 1;
+//					break;
+//				}
+//				break;
+//			}
+//		}
+//		if (touchedRock != -1) {
+//			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() + 1])
+//				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_RIGHT);	//rock moved
+//		}
+//
+//		// Check if hero touched princess
+//		else if (hx + 1 == px && hy == py) {
+//			CAudio::Instance()->Stop(AUDIO_NTUT);
+//			GotoGameState(GAME_STATE_OVER);
+//		}
+//
+//		// Check if hero touched enemy
+//		int touchedEnemy = -1;
+//		int enemyTouchedRock = -1;
+//		for (int i = 0; i < stg1_enemy_count; i++) {
+//			const int ex = enemy[i].getXOnMap(), ey = enemy[i].getYOnMap();
+//			if (hx + 1 == ex && hy == ey) {
+//				touchedEnemy = i;
+//				// Check if the enemy touched the rock
+//				for (int i = 0; i < stg1_rock_count; i++) {
+//					const int rx = rocks[i].getXOnMap(), ry = rocks[i].getYOnMap();
+//					if (ex + 1 == rx && ey == ry) {
+//						enemy[touchedEnemy].SetIsAlive(false);
+//						touchedEnemy = -1;
+//						enemyTouchedRock = 1;
+//						break;
+//					}
+//				}
+//				break;
+//			}
+//		}
+//		if (touchedEnemy != -1) {
+//			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() + 1])
+//				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_RIGHT);	//enemy moved
+//			else
+//				enemy[touchedEnemy].SetIsAlive(false);
+//		}
+//
+//		// Check if hero touched the key
+//		if (hx + 1 == kx && hy == ky) {
+//			key.SetIsAlive(false);
+//		}
+//		// Check if hero touched the lock
+//		int touchedLock = -1;
+//		if (hx + 1 == lx && hy == ly) {
+//			if (!key.IsAlive()) {
+//				lock.SetIsAlive(false);
+//			}
+//			else {
+//				touchedLock = 1;
+//			}
+//		}
+//
+//		// Everything's clear. Move hero
+//		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
+//			hero.SetMovingDirection(HERO_MOVE_RIGHT);	//hero moved
+//
+//	}
+//	else {
+//
+//	}
+//
+//}
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
@@ -831,24 +833,24 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	//	eraser.SetMovingUp(true);
 	//if (nChar == KEY_DOWN)
 	//	eraser.SetMovingDown(true);
-	switch (nChar) {
-	case KEY_UP:
-		HeroWantToMove(HERO_MOVE_UP);
-		break;
-	case KEY_DOWN:
-		HeroWantToMove(HERO_MOVE_DOWN);
-		break;
-	case KEY_LEFT:
-		HeroWantToMove(HERO_MOVE_LEFT);
-		hero.SetHeroDirectionBitmap(HERO_FACING_LEFT);
-		break;
-	case KEY_RIGHT:
-		HeroWantToMove(HERO_MOVE_RIGHT);
-		hero.SetHeroDirectionBitmap(HERO_FACING_RIGHT);
-		break;
-	default:
-		break;
-	}
+	//switch (nChar) {
+	//case KEY_UP:
+	//	HeroWantToMove(HERO_MOVE_UP);
+	//	break;
+	//case KEY_DOWN:
+	//	HeroWantToMove(HERO_MOVE_DOWN);
+	//	break;
+	//case KEY_LEFT:
+	//	HeroWantToMove(HERO_MOVE_LEFT);
+	//	hero.SetHeroDirectionBitmap(HERO_FACING_LEFT);
+	//	break;
+	//case KEY_RIGHT:
+	//	HeroWantToMove(HERO_MOVE_RIGHT);
+	//	hero.SetHeroDirectionBitmap(HERO_FACING_RIGHT);
+	//	break;
+	//default:
+	//	break;
+	//}
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -894,7 +896,7 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 嚙畿嚙緲嚙複
 
 void CGameStateRun::OnShow()
 {
-	gamemap.OnShow();
+	//gamemap.OnShow();
 	//
 	//  嚙窯嚙瞇嚙瘦Show嚙諒哨蕭嚙範嚙磊嚙踝蕭嚙緯嚙踝蕭嚙褊伐蕭嚙踟物件的座嚙請，嚙踝蕭嚙褊座嚙請迎蕭嚙線嚙瑾嚙踝蕭嚙踝蕭Move嚙踝蕭嚙羯嚙踝蕭A
 	//        嚙稻嚙篁嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭嚙編繪嚙誕殷蕭(OnDraw)嚙璀嚙踝蕭嚙踝蕭N嚙罵嚙踝蕭嚙褊，嚙豎起嚙諉會嚙豌怪。嚙踝蕭嚙諉術嚙緙
@@ -918,14 +920,15 @@ void CGameStateRun::OnShow()
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();
 
-	hero.OnShow();
-	princess.OnShow();
-	for (int i = 0; i < stg1_rock_count; i++)
-		rocks[i].OnShow();
-	for (int i = 0; i < stg1_enemy_count; i++)
-		enemy[i].OnShow();
-	key.OnShow();
-	lock.OnShow();
+	//hero.OnShow();
+	//princess.OnShow();
+	//for (int i = 0; i < stg1_rock_count; i++)
+	//	rocks[i].OnShow();
+	//for (int i = 0; i < stg1_enemy_count; i++)
+	//	enemy[i].OnShow();
+	//key.OnShow();
+	//lock.OnShow();
+	stg1.OnShow();
 }
 
 CGameMap::CGameMap() :x(0), y(0), mh(400), mw(400) {
@@ -933,11 +936,11 @@ CGameMap::CGameMap() :x(0), y(0), mh(400), mw(400) {
 }
 
 void CGameMap::LoadBitMap() {
-	chapter9.LoadBitmap(IDB_MAP);
+	//chapter9.LoadBitmap(IDB_MAP);
 }
 void CGameMap::OnShow() {
-	chapter9.SetTopLeft(x, y);
-	chapter9.ShowBitmap();
+	//chapter9.SetTopLeft(x, y);
+	//chapter9.ShowBitmap();
 }
 
 }

@@ -10,7 +10,7 @@ namespace game_framework {
 		int GetY1();
 		int GetX2();
 		int GetY2();
-		void Initialize();
+		void Initialize(int onMapX, int onMapY, int objectWidth);
 		void LoadBitmap(int whichPrincess);				// 載入圖形
 		void OnMove();					// 移動擦子
 		void OnShow();					// 將擦子圖形貼到畫面
@@ -27,7 +27,7 @@ namespace game_framework {
 		int onMapX, onMapY;
 
 		// Which princess should I load for bitmaps
-		int whichPrincess;
+		int whichPrincess = -1;
 
 	};
 

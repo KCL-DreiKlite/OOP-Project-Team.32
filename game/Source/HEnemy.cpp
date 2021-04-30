@@ -11,9 +11,9 @@ namespace game_framework {
 		is_alive = true;
 	}
 
-	void HEnemy::Initialize(int x, int y, int xOnMap, int yOnMap) {
-		this->x = x; this->y = y;
-		this->onMapX = xOnMap; this->onMapY = yOnMap;
+	void HEnemy::Initialize(int onMapX, int onMapY, int objectWidth) {
+		this->onMapX = onMapX; this->onMapY = onMapY;
+		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
 
 		isMoving = false;
 		stepCounter = 0;

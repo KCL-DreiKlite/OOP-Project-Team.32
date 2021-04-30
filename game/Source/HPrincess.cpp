@@ -14,11 +14,9 @@ namespace game_framework {
 
 	}
 
-	void HPrincess::Initialize() {
-		x = 500; y = 200;
-		onMapX = 5;
-		onMapY = 2;
-
+	void HPrincess::Initialize(int onMapX, int onMapY, int objectWidth) {
+		this->onMapX = onMapX; this->onMapY = onMapY;
+		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
 	}
 
 	void HPrincess::LoadBitmap(int whichPrincess) {
