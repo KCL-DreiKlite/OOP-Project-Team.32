@@ -21,6 +21,7 @@ namespace game_framework {
 		stepCounter = 0;
 		movingDirection = HERO_NOT_MOVING;
 		faceDirection = 'r';
+		heroMoved = false;
 	}
 
 	void HHero::LoadBitmap() {
@@ -148,6 +149,18 @@ namespace game_framework {
 	void HHero::OnShow() {
 		animation.SetTopLeft(x, y);
 		animation.OnShow();
+	}
+
+	void HHero::SetHeroMoved() {
+		heroMoved = true;
+	}
+
+	void HHero::SetHeroStopped() {
+		heroMoved = false;
+	}
+
+	bool HHero::CostSteps() {
+		return heroMoved;
 	}
 
 	int HHero::GetX1() { return x; }

@@ -209,7 +209,7 @@ void CGameStateRun::OnBeginState()
 	const int BALL_GAP = 90;
 	const int BALL_XY_OFFSET = 45;
 	const int BALL_PER_ROW = 7;
-	const int HITS_LEFT = 10;
+	const int HITS_LEFT = 20;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
@@ -286,6 +286,16 @@ void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝
 	// 嚙踝蕭嚙褊彈嚙踝蕭嚙踝蕭嚙緙
 	//
 	//bball.OnMove();
+	if (hero.CostSteps()) {
+		hits_left.Add(-1);
+		hero.SetHeroStopped();
+		if (hits_left.GetInteger() <= 0) {
+			//CAudio::Instance()->Stop(AUDIO_LAKE);
+			//CAudio::Instance()->Stop(AUDIO_NTUT);
+			GotoGameState(GAME_STATE_OVER);
+		}
+	}
+
 	hero.OnMove();
 	princess.OnMove();
 	for (int i = 0; i < stg1_rock_count; i++)
@@ -426,8 +436,10 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedRock != -1) {
-			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() - 1][rocks[touchedRock].getXOnMap()]) 
+			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() - 1][rocks[touchedRock].getXOnMap()]) {
 				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_UP);	//rock moved
+				hero.SetHeroMoved();  //consume steps
+			}
 		}
 
 		// Check if hero touched princess
@@ -450,6 +462,7 @@ void CGameStateRun::HeroWantToMove(char direction) {
 						enemy[touchedEnemy].SetIsAlive(false);
 						touchedEnemy = -1;
 						enemyTouchedRock = 1;
+						hero.SetHeroMoved();  //consume steps
 						break;
 					}
 				}
@@ -457,10 +470,13 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedEnemy != -1) {
-			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() - 1][enemy[touchedEnemy].getXOnMap()])
+			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() - 1][enemy[touchedEnemy].getXOnMap()]) {
 				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_UP);	//enemy moved
+				hero.SetHeroMoved();  //consume steps
+			}
 			else {
 				enemy[touchedEnemy].SetIsAlive(false);
+				hero.SetHeroMoved();  //consume steps
 			}
 		}
 
@@ -480,9 +496,10 @@ void CGameStateRun::HeroWantToMove(char direction) {
 		}
 
 		// Everything's clear. Move hero
-		if(touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
+		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1) {
 			hero.SetMovingDirection(HERO_MOVE_UP);	//hero moved
-
+			hero.SetHeroMoved();  //consume steps
+		}
 	}
 	else if (direction == HERO_MOVE_DOWN) {
 		// Check if hero want to crash the edge
@@ -536,8 +553,10 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedRock != -1) {
-			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() + 1][rocks[touchedRock].getXOnMap()])
+			if (stg1_mapEdge[rocks[touchedRock].getYOnMap() + 1][rocks[touchedRock].getXOnMap()]) {
 				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_DOWN);	//rock moved
+				hero.SetHeroMoved();  //consume steps
+			}
 		}
 
 		// Check if hero touched princess
@@ -560,6 +579,7 @@ void CGameStateRun::HeroWantToMove(char direction) {
 						enemy[touchedEnemy].SetIsAlive(false);
 						touchedEnemy = -1;
 						enemyTouchedRock = 1;
+						hero.SetHeroMoved();  //consume steps
 						break;
 					}
 				}
@@ -567,10 +587,14 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedEnemy != -1) {
-			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() + 1][enemy[touchedEnemy].getXOnMap()])
+			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap() + 1][enemy[touchedEnemy].getXOnMap()]) {
 				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_DOWN);	//enemy moved
-			else
+				hero.SetHeroMoved();  //consume steps
+			}
+			else {
 				enemy[touchedEnemy].SetIsAlive(false);
+				hero.SetHeroMoved();  //consume steps
+			}
 		}
 
 		// Check if hero touched the key
@@ -589,9 +613,10 @@ void CGameStateRun::HeroWantToMove(char direction) {
 		}
 
 		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
+		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1) {
 			hero.SetMovingDirection(HERO_MOVE_DOWN);	//hero moved
-
+			hero.SetHeroMoved();  //consume steps
+		}
 	}
 	else if (direction == HERO_MOVE_LEFT) {
 		// Check if hero want to crash the edge
@@ -645,8 +670,10 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedRock != -1) {
-			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() - 1])
+			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() - 1]) {
 				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_LEFT);	//rock moved
+				hero.SetHeroMoved();  //consume steps
+			}
 		}
 
 		// Check if hero touched princess
@@ -669,6 +696,7 @@ void CGameStateRun::HeroWantToMove(char direction) {
 						enemy[touchedEnemy].SetIsAlive(false);
 						touchedEnemy = -1;
 						enemyTouchedRock = 1;
+						hero.SetHeroMoved();  //consume steps
 						break;
 					}
 				}
@@ -676,10 +704,14 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedEnemy != -1) {
-			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() - 1])
+			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() - 1]) {
 				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_LEFT);	//enemy moved
-			else
+				hero.SetHeroMoved();  //consume steps
+			}
+			else {
 				enemy[touchedEnemy].SetIsAlive(false);
+				hero.SetHeroMoved();  //consume steps
+			}
 		}
 
 		// Check if hero touched the key
@@ -698,9 +730,10 @@ void CGameStateRun::HeroWantToMove(char direction) {
 		}
 
 		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
+		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1) {
 			hero.SetMovingDirection(HERO_MOVE_LEFT);	//hero moved
-
+			hero.SetHeroMoved();  //consume steps
+		}
 	}
 	else if (direction == HERO_MOVE_RIGHT) {
 		// Check if hero want to crash the edge
@@ -754,8 +787,10 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedRock != -1) {
-			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() + 1])
+			if (stg1_mapEdge[rocks[touchedRock].getYOnMap()][rocks[touchedRock].getXOnMap() + 1]) {
 				rocks[touchedRock].SetMovingDirection(ROCK_MOVE_RIGHT);	//rock moved
+				hero.SetHeroMoved();  //consume steps
+			}
 		}
 
 		// Check if hero touched princess
@@ -778,6 +813,7 @@ void CGameStateRun::HeroWantToMove(char direction) {
 						enemy[touchedEnemy].SetIsAlive(false);
 						touchedEnemy = -1;
 						enemyTouchedRock = 1;
+						hero.SetHeroMoved();  //consume steps
 						break;
 					}
 				}
@@ -785,10 +821,14 @@ void CGameStateRun::HeroWantToMove(char direction) {
 			}
 		}
 		if (touchedEnemy != -1) {
-			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() + 1])
+			if (stg1_mapEdge[enemy[touchedEnemy].getYOnMap()][enemy[touchedEnemy].getXOnMap() + 1]) {
 				enemy[touchedEnemy].SetMovingDirection(ENEMY_MOVE_RIGHT);	//enemy moved
-			else
+				hero.SetHeroMoved();  //consume steps
+			}
+			else {
 				enemy[touchedEnemy].SetIsAlive(false);
+				hero.SetHeroMoved();  //consume steps
+			}
 		}
 
 		// Check if hero touched the key
@@ -807,9 +847,10 @@ void CGameStateRun::HeroWantToMove(char direction) {
 		}
 
 		// Everything's clear. Move hero
-		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1)
+		if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1) {
 			hero.SetMovingDirection(HERO_MOVE_RIGHT);	//hero moved
-
+			hero.SetHeroMoved();  //consume steps
+		}
 	}
 	else {
 
