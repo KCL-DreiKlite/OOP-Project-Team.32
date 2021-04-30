@@ -30,6 +30,9 @@ namespace game_framework {
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 		void SetHeroDirectionBitmap(char face);
 		void HeroAttacking();
+		void SetHeroMoved();
+		void SetHeroStopped();
+		bool CostSteps();  //hero是否移動
 
 		int getXOnMap();
 		int getYOnMap();
@@ -50,6 +53,7 @@ namespace game_framework {
 		int stepCounter;
 		char movingDirection;
 		char faceDirection;
+		bool heroMoved;  //hero消耗步數
 
 		//bool	mapEdge[9][11] = { {0,0,0,0,0,0,0,0,0,0,0},
 		//							{0,0,0,0,0,0,0,0,0,0,0},
