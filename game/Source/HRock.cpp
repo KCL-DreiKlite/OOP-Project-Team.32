@@ -38,6 +38,9 @@ namespace game_framework {
 		default:
 			break;
 		}
+		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_0.bmp", RGB(0, 255, 0));
+		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_1.bmp", RGB(0, 255, 0));
+		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_2.bmp", RGB(0, 255, 0));
 	}
 
 	void HRock::SetXY(int nx, int ny) {

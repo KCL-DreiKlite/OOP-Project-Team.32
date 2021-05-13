@@ -1,5 +1,7 @@
 
 namespace game_framework {
+#ifndef _HLOCK_H_
+#define _HLOCK_H_
 
 	class HLock {
 	public:
@@ -25,4 +27,5 @@ namespace game_framework {
 		bool is_alive;
 	};
 
+#endif
 }

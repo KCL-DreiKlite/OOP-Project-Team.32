@@ -18,9 +18,13 @@ namespace game_framework {
 #define objectInMap(x, y)	map.at(y).at(x)
 #define getRandom(min, max)	 (rand() % (max-max+1)) + min
 
+#ifndef _HSTAGE_H_
+#define _HSTAGE_H_
+
 	class HStage {
 	public:
 		HStage();
+		HStage(CGameStateRun* mainState);
 		~HStage();
 		void Initialize(vector<vector<int>> init_map);
 
@@ -29,7 +33,7 @@ namespace game_framework {
 		void OnShow();
 		void OnMove();
 
-		void heroWantsToMove(int direction);
+		void HeroWantToMove(char direction);
 
 		void setXY(int nx, int ny);
 
@@ -59,7 +63,7 @@ namespace game_framework {
 		void loadOtherBitmaps();
 
 		// The background image of the stage.
-		CMovingBitmap backgroundImage;
+		CAnimation backgroundImage = CAnimation();
 
 		// The location in frame.
 		int x, y;
@@ -97,6 +101,8 @@ namespace game_framework {
 
 		bool hasLock;
 
-
+		CGameStateRun* mainState;
 	};
+
+#endif
 }

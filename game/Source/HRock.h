@@ -6,10 +6,12 @@ namespace game_framework {
 #define ROCK_MOVE_RIGHT	'r'
 #define ROCK_NOT_MOVING	'n'
 
-#define ROCK_BMP_0		'0'
-#define ROCK_BMP_1		'1'
-#define ROCK_BMP_2		'2'
+#define ROCK_BMP_0		0
+#define ROCK_BMP_1		1
+#define ROCK_BMP_2		2
 
+#ifndef _HROCK_H_
+#define _HROCK_H_
 
 	class HRock {
 	public:
@@ -29,7 +31,7 @@ namespace game_framework {
 	protected:
 		int whichRockImage;
 
-		CAnimation animation = CAnimation(1);
+		CAnimation animation = CAnimation(10);
 		int x, y;
 		int onMapX, onMapY;
 
@@ -41,4 +43,6 @@ namespace game_framework {
 		char movingDirection;
 
 	};
+
+#endif
 }

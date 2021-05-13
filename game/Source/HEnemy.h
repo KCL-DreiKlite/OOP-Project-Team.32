@@ -7,6 +7,10 @@ namespace game_framework {
 #define ENEMY_MOVE_RIGHT	'r'
 #define ENEMY_NOT_MOVING	'n'
 
+
+#ifndef _HENEMY_H_
+#define _HENEMY_H_
+
 	class HEnemy {
 	public:
 		HEnemy();
@@ -41,4 +45,6 @@ namespace game_framework {
 		char movingDirection;
 		bool is_alive;				// ¬O§_¬¡µÛ
 	};
+
+#endif
 }
