@@ -61,6 +61,7 @@ namespace game_framework {
 		//		break;
 		//	}
 
+
 		//// Find out how many rocks and enemies in map
 		//for (int x = 0; x < map_width; x++) {
 		//	for (int y = 0; y < map_height; y++) {
