@@ -26,6 +26,9 @@ namespace game_framework {
 		HStage();
 		HStage(CGameStateRun* mainState);
 		~HStage();
+
+		void RestartStage();
+
 		void Initialize(vector<vector<int>> init_map);
 
 		void LoadBitmap();

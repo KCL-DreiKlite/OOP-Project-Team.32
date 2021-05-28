@@ -42,6 +42,55 @@ namespace game_framework {
 		
 	}
 
+	void HStage::RestartStage() {
+		// Reset current move steps.
+		steps_left = MAX_MOVE_STEPS;
+
+		// Reset key & lock's alive status.
+		if (hasLock) {
+			key->SetIsAlive(true);
+			lock->SetIsAlive(true);
+		}
+
+		// Reset enemies' alive status.
+		for (int ec = 0; ec < enemiesCount; ec++)
+			enemies->at(ec).SetIsAlive(true);
+
+		// Reset every objects' location.
+		for (int x = 0, rc = 0, ec = 0; x < map_width; x++) {
+			for (int y = 0; y < map_height; y++) {
+				switch (objectInMap(x, y)) {
+				case MAPOBJ_MAPEND:
+				case MAPOBJ_EDGE:
+				case MAPOBJ_MOVABLE:
+					continue;
+				case MAPOBJ_HERO:
+					
+					break;
+				case MAPOBJ_PRINCESS:
+					princess->Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_ROCK:
+					rocks->at(rc++).Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_ENEMY:
+					enemies->at(ec++).Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_KEY:
+					if (hasLock)
+						key->Initialize(x, y, objectWidth);
+					break;
+				case MAPOBJ_LOCK:
+					if (hasLock)
+						lock->Initialize(x, y, objectWidth);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+	}
+
 	/*
 	In this method, define this stage's map by the passed argument, and
 	initialize every Helltaker object (class like HHero, HRock, etc.)

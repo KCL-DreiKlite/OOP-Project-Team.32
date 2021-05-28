@@ -13,6 +13,7 @@ namespace game_framework {
 	void HHero::Initialize(int onMapX, int onMapY, int objectWidth) {
 		this->onMapX = onMapX; this->onMapY = onMapY;
 		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
+		this->objectWidth = objectWidth;
 
 		isMoving = false;
 		stepCounter = 0;
@@ -46,6 +47,11 @@ namespace game_framework {
 
 	void HHero::SetXY(int nx, int ny) {
 		x = nx; y = ny;
+	}
+
+	void HHero::SetXYOnMap(int nx, int ny) {
+		this->onMapX = nx;	this->onMapY = ny;
+		
 	}
 
 	void HHero::SetHeroDirectionBitmap(char face) {

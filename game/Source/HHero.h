@@ -31,6 +31,7 @@ namespace game_framework {
 		//void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetMovingDirection(char direction);
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
+		void SetXYOnMap(int nx, int ny);
 		void SetHeroDirectionBitmap(char face);
 		void HeroAttacking();
 		void SetHeroMoved();
@@ -44,6 +45,7 @@ namespace game_framework {
 		CAnimation animation = CAnimation(animation_tickPerFrame);		// 擦子的動畫
 		int x, y;					// 擦子左上角座標
 		int onMapX,onMapY;		// The coordinate on mapEdge
+		int objectWidth;		// This object's bitmap width.
 		//bool isMovingDown;			// 是否正在往下移動
 		//bool isMovingLeft;			// 是否正在往左移動
 		//bool isMovingRight;			// 是否正在往右移動

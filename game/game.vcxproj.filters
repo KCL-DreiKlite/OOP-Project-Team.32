@@ -159,6 +159,9 @@
     <ClCompile Include="Source\HStage_1.cpp">
       <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClCompile>
+    <ClCompile Include="Source\HMapObject.cpp">
+      <Filter>MyGame\HelltakerSrc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="Source\HStage_1.h">
       <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HMapObject.h">
+      <Filter>MyGame\HelltakerSrc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

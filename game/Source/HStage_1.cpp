@@ -24,12 +24,20 @@
 
 namespace game_framework {
 	HStage_1::HStage_1() {
+
+		// Set the maximum move steps.
+		MAX_MOVE_STEPS = STG1_MAX_MOVE_STEP;
+		steps_left = MAX_MOVE_STEPS;
+
+		// Copy the whole map data to father class' 'map' object.
 		for (int y = 0; y < 9; y++)
 			for (int x = 0; x < 11; x++)
 				map[y][x] = stg1_map[y][x];
+
+		// Determine this stage's princess.
 		whichPrincess = PRINCESS_LUCIFER;
 
-		// Find the end of the map
+		// Find the end of the map and assign height and width.
 		for (int i = 0; i < MAX_AVAILABLE_MAP_WIDTH; i++)
 			if (objectInMap(i, 0) == MAPOBJ_MAPEND) {
 				map_width = i;
@@ -41,7 +49,7 @@ namespace game_framework {
 				break;
 			}
 
-		// Find out how many rocks and enemies in map
+		// Find out how many rocks and enemies in map.
 		for (int x = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
 				if (objectInMap(x, y) == MAPOBJ_ROCK) {
@@ -52,6 +60,8 @@ namespace game_framework {
 				}
 			}
 		}
+
+		// Initialize 'rocks' & 'enemies' objects.
 		rocks = new vector<HRock>(rocksCount, HRock());
 		enemies = new vector<HEnemy>(enemiesCount, HEnemy());
 	}
@@ -59,37 +69,7 @@ namespace game_framework {
 	HStage_1::HStage_1(CGameStateRun* mainState) {
 		this->mainState = mainState;
 
-		for (int y = 0; y < 9; y++)
-			for (int x = 0; x < 11; x++)
-				map[y][x] = stg1_map[y][x];
-		whichPrincess = PRINCESS_LUCIFER;
-
-		// Find the end of the map
-		for (int i = 0; i < MAX_AVAILABLE_MAP_WIDTH; i++)
-			if (objectInMap(i, 0) == MAPOBJ_MAPEND) {
-				map_width = i;
-				break;
-			}
-		for (int i = 0; i < MAX_AVAILABLE_MAP_HEIGHT; i++)
-			if (objectInMap(0, i) == MAPOBJ_MAPEND) {
-				map_height = i;
-				break;
-			}
-
-		// Find out how many rocks and enemies in map
-		for (int x = 0; x < map_width; x++) {
-			for (int y = 0; y < map_height; y++) {
-				if (objectInMap(x, y) == MAPOBJ_ROCK) {
-					rocksCount++;
-				}
-				else if (objectInMap(x, y) == MAPOBJ_ENEMY) {
-					enemiesCount++;
-				}
-			}
-		}
-		rocks = new vector<HRock>(rocksCount, HRock());
-		enemies = new vector<HEnemy>(enemiesCount, HEnemy());
-
+		HStage_1();
 	}
 	HStage_1::~HStage_1() {
 		//for (int i = 0; i < 9; i++)

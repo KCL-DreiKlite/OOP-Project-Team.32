@@ -26,6 +26,8 @@ namespace game_framework {
 		// Inherit the father method.
 		void loadMyBitmap() override;
 
-		//HRock testRock = HRock();
+		// The maximum steps of stage 1.
+		const int STG1_MAX_MOVE_STEP = 23;
+
 	};
 }
