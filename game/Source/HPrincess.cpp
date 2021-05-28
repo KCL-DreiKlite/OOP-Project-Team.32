@@ -6,6 +6,8 @@
 #include "gamelib.h"
 #include "HPrincess.h"
 
+#include "HMapObject.h"
+
 
 namespace game_framework {
 
@@ -15,8 +17,7 @@ namespace game_framework {
 	}
 
 	void HPrincess::Initialize(int onMapX, int onMapY, int objectWidth) {
-		this->onMapX = onMapX; this->onMapY = onMapY;
-		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
+		HMapObject::Initialize(onMapX, onMapY, objectWidth);
 	}
 
 	void HPrincess::LoadBitmap(int whichPrincess) {
@@ -38,9 +39,6 @@ namespace game_framework {
 		}
 	}
 
-	void HPrincess::SetXY(int nx, int ny) {
-		x = nx; y = ny;
-	}
 
 	void HPrincess::OnMove() {
 		animation.OnMove();
@@ -51,14 +49,6 @@ namespace game_framework {
 		animation.OnShow();
 	}
 
-
-	int HPrincess::GetX1() { return x; }
-	int HPrincess::GetY1() { return y; }
-	int HPrincess::GetX2() { return x + animation.Width(); }
-	int HPrincess::GetY2() { return y + animation.Height(); }
-
-	int HPrincess::getXOnMap() { return onMapX; }
-	int HPrincess::getYOnMap() { return onMapY; }
 
 	int HPrincess::getWhichPrincess() { return whichPrincess; }
 }

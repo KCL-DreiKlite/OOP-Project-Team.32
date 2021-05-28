@@ -24,7 +24,15 @@
 
 namespace game_framework {
 	HStage_1::HStage_1() {
+		basicSetup();
+	}
+	HStage_1::HStage_1(CGameStateRun* mainState) {
+		this->mainState = mainState;
 
+		basicSetup();
+	}
+
+	void HStage_1::basicSetup() {
 		// Set the maximum move steps.
 		MAX_MOVE_STEPS = STG1_MAX_MOVE_STEP;
 		steps_left = MAX_MOVE_STEPS;
@@ -66,11 +74,6 @@ namespace game_framework {
 		enemies = new vector<HEnemy>(enemiesCount, HEnemy());
 	}
 
-	HStage_1::HStage_1(CGameStateRun* mainState) {
-		this->mainState = mainState;
-
-		HStage_1();
-	}
 	HStage_1::~HStage_1() {
 		//for (int i = 0; i < 9; i++)
 		//	delete[] stg1_map[i];

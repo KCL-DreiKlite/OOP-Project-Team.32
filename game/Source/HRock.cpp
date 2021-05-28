@@ -6,14 +6,15 @@
 #include "gamelib.h"
 #include "HRock.h"
 
+#include "HMapObject.h"
+
 namespace game_framework {
 	HRock::HRock() {
 
 	}
 
 	void HRock::Initialize(int xOnMap, int yOnMap, int objectWidth) {
-		this->onMapX = xOnMap; this->onMapY = yOnMap;
-		this->x = xOnMap * objectWidth; this->y = yOnMap * objectWidth;
+		HMapObject::Initialize(xOnMap, yOnMap, objectWidth);
 
 		isMoving = false;
 		stepCounter = 0;
@@ -41,10 +42,6 @@ namespace game_framework {
 		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_0.bmp", RGB(0, 255, 0));
 		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_1.bmp", RGB(0, 255, 0));
 		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_2.bmp", RGB(0, 255, 0));
-	}
-
-	void HRock::SetXY(int nx, int ny) {
-		x = nx; y = ny;
 	}
 
 	void HRock::SetMovingDirection(char direction) {
@@ -107,11 +104,4 @@ namespace game_framework {
 		animation.OnShow();
 	}
 
-	int HRock::getX1() { return x; }
-	int HRock::getY1() { return y; }
-	int HRock::getX2() { return x + animation.Width(); }
-	int HRock::getY2() { return y + animation.Height(); }
-
-	int HRock::getXOnMap() { return onMapX; }
-	int HRock::getYOnMap() { return onMapY; }
 }

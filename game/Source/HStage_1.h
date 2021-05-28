@@ -10,7 +10,7 @@ namespace game_framework {
 
 		void Initialize();
 	protected:
-
+		void basicSetup() override;
 
 		// The map of this stage.
 		const int stg1_map[9][11] = { {0,0,0,0,0,0,0,0,0,0,0},

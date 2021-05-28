@@ -22,20 +22,20 @@ namespace game_framework {
 	void HMapObject::OnShow() {}
 
 
-	void HMapObject::SetXY(int nx, int ny) {
+	void HMapObject::setXY(int nx, int ny) {
 		this->x = nx;
 		this->y = ny;
 	}
 
-	void HMapObject::SetXYOnMap(int nx, int ny) {
+	void HMapObject::setXYOnMap(int nx, int ny) {
 		this->onMapX = nx;
 		this->onMapY = ny;
 	}
 	
-	int HMapObject::GetX1() { return x; }
-	int HMapObject::GetY1() { return y; }
-	int HMapObject::GetX2() { return x + animation.Width(); }
-	int HMapObject::GetY2() { return y + animation.Height(); }
+	int HMapObject::getX1() { return x; }
+	int HMapObject::getY1() { return y; }
+	int HMapObject::getX2() { return x + animation.Width(); }
+	int HMapObject::getY2() { return y + animation.Height(); }
 
 	int HMapObject::getXOnMap() { return onMapX; }
 	int HMapObject::getYOnMap() { return onMapY; }

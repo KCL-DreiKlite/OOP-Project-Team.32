@@ -6,6 +6,7 @@
 #include "gamelib.h"
 #include "HLock.h"
 
+#include "HMapObject.h"
 
 namespace game_framework {
 
@@ -15,17 +16,12 @@ namespace game_framework {
 	}
 
 	void HLock::Initialize(int onMapX, int onMapY, int objectWidth) {
-		this->onMapX = onMapX; this->onMapY = onMapY;
-		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
+		HMapObject::Initialize(onMapX, onMapY, objectWidth);
 	}
 
 	void HLock::LoadBitmap() {
 
 		animation.AddBitmap(".\\Bitmaps\\LOCK\\lock.bmp", RGB(0, 255, 0));
-	}
-
-	void HLock::SetXY(int nx, int ny) {
-		x = nx; y = ny;
 	}
 
 	void HLock::OnMove() {
@@ -47,11 +43,4 @@ namespace game_framework {
 		}
 	}
 
-	int HLock::GetX1() { return x; }
-	int HLock::GetY1() { return y; }
-	int HLock::GetX2() { return x + animation.Width(); }
-	int HLock::GetY2() { return y + animation.Height(); }
-
-	int HLock::getXOnMap() { return onMapX; }
-	int HLock::getYOnMap() { return onMapY; }
 }

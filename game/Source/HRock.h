@@ -1,3 +1,4 @@
+#include "HMapObject.h"
 
 namespace game_framework {
 #define ROCK_MOVE_UP	'u'
@@ -13,27 +14,19 @@ namespace game_framework {
 #ifndef _HROCK_H_
 #define _HROCK_H_
 
-	class HRock {
+	class HRock : public HMapObject {
 	public:
 		HRock();
-		int getX1();
-		int getY1();
-		int getX2();
-		int getY2();
-		void Initialize(int xOnMap, int yOnMap, int objectWidth);				// 設定擦子為初始值
-		void LoadBitmap(int whichRock);				// 載入圖形
-		void OnMove();					// 移動擦子
-		void OnShow();					// 將擦子圖形貼到畫面
+
+		void Initialize(int xOnMap, int yOnMap, int objectWidth) override;				// 設定擦子為初始值
+		void LoadBitmap(int whichRockImage);
+		void OnMove() override;
+		void OnShow() override;
+
 		void SetMovingDirection(char direction);
-		void SetXY(int nx, int ny);
-		int getXOnMap();
-		int getYOnMap();
+
 	protected:
 		int whichRockImage;
-
-		CAnimation animation = CAnimation(10);
-		int x, y;
-		int onMapX, onMapY;
 
 		const int stepPerTick = 50;
 		const int maximumSteps = 100;

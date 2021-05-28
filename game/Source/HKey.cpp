@@ -6,6 +6,8 @@
 #include "gamelib.h"
 #include "HKey.h"
 
+#include "HMapObject.h"
+
 
 namespace game_framework {
 
@@ -15,8 +17,7 @@ namespace game_framework {
 	}
 
 	void HKey::Initialize(int onMapX, int onMapY, int objectWidth) {
-		this->onMapX = onMapX; this->onMapY = onMapY;
-		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
+		HMapObject::Initialize(onMapX, onMapY, objectWidth);
 	}
 
 	void HKey::LoadBitmap() {
@@ -26,10 +27,6 @@ namespace game_framework {
 		animation.AddBitmap(".\\Bitmaps\\KEY\\key_2.bmp", RGB(0, 255, 0));
 		animation.AddBitmap(".\\Bitmaps\\KEY\\key_3.bmp", RGB(0, 255, 0));
 		
-	}
-
-	void HKey::SetXY(int nx, int ny) {
-		x = nx; y = ny;
 	}
 
 	void HKey::OnMove() {
@@ -55,11 +52,4 @@ namespace game_framework {
 		return is_alive;
 	}
 
-	int HKey::GetX1() { return x; }
-	int HKey::GetY1() { return y; }
-	int HKey::GetX2() { return x + animation.Width(); }
-	int HKey::GetY2() { return y + animation.Height(); }
-
-	int HKey::getXOnMap() { return onMapX; }
-	int HKey::getYOnMap() { return onMapY; }
 }

@@ -22,14 +22,17 @@
 
 namespace game_framework {
 	HStage::HStage() {
-		map.assign(MAX_AVAILABLE_MAP_HEIGHT, vector<int>(MAX_AVAILABLE_MAP_WIDTH, MAPOBJ_MAPEND));
+		basicSetup();
 	}
 
 	HStage::HStage(CGameStateRun* mainState) {
 		this->mainState = mainState;
 
+		basicSetup();
+	}
+
+	void HStage::basicSetup() {
 		map.assign(MAX_AVAILABLE_MAP_HEIGHT, vector<int>(MAX_AVAILABLE_MAP_WIDTH, MAPOBJ_MAPEND));
-		//HStage();
 	}
 
 	HStage::~HStage() {

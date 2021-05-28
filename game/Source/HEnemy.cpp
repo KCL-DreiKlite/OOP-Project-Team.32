@@ -6,14 +6,15 @@
 #include "gamelib.h"
 #include "HEnemy.h"
 
+#include "HMapObject.h"
+
 namespace game_framework {
 	HEnemy::HEnemy() {
 		is_alive = true;
 	}
 
 	void HEnemy::Initialize(int onMapX, int onMapY, int objectWidth) {
-		this->onMapX = onMapX; this->onMapY = onMapY;
-		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
+		HMapObject::Initialize(onMapX, onMapY, objectWidth);
 
 		isMoving = false;
 		stepCounter = 0;
@@ -33,10 +34,6 @@ namespace game_framework {
 		animation.AddBitmap(".\\Bitmaps\\skeleton\\0\\skeleton_9.bmp", RGB(0, 255, 0));
 		animation.AddBitmap(".\\Bitmaps\\skeleton\\0\\skeleton_10.bmp", RGB(0, 255, 0));
 		animation.AddBitmap(".\\Bitmaps\\skeleton\\0\\skeleton_11.bmp", RGB(0, 255, 0));
-	}
-
-	void HEnemy::SetXY(int nx, int ny) {
-		x = nx; y = ny;
 	}
 
 	void HEnemy::SetMovingDirection(char direction) {
@@ -96,6 +93,13 @@ namespace game_framework {
 
 	}
 
+	void HEnemy::OnShow() {
+		if (is_alive) {
+			animation.SetTopLeft(x, y);
+			animation.OnShow();
+		}
+	}
+
 	void HEnemy::SetIsAlive(bool alive) {
 		is_alive = alive;
 		if (!is_alive) {
@@ -104,18 +108,4 @@ namespace game_framework {
 		}
 	}
 
-	void HEnemy::OnShow() {
-		if (is_alive) {
-			animation.SetTopLeft(x, y);
-			animation.OnShow();
-		}
-	}
-
-	int HEnemy::getX1() { return x; }
-	int HEnemy::getY1() { return y; }
-	int HEnemy::getX2() { return x + animation.Width(); }
-	int HEnemy::getY2() { return y + animation.Height(); }
-
-	int HEnemy::getXOnMap() { return onMapX; }
-	int HEnemy::getYOnMap() { return onMapY; }
 }

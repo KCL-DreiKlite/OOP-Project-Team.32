@@ -59,6 +59,8 @@ namespace game_framework {
 		HLock* getLock();
 
 	protected:
+		virtual void basicSetup();
+
 		// Load my background bitmap. This method must be overwrited by
 		// inherit classes.
 		virtual void loadMyBitmap();
