@@ -6,14 +6,15 @@
 #include "gamelib.h"
 #include "HHero.h"
 
+#include "HMapObject.h"
+
 namespace game_framework {
 	HHero::HHero() {
 		
 	}
 	void HHero::Initialize(int onMapX, int onMapY, int objectWidth) {
-		this->onMapX = onMapX; this->onMapY = onMapY;
-		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
-		this->objectWidth = objectWidth;
+		HMapObject::Initialize(onMapX, onMapY, objectWidth);
+
 
 		isMoving = false;
 		stepCounter = 0;
@@ -43,15 +44,6 @@ namespace game_framework {
 
 		isMoving = true;
 		movingDirection = direction;
-	}
-
-	void HHero::SetXY(int nx, int ny) {
-		x = nx; y = ny;
-	}
-
-	void HHero::SetXYOnMap(int nx, int ny) {
-		this->onMapX = nx;	this->onMapY = ny;
-		
 	}
 
 	void HHero::SetHeroDirectionBitmap(char face) {
@@ -166,11 +158,4 @@ namespace game_framework {
 		return heroMoved;
 	}
 
-	int HHero::GetX1() { return x; }
-	int HHero::GetY1() { return y; }
-	int HHero::GetX2() { return x + animation.Width(); }
-	int HHero::GetY2() { return y + animation.Height(); }
-
-	int HHero::getXOnMap() { return onMapX; }
-	int HHero::getYOnMap() { return onMapY; }
 }

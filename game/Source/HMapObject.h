@@ -15,9 +15,8 @@ namespace game_framework {
 		virtual void OnMove();					// 移動擦子
 		virtual void OnShow();					// 將擦子圖形貼到畫面
 
-		void SetMovingDirection(char direction);
-		void SetXY(int nx, int ny);		// 設定擦子左上角座標
-		void SetXYOnMap(int nx, int ny);
+		virtual void SetXY(int nx, int ny);		// 設定擦子左上角座標
+		virtual void SetXYOnMap(int nx, int ny);
 
 		int  GetX1();					// 擦子左上角 x 座標
 		int  GetY1();					// 擦子左上角 y 座標
