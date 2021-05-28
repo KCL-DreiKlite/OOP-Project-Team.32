@@ -1,6 +1,9 @@
 ﻿
 namespace game_framework {
 
+#ifndef _HKEY_H_
+#define _HKEY_H_
+
 	class HKey {
 	public:
 		HKey();
@@ -25,4 +28,5 @@ namespace game_framework {
 		bool is_alive;
 	};
 
+#endif
 }

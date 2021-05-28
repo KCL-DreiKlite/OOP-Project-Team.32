@@ -8,7 +8,7 @@
 
 namespace game_framework {
 	HRock::HRock() {
-
+		is_alive = true;
 	}
 
 	void HRock::Initialize(int xOnMap, int yOnMap, int objectWidth) {
@@ -38,6 +38,9 @@ namespace game_framework {
 		default:
 			break;
 		}
+		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_0.bmp", RGB(0, 255, 0));
+		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_1.bmp", RGB(0, 255, 0));
+		//animation.AddBitmap(".\\Bitmaps\\rock\\rock_2.bmp", RGB(0, 255, 0));
 	}
 
 	void HRock::SetXY(int nx, int ny) {
@@ -95,13 +98,21 @@ namespace game_framework {
 			movingDirection = ROCK_NOT_MOVING;
 			stepCounter = 0;
 		}
+	}
 
-
+	void HRock::SetIsAlive(bool alive) {
+		is_alive = alive;
+		if (!is_alive) {
+			onMapX = 0;
+			onMapY = 0;
+		}
 	}
 
 	void HRock::OnShow() {
-		animation.SetTopLeft(x, y);
-		animation.OnShow();
+		if (is_alive) {
+			animation.SetTopLeft(x, y);
+			animation.OnShow();
+		}
 	}
 
 	int HRock::getX1() { return x; }

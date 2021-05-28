@@ -4,6 +4,8 @@ namespace game_framework {
 	class HStage_1 : public HStage {
 	public:
 		HStage_1();
+		HStage_1(CGameStateRun* mainState);
+
 		~HStage_1();
 
 		void Initialize();
@@ -24,6 +26,6 @@ namespace game_framework {
 		// Inherit the father method.
 		void loadMyBitmap() override;
 
-		
+		//HRock testRock = HRock();
 	};
 }

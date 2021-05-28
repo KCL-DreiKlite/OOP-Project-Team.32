@@ -12,6 +12,7 @@ namespace game_framework {
 	}
 	void HHero::Initialize(int onMapX, int onMapY, int objectWidth) {
 		this->onMapX = onMapX; this->onMapY = onMapY;
+		this->x = onMapX * objectWidth; this->y = onMapY * objectWidth;
 
 		isMoving = false;
 		stepCounter = 0;

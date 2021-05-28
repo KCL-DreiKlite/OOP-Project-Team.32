@@ -6,10 +6,12 @@ namespace game_framework {
 #define ROCK_MOVE_RIGHT	'r'
 #define ROCK_NOT_MOVING	'n'
 
-#define ROCK_BMP_0		'0'
-#define ROCK_BMP_1		'1'
-#define ROCK_BMP_2		'2'
+#define ROCK_BMP_0		0
+#define ROCK_BMP_1		1
+#define ROCK_BMP_2		2
 
+#ifndef _HROCK_H_
+#define _HROCK_H_
 
 	class HRock {
 	public:
@@ -26,10 +28,11 @@ namespace game_framework {
 		void SetXY(int nx, int ny);
 		int getXOnMap();
 		int getYOnMap();
+		void SetIsAlive(bool alive);    //是否活著
 	protected:
 		int whichRockImage;
 
-		CAnimation animation = CAnimation(1);
+		CAnimation animation = CAnimation(10);
 		int x, y;
 		int onMapX, onMapY;
 
@@ -39,6 +42,8 @@ namespace game_framework {
 		bool isMoving;
 		int stepCounter;
 		char movingDirection;
-
+		bool is_alive;				// 是否活著
 	};
+
+#endif
 }

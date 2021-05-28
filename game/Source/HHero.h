@@ -10,6 +10,9 @@ namespace game_framework {
 #define HERO_FACING_LEFT	'l'
 #define HERO_FACING_RIGHT	'r'
 
+#ifndef _HHERO_H_
+#define _HHERO_H_
+
 	class HHero
 	{
 	public:
@@ -65,4 +68,6 @@ namespace game_framework {
 		//							{0,0,1,1,1,1,1,1,1,0,0},
 		//							{0,0,0,0,0,0,0,0,0,0,0} };
 	};
+#endif // !_HHERO_H_
+
 }

@@ -2,6 +2,8 @@
 namespace game_framework {
 #define PRINCESS_LUCIFER 1
 
+#ifndef _HPRINCESS_H_
+#define _HPRINCESS_H_
 
 	class HPrincess {
 	public:
@@ -31,4 +33,5 @@ namespace game_framework {
 
 	};
 
+#endif
 }
