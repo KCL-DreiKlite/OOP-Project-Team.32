@@ -99,6 +99,11 @@ namespace game_framework {
 			}
 		}
 
+		// Reset every objects' alive status (if exist).
+		for (int rc = 0; rc < rocksCount; rc++)
+			rocks->at(rc).SetIsAlive(true);
+		for (int ec = 0; ec < enemiesCount; ec++)
+			enemies->at(ec).SetIsAlive(true);
 		
 	}
 
@@ -146,6 +151,9 @@ namespace game_framework {
 				}
 			}
 		}
+
+		// i'm too lazy so add this after initialization.
+		RestartStage();
 	}
 
 	/*
