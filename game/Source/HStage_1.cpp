@@ -54,12 +54,12 @@ namespace game_framework {
 
 		// Find the end of the map and assign height and width.
 		for (int i = 0; i < MAX_AVAILABLE_MAP_WIDTH; i++)
-			if (objectInMap(i, 0) == MAPOBJ_MAPEND) {
+			if (getMapObjNum(i, 0) == MAPOBJ_MAPEND) {
 				map_width = i;
 				break;
 			}
 		for (int i = 0; i < MAX_AVAILABLE_MAP_HEIGHT; i++)
-			if (objectInMap(0, i) == MAPOBJ_MAPEND) {
+			if (getMapObjNum(0, i) == MAPOBJ_MAPEND) {
 				map_height = i;
 				break;
 			}
@@ -67,10 +67,10 @@ namespace game_framework {
 		// Find out how many rocks and enemies in map.
 		for (int x = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
-				if (objectInMap(x, y) == MAPOBJ_ROCK) {
+				if (getMapObjNum(x, y) == MAPOBJ_ROCK) {
 					rocksCount++;
 				}
-				else if (objectInMap(x, y) == MAPOBJ_ENEMY) {
+				else if (getMapObjNum(x, y) == MAPOBJ_ENEMY) {
 					enemiesCount++;
 				}
 			}

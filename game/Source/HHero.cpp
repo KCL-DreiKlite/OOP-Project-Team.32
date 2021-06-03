@@ -9,9 +9,7 @@
 #include "HMapObject.h"
 
 namespace game_framework {
-	HHero::HHero() {
-		
-	}
+	HHero::HHero() {}
 	void HHero::Initialize(int onMapX, int onMapY, int xOffset, int yOffset, int objectWidth) {
 		HMapObject::Initialize(onMapX, onMapY, xOffset, yOffset, objectWidth);
 

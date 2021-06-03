@@ -1,6 +1,9 @@
 
 namespace game_framework {
 
+#ifndef _HSTAGE_1_
+#define _HSTAGE_1_
+
 #define IMAGE_STAGE_1		".\\Bitmaps\\Chapter 9-1.bmp"
 
 	class HStage_1 : public HStage {
@@ -31,4 +34,6 @@ namespace game_framework {
 		// The maximum steps of stage 1.
 		const int STG1_MAX_MOVE_STEP = 33;
 	};
+
+#endif
 }

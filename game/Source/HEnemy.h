@@ -1,15 +1,16 @@
 #include "HMapObject.h"
 
 namespace game_framework {
+
+#ifndef _HENEMY_H_
+#define _HENEMY_H_
+
 #define ENEMY_MOVE_UP		'u'
 #define ENEMY_MOVE_DOWN		'd'
 #define ENEMY_MOVE_LEFT		'l'
 #define ENEMY_MOVE_RIGHT	'r'
 #define ENEMY_NOT_MOVING	'n'
 
-
-#ifndef _HENEMY_H_
-#define _HENEMY_H_
 
 	class HEnemy : public HMapObject {
 	public:
@@ -23,6 +24,8 @@ namespace game_framework {
 		void SetMovingDirection(char direction);
 
 		void SetIsAlive(bool alive);    //¬O§_¬¡µÛ
+
+		bool IsAlive();
 	protected:
 
 		const int stepPerTick = 50;

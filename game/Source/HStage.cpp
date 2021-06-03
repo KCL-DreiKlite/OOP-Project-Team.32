@@ -51,6 +51,9 @@ namespace game_framework {
 		// Reset current move steps.
 		steps_left = MAX_MOVE_STEPS;
 
+		// Reset dynamic map to stage map.
+		map = vector<vector<int>>(STAGE_MAP);
+
 		// Reset steps display.
 		stepsDisplay->resetCurrentSteps();
 
@@ -67,7 +70,7 @@ namespace game_framework {
 		// Reset every objects' location.
 		for (int x = 0, rc = 0, ec = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
-				switch (objectInMap(x, y)) {
+				switch (getMapObjNum(x, y)) {
 				case MAPOBJ_MAPEND:
 				case MAPOBJ_EDGE:
 				case MAPOBJ_MOVABLE:
@@ -112,7 +115,11 @@ namespace game_framework {
 	initialize every Helltaker object (class like HHero, HRock, etc.)
 	*/
 	void HStage::Initialize(vector<vector<int>> init_map) {
-		map = init_map;
+		// Load stage map.
+		STAGE_MAP = init_map;
+
+		// Copy stage map to dynamic map.
+		map = vector<vector<int>>(STAGE_MAP);
 
 		// Initialize StepsDisplay.
 		stepsDisplay->Initialize(0, 0);
@@ -121,7 +128,7 @@ namespace game_framework {
 		int rc = 0, ec = 0;
 		for (int x = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
-				switch (objectInMap(x, y)) {
+				switch (getMapObjNum(x, y)) {
 				case MAPOBJ_MAPEND:
 				case MAPOBJ_EDGE:
 				case MAPOBJ_MOVABLE:
@@ -213,508 +220,167 @@ namespace game_framework {
 	}
 
 	void HStage::HeroWantToMove(char direction) {
-		// Check if hero touched princess
-		const int px = princess->getXOnMap(), py = princess->getYOnMap();
-		const int hx = hero->getXOnMap(), hy = hero->getYOnMap();
-		const int kx = key->getXOnMap(), ky = key->getYOnMap();
-		const int lx = lock->getXOnMap(), ly = lock->getYOnMap();
 
+		// Check remain steps.
 		if (stepsDisplay->getCurrentSteps() <= 0) {
+
 			RestartStage();
 			return;
 		}
 
-		// 4 steps to move hero:
-		// 1. Check if hero want to crash the edge
-		// 2. Check if hero touched the rock. If so, then move rock
-		// 3. Check if hero touched princess. If so, then game over
-		// 4. Check if hero touched the enemy. If so, then move enemy
-		// 5. If non of these conditions is true, then move hero.
+		// Start move things.
+		const int hx = hero->getXOnMap(), hy = hero->getYOnMap();
 
-		if (direction == HERO_MOVE_UP) {
-			// Check if hero want to crash the edge
-			if (!map[hy - 1][hx])
-				return;
+		HeroMoveType hmt = HMT_NONE;
 
-			// Check if hero touched the rock
-			int touchedRock = -1;
-			int rockTouchedObject = -1;
-			for (int i = 0; i < rocksCount; i++) {
-				const int rx = rocks->at(i).getXOnMap(), ry = rocks->at(i).getYOnMap();
-				if (hx == rx && hy - 1 == ry) {
-					touchedRock = i;
-					// Check if the rock touched the enemy
-					for (int i = 0; i < enemiesCount; i++) {
-						const int ex = enemies->at(i).getXOnMap(), ey = enemies->at(i).getYOnMap();
-						if (rx == ex && ry - 1 == ey) {
-							touchedRock = -1;
-							rockTouchedObject = 1;
-							break;
-						}
-					}
-					// Check if the rock touched the rock
-					for (int j = 0; j < rocksCount; j++) {
-						const int rx0 = rocks->at(j).getXOnMap(), ry0 = rocks->at(j).getYOnMap();
-						if (rx == rx0 && ry - 1 == ry0) {
-							touchedRock = -1;
-							rockTouchedObject = 1;
-							break;
-						}
-					}
-					// Check if the rock touched the princess
-					if (rx == px && ry - 1 == py) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					// Check if the rock touched the key
-					if (rx == kx && ry - 1 == ky) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					// Check if the rock touched the lock
-					if (rx == lx && ry - 1 == ly) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					break;
-				}
-			}
-			if (touchedRock != -1) {
-				if (map[rocks->at(touchedRock).getYOnMap() - 1][rocks->at(touchedRock).getXOnMap()]) {
-					rocks->at(touchedRock).SetMovingDirection(ROCK_MOVE_UP);	//rock moved
-					hero->SetHeroMoved();  //consume steps
-				}
-			}
-
-			// Check if hero touched princess
-			else if (hx == px && hy - 1 == py) {
-				//CAudio::Instance()->Stop(AUDIO_NTUT);
-				//GotoGameState(GAME_STATE_OVER);
-				mainState->StageClear();
-			}
-
-			// Check if hero touched enemy
-			int touchedEnemy = -1;
-			int enemyTouchedRock = -1;
-			for (int i = 0; i < enemiesCount; i++) {
-				const int ex = enemies->at(i).getXOnMap(), ey = enemies->at(i).getYOnMap();
-				if (hx == ex && hy - 1 == ey) {
-					touchedEnemy = i;
-					// Check if the enemy touched the rock
-					for (int i = 0; i < rocksCount; i++) {
-						const int rx = rocks->at(i).getXOnMap(), ry = rocks->at(i).getYOnMap();
-						if (ex == rx && ey - 1 == ry) {
-							enemies->at(touchedEnemy).SetIsAlive(false);
-							touchedEnemy = -1;
-							enemyTouchedRock = 1;
-							hero->SetHeroMoved();  //consume steps
-							break;
-						}
-					}
-					break;
-				}
-			}
-			if (touchedEnemy != -1) {
-				if (map[enemies->at(touchedEnemy).getYOnMap() - 1][enemies->at(touchedEnemy).getXOnMap()]) {
-					enemies->at(touchedEnemy).SetMovingDirection(ENEMY_MOVE_UP);	//enemy moved
-					hero->SetHeroMoved();  //consume steps
-				}
-				else {
-					enemies->at(touchedEnemy).SetIsAlive(false);
-					hero->SetHeroMoved();  //consume steps
-				}
-			}
-
-			// Check if hero touched the key
-			if (hx == kx && hy - 1 == ky) {
-				key->SetIsAlive(false);
-			}
-			// Check if hero touched the lock
-			int touchedLock = -1;
-			if (hx == lx && hy - 1 == ly) {
-				if (!key->IsAlive()){
-					lock->SetIsAlive(false);
-				}
-				else {
-					touchedLock = 1;
-				}
-			}
-
-			// Everything's clear. Move hero
-			if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1) {
-				hero->SetMovingDirection(HERO_MOVE_UP);	//hero moved
-				hero->SetHeroMoved();  //consume steps
-			}
-		}
-		else if (direction == HERO_MOVE_DOWN) {
-			// Check if hero want to crash the edge
-			if (!map[hy + 1][hx])
-				return;
-
-			// Check if hero touched the rock
-			int touchedRock = -1;
-			int rockTouchedObject = -1;
-			for (int i = 0; i < rocksCount; i++) {
-				const int rx = rocks->at(i).getXOnMap(), ry = rocks->at(i).getYOnMap();
-				if (hx == rx && hy + 1 == ry) {
-					touchedRock = i;
-					// Check if the rock touched the enemy
-					for (int i = 0; i < enemiesCount; i++) {
-						const int ex = enemies->at(i).getXOnMap(), ey = enemies->at(i).getYOnMap();
-						if (rx == ex && ry + 1 == ey) {
-							touchedRock = -1;
-							rockTouchedObject = 1;
-							break;
-						}
-					}
-					// Check if the rock touched the rock
-					for (int j = 0; j < rocksCount; j++) {
-						const int rx0 = rocks->at(j).getXOnMap(), ry0 = rocks->at(j).getYOnMap();
-						if (rx == rx0 && ry + 1 == ry0) {
-							touchedRock = -1;
-							rockTouchedObject = 1;
-							break;
-						}
-					}
-					// Check if the rock touched the princess
-					if (rx == px && ry + 1 == py) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					// Check if the rock touched the key
-					if (rx == kx && ry + 1 == ky) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					// Check if the rock touched the lock
-					if (rx == lx && ry + 1 == ly) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					break;
-				}
-			}
-			if (touchedRock != -1) {
-				if (map[rocks->at(touchedRock).getYOnMap() + 1][rocks->at(touchedRock).getXOnMap()]) {
-					rocks->at(touchedRock).SetMovingDirection(ROCK_MOVE_DOWN);	//rock moved
-					hero->SetHeroMoved();  //consume steps
-				}
-			}
-
-			// Check if hero touched princess
-			else if (hx == px && hy + 1 == py) {
-
-			}
-
-			// Check if hero touched enemy
-			int touchedEnemy = -1;
-			int enemyTouchedRock = -1;
-			for (int i = 0; i < enemiesCount; i++) {
-				const int ex = enemies->at(i).getXOnMap(), ey = enemies->at(i).getYOnMap();
-				if (hx == ex && hy + 1 == ey) {
-					touchedEnemy = i;
-					// Check if the enemy touched the rock
-					for (int i = 0; i < rocksCount; i++) {
-						const int rx = rocks->at(i).getXOnMap(), ry = rocks->at(i).getYOnMap();
-						if (ex == rx && ey + 1 == ry) {
-							enemies->at(touchedEnemy).SetIsAlive(false);
-							touchedEnemy = -1;
-							enemyTouchedRock = 1;
-							hero->SetHeroMoved();  //consume steps
-							break;
-						}
-					}
-					break;
-				}
-			}
-			if (touchedEnemy != -1) {
-				if (map[enemies->at(touchedEnemy).getYOnMap() + 1][enemies->at(touchedEnemy).getXOnMap()]) {
-					enemies->at(touchedEnemy).SetMovingDirection(ENEMY_MOVE_DOWN);	//enemy moved
-					hero->SetHeroMoved();  //consume steps
-				}
-				else {
-					enemies->at(touchedEnemy).SetIsAlive(false);
-					hero->SetHeroMoved();  //consume steps
-				}
-			}
-
-			// Check if hero touched the key
-			if (hx == kx && hy + 1 == ky) {
-				key->SetIsAlive(false);
-			}
-			// Check if hero touched the lock
-			int touchedLock = -1;
-			if (hx == lx && hy + 1 == ly) {
-				if (!key->IsAlive()) {
-					lock->SetIsAlive(false);
-				}
-				else {
-					touchedLock = 1;
-				}
-			}
-
-			// Everything's clear. Move hero
-			if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1) {
-				hero->SetMovingDirection(HERO_MOVE_DOWN);	//hero moved
-				hero->SetHeroMoved();  //consume steps
-			}
-		}
-		else if (direction == HERO_MOVE_LEFT) {
-			// Check if hero want to crash the edge
-			if (!map[hy][hx - 1])
-				return;
-
-			// Check if hero touched the rock
-			int touchedRock = -1;
-			int rockTouchedObject = -1;
-			for (int i = 0; i < rocksCount; i++) {
-				const int rx = rocks->at(i).getXOnMap(), ry = rocks->at(i).getYOnMap();
-				if (hx - 1 == rx && hy == ry) {
-					touchedRock = i;
-					// Check if the rock touched the enemy
-					for (int i = 0; i < enemiesCount; i++) {
-						const int ex = enemies->at(i).getXOnMap(), ey = enemies->at(i).getYOnMap();
-						if (rx - 1 == ex && ry== ey) {
-							touchedRock = -1;
-							rockTouchedObject = 1;
-							break;
-						}
-					}
-					// Check if the rock touched the rock
-					for (int j = 0; j < rocksCount; j++) {
-						const int rx0 = rocks->at(j).getXOnMap(), ry0 = rocks->at(j).getYOnMap();
-						if (rx - 1 == rx0 && ry == ry0) {
-							touchedRock = -1;
-							rockTouchedObject = 1;
-							break;
-						}
-					}
-					// Check if the rock touched the princess
-					if (rx - 1 == px && ry == py) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					// Check if the rock touched the key
-					if (rx - 1 == kx && ry == ky) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					// Check if the rock touched the lock
-					if (rx - 1 == lx && ry == ly) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					break;
-				}
-			}
-			if (touchedRock != -1) {
-				if (map[rocks->at(touchedRock).getYOnMap()][rocks->at(touchedRock).getXOnMap() - 1]) {
-					rocks->at(touchedRock).SetMovingDirection(ROCK_MOVE_LEFT);	//rock moved
-					hero->SetHeroMoved();  //consume steps
-				}
-			}
-
-			// Check if hero touched princess
-			else if (hx - 1 == px && hy == py) {
-				//CAudio::Instance()->Stop(AUDIO_NTUT);
-				//GotoGameState(GAME_STATE_OVER);
-				mainState->StageClear();
-			}
-
-			// Check if hero touched enemy
-			int touchedEnemy = -1;
-			int enemyTouchedRock = -1;
-			for (int i = 0; i < enemiesCount; i++) {
-				const int ex = enemies->at(i).getXOnMap(), ey = enemies->at(i).getYOnMap();
-				if (hx - 1 == ex && hy == ey) {
-					touchedEnemy = i;
-					// Check if the enemy touched the rock
-					for (int i = 0; i < rocksCount; i++) {
-						const int rx = rocks->at(i).getXOnMap(), ry = rocks->at(i).getYOnMap();
-						if (ex - 1 == rx && ey == ry) {
-							enemies->at(touchedEnemy).SetIsAlive(false);
-							touchedEnemy = -1;
-							enemyTouchedRock = 1;
-							hero->SetHeroMoved();  //consume steps
-							break;
-						}
-					}
-					break;
-				}
-			}
-			if (touchedEnemy != -1) {
-				if (map[enemies->at(touchedEnemy).getYOnMap()][enemies->at(touchedEnemy).getXOnMap() - 1]) {
-					enemies->at(touchedEnemy).SetMovingDirection(ENEMY_MOVE_LEFT);	//enemy moved
-					hero->SetHeroMoved();  //consume steps
-				}
-				else {
-					enemies->at(touchedEnemy).SetIsAlive(false);
-					hero->SetHeroMoved();  //consume steps
-				}
-			}
-
-			// Check if hero touched the key
-			if (hx - 1 == kx && hy == ky) {
-				key->SetIsAlive(false);
-			}
-			// Check if hero touched the lock
-			int touchedLock = -1;
-			if (hx - 1 == lx && hy == ly) {
-				if (!key->IsAlive()){
-					lock->SetIsAlive(false);
-				}
-				else {
-					touchedLock = 1;
-				}
-			}
-
-			// Everything's clear. Move hero
-			if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1) {
-				hero->SetMovingDirection(HERO_MOVE_LEFT);	//hero moved
-				hero->SetHeroMoved();  //consume steps
-			}
-		}
-		else if (direction == HERO_MOVE_RIGHT) {
-			// Check if hero want to crash the edge
-			if (!map[hy][hx + 1])
-				return;
-
-			// Check if hero touched the rock
-			int touchedRock = -1;
-			int rockTouchedObject = -1;
-			for (int i = 0; i < rocksCount; i++) {
-				const int rx = rocks->at(i).getXOnMap(), ry = rocks->at(i).getYOnMap();
-				if (hx + 1 == rx && hy == ry) {
-					touchedRock = i;
-					// Check if the rock touched the enemy
-					for (int i = 0; i < enemiesCount; i++) {
-						const int ex = enemies->at(i).getXOnMap(), ey = enemies->at(i).getYOnMap();
-						if (rx + 1 == ex && ry == ey) {
-							touchedRock = -1;
-							rockTouchedObject = 1;
-							break;
-						}
-					}
-					// Check if the rock touched the rock
-					for (int j = 0; j < rocksCount; j++) {
-						const int rx0 = rocks->at(j).getXOnMap(), ry0 = rocks->at(j).getYOnMap();
-						if (rx + 1 == rx0 && ry == ry0) {
-							touchedRock = -1;
-							rockTouchedObject = 1;
-							break;
-						}
-					}
-					// Check if the rock touched the princess
-					if (rx + 1 == px && ry == py) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					// Check if the rock touched the key
-					if (rx + 1 == kx && ry == ky) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					// Check if the rock touched the lock
-					if (rx + 1 == lx && ry == ly) {
-						touchedRock = -1;
-						rockTouchedObject = 1;
-						break;
-					}
-					break;
-				}
-			}
-			if (touchedRock != -1) {
-				if (map[rocks->at(touchedRock).getYOnMap()][rocks->at(touchedRock).getXOnMap() + 1]) {
-					rocks->at(touchedRock).SetMovingDirection(ROCK_MOVE_RIGHT);	//rock moved
-					hero->SetHeroMoved();  //consume steps
-				}
-			}
-
-			// Check if hero touched princess
-			else if (hx + 1 == px && hy == py) {
-				//CAudio::Instance()->Stop(AUDIO_NTUT);
-				//GotoGameState(GAME_STATE_OVER);
-				mainState->StageClear();
-			}
-
-			// Check if hero touched enemy
-			int touchedEnemy = -1;
-			int enemyTouchedRock = -1;
-			for (int i = 0; i < enemiesCount; i++) {
-				const int ex = enemies->at(i).getXOnMap(), ey = enemies->at(i).getYOnMap();
-				if (hx + 1 == ex && hy == ey) {
-					touchedEnemy = i;
-					// Check if the enemy touched the rock
-					for (int i = 0; i < rocksCount; i++) {
-						const int rx = rocks->at(i).getXOnMap(), ry = rocks->at(i).getYOnMap();
-						if (ex + 1 == rx && ey == ry) {
-							enemies->at(touchedEnemy).SetIsAlive(false);
-							touchedEnemy = -1;
-							enemyTouchedRock = 1;
-							hero->SetHeroMoved();  //consume steps
-							break;
-						}
-					}
-					break;
-				}
-			}
-			if (touchedEnemy != -1) {
-				if (map[enemies->at(touchedEnemy).getYOnMap()][enemies->at(touchedEnemy).getXOnMap() + 1]) {
-					enemies->at(touchedEnemy).SetMovingDirection(ENEMY_MOVE_RIGHT);	//enemy moved
-					hero->SetHeroMoved();  //consume steps
-				}
-				else {
-					enemies->at(touchedEnemy).SetIsAlive(false);
-					hero->SetHeroMoved();  //consume steps
-				}
-			}
-
-			// Check if hero touched the key
-			if (hx + 1 == kx && hy == ky) {
-				key->SetIsAlive(false);
-			}
-			// Check if hero touched the lock
-			int touchedLock = -1;
-			if (hx + 1 == lx && hy == ly) {
-				if (!key->IsAlive()) {
-					lock->SetIsAlive(false);
-				}
-				else {
-					touchedLock = 1;
-				}
-			}
-
-			// Everything's clear. Move hero
-			if (touchedRock == -1 && touchedEnemy == -1 && rockTouchedObject == -1 && enemyTouchedRock == -1 && touchedLock == -1) {
-				hero->SetMovingDirection(HERO_MOVE_RIGHT);	//hero moved
-				hero->SetHeroMoved();  //consume steps
-			}
-		}
-		else {
-
+		int xConditionLength = 0, yConditionLength = 0;
+		switch (direction) {
+		case HERO_MOVE_UP:
+			yConditionLength = -1;	break;
+		case HERO_MOVE_DOWN:
+			yConditionLength = 1;	break;
+		case HERO_MOVE_LEFT:
+			xConditionLength = -1;	break;
+		case HERO_MOVE_RIGHT:
+			xConditionLength = 1;	break;
+		default:
+			break;
 		}
 
-		if (hero->heroIsMoved()) {
+		int thingOnTheWay = getMapObjNum(hx + xConditionLength, hy + yConditionLength);
+		if (thingOnTheWay == MAPOBJ_MOVABLE) {
+			hero->SetMovingDirection(direction);
+			hmt = HMT_PLAINMOVE;
+		}
+		else if (thingOnTheWay == MAPOBJ_EDGE) {
+			hmt = HMT_NONE;
+		}
+		else if (thingOnTheWay == MAPOBJ_ROCK) {
+			if (getMapObjNum(hx + xConditionLength * 2, hy + yConditionLength * 2) == MAPOBJ_MOVABLE) {
+				((HRock*)getMapObject(hx + xConditionLength, hy + yConditionLength))->SetMovingDirection(direction);
+				hmt = HMT_KICKROCK_MOVABLE;
+			}
+			else {
+				hmt = HMT_KICKROCK_UNMOVABLE;
+			}
+		}
+		else if (thingOnTheWay == MAPOBJ_ENEMY) {
+			if (getMapObjNum(hx + xConditionLength * 2, hy + yConditionLength * 2) == MAPOBJ_MOVABLE) {
+				((HEnemy*)getMapObject(hx + xConditionLength, hy + yConditionLength))->SetMovingDirection(direction);
+				hmt = HMT_KICKENEMY;
+			}
+			else {
+				((HEnemy*)getMapObject(hx + xConditionLength, hy + yConditionLength))->SetIsAlive(false);
+				hmt = HMT_KILLENEMY;
+			}
+		}
+		else if (thingOnTheWay == MAPOBJ_KEY) {
+			hero->SetMovingDirection(direction);
+			key->SetIsAlive(false);
+			hmt = HMT_PICKKEY;
+		}
+		else if (thingOnTheWay == MAPOBJ_LOCK) {
+			if (!key->IsAlive()) {		// Hero got the key
+				hero->SetMovingDirection(direction);
+				lock->SetIsAlive(false);
+				hmt = HMT_UNLOCK_WITHKEY;
+			}
+			else {						// hero don't have key
+				hmt = HMT_UNLOCK_NOKEY;
+			}
+		}
+		else if (thingOnTheWay == MAPOBJ_PRINCESS) {
+			mainState->StageClear();
+			hmt = HMT_MEETPRINCESS;
+		}
+		else {}
+
+		// Update StepsDisplay.
+		if (hmt != HMT_NONE) {
 			stepsDisplay->reduceStep();
+		}
 
+		// Play sound effect.
+		switch (hmt) {
+		case HMT_PLAINMOVE:
 			CAudio::Instance()->Play(AUDIO_CHARACTER_MOVE);
+			break;
+		case HMT_KICKROCK_MOVABLE:
+			CAudio::Instance()->Play(AUDIO_ROCK_KICKED);
+			CAudio::Instance()->Play(AUDIO_ROCK_MOVED);
+			break;
+		case HMT_KICKROCK_UNMOVABLE:
+			CAudio::Instance()->Play(AUDIO_ROCK_KICKED);
+			break;
+		case HMT_KICKENEMY:
+			CAudio::Instance()->Play(AUDIO_ENEMY_KICK);
+			break;
+		case HMT_KILLENEMY:
+			CAudio::Instance()->Play(AUDIO_ENEMY_KILL);
+			break;
+		case HMT_PICKKEY:
+			CAudio::Instance()->Play(AUDIO_PICKKEY);
+			break;
+		case HMT_UNLOCK_WITHKEY:
+			CAudio::Instance()->Play(AUDIO_LOCK_WITHKEY);
+			break;
+		case HMT_UNLOCK_NOKEY:
+			CAudio::Instance()->Play(AUDIO_LOCK_NOKEY);
+			break;
+		case HMT_MEETPRINCESS:
+			break;
+		default:
+			break;
+
 		}
 	}
 
-	void HStage::quickPass() {
-		for (int i = 0; i < rocksCount; i++)
-			rocks->at(i).SetIsAlive(false);
+	void HStage::updateDynamicMap() {
+		const int whateverItIs = -20;
+
+		// First, set all map object to whatever it is. Except EDGE and MAPEND.
+		for (int x = 0; x < map_width; x++) {
+			for (int y = 0; y < map_height; y++) {
+				if (getMapObjNum(x, y) == MAPOBJ_MAPEND ||
+					getMapObjNum(x, y) == MAPOBJ_EDGE)
+					continue;
+				getMapObjNum(x, y) = whateverItIs;
+			}
+		}
+
+		// Next, assign every single object into dynamic map.
+		getMapObjNum(hero->getXOnMap(), hero->getYOnMap()) = MAPOBJ_HERO;
+		getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS;
+		for (int rc = 0; rc < rocksCount; rc++) {
+			if (rocks->at(rc).IsAlive())
+				getMapObjNum(rocks->at(rc).getXOnMap(), rocks->at(rc).getYOnMap()) = MAPOBJ_ROCK;
+			else
+				getMapObjNum(rocks->at(rc).getXOnMap(), rocks->at(rc).getYOnMap()) = MAPOBJ_MOVABLE;
+		}
+		for (int ec = 0; ec < enemiesCount; ec++) {
+			if (enemies->at(ec).IsAlive())
+				getMapObjNum(enemies->at(ec).getXOnMap(), enemies->at(ec).getYOnMap()) = MAPOBJ_ENEMY;
+			else
+				getMapObjNum(enemies->at(ec).getXOnMap(), enemies->at(ec).getYOnMap()) = MAPOBJ_MOVABLE;
+		}
+		if (key->IsAlive())
+			getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_KEY;
+		else
+			getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_MOVABLE;
+
+		if (lock->IsAlive())
+			getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_LOCK;
+		else
+			getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_MOVABLE;
+
+		// And finally, remember those whatever it is stuff? Right,
+		// now replace them to MOVABLE.
+		for (int x = 0; x < map_width; x++) {
+			for (int y = 0; y < map_height; y++) {
+				if (getMapObjNum(x, y) == whateverItIs)
+					getMapObjNum(x, y) = MAPOBJ_MOVABLE;
+			}
+		}
 	}
 
 	void HStage::OnMove() {
@@ -731,6 +397,12 @@ namespace game_framework {
 		key->OnMove();
 		lock->OnMove();
 
+		updateDynamicMap();
+	}
+
+	void HStage::quickPass() {
+		for (int i = 0; i < rocksCount; i++)
+			rocks->at(i).SetIsAlive(false);
 	}
 
 	void HStage::setXY(int nx, int ny) {
@@ -739,6 +411,34 @@ namespace game_framework {
 
 	const int HStage::findObjectsX(int xInMap) { return x + xInMap * objectWidth; }
 	const int HStage::findObjectsY(int yInMap) { return y + yInMap * objectWidth; }
+
+	HMapObject* HStage::getMapObject(int xOnMap, int yOnMap) {
+		if (getMapObjNum(xOnMap, yOnMap) == MAPOBJ_MAPEND ||
+			getMapObjNum(xOnMap, yOnMap) == MAPOBJ_EDGE)
+			return NULL;
+
+		if (isSameLocation(hero->, xOnMap, yOnMap))
+			return hero;
+
+		if (isSameLocation(princess->, xOnMap, yOnMap))
+			return princess;
+		
+		for (int rc = 0; rc < rocksCount; rc++)
+			if (isSameLocation(rocks->at(rc)., xOnMap, yOnMap))
+				return &(rocks->at(rc));
+
+		for (int ec = 0; ec < enemiesCount; ec++)
+			if (isSameLocation(enemies->at(ec)., xOnMap, yOnMap))
+				return &(enemies->at(ec));
+
+		if (isSameLocation(key->, xOnMap, yOnMap))
+			return key;
+
+		if (isSameLocation(lock->, xOnMap, yOnMap))
+			return lock;
+
+		return NULL;
+	}
 
 	const int HStage::getX() { return x; }
 	const int HStage::getY() { return y; }

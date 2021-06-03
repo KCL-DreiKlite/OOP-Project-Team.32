@@ -3,14 +3,24 @@
 
 namespace game_framework {
 
+#ifndef _HSTAGE_H_
+#define _HSTAGE_H_
+
+
 #define MAX_AVAILABLE_MAP_WIDTH		20
 #define MAX_AVAILABLE_MAP_HEIGHT	20
 
-#define objectInMap(x, y)	map.at(y).at(x)
-#define getRandom(min, max)	 (rand() % (max-max+1)) + min
+#define OBJECT_MOVE_UP				'u'
+#define OBJECT_MOVE_DOWN			'd'
+#define OBJECT_MOVE_LEFT			'l'
+#define OBJECT_MOVE_RIGHT			'r'
+#define OBJECT_NOT_MOVING			'n'
 
-#ifndef _HSTAGE_H_
-#define _HSTAGE_H_
+
+#define getMapObjNum(x, y)			map.at(y).at(x)
+#define getRandom(min, max)			(rand() % (max-max+1)) + min
+
+#define isSameLocation(obj, x, y)	obj getXOnMap() == x && obj getYOnMap() == y
 
 	enum MapObject {
 		MAPOBJ_MAPEND = -1,
@@ -53,6 +63,8 @@ namespace game_framework {
 
 		const vector<vector<int>>* getMap();
 
+		HMapObject* getMapObject(int xOnMap, int yOnMap);
+
 		HStage* getNextStage();
 
 		HHero* getHero();
@@ -71,6 +83,9 @@ namespace game_framework {
 		// Load other objects' bitmaps.
 		void loadOtherBitmaps();
 
+		// Update dynamic map.
+		void updateDynamicMap();
+
 		// The background image of the stage.
 		CAnimation backgroundImage = CAnimation();
 
@@ -88,6 +103,9 @@ namespace game_framework {
 		// by adding the multiply of objectWidth and their location in map
 		// to the actual location of this stage in frame.
 		int objectWidth = 100;
+
+		// When the stage restarted, load this map.
+		vector<vector<int>> STAGE_MAP;
 
 		// The map of the stage. It's dynamic so object can directly move
 		// on this variable.
@@ -121,6 +139,7 @@ namespace game_framework {
 		bool hasLock;
 
 		CGameStateRun* mainState;
+
 	};
 
 #endif

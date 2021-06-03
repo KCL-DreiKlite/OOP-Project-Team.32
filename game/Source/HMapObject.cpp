@@ -55,4 +55,5 @@ namespace game_framework {
 
 	int HMapObject::getXOffset() { return xOffset; }
 	int HMapObject::getYOffset() { return yOffset; }
+
 }

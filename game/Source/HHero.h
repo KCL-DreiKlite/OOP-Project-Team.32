@@ -1,6 +1,10 @@
 #include "HMapObject.h"
 
 namespace game_framework {
+
+#ifndef _HHERO_H_
+#define _HHERO_H_
+
 #define HERO_MOVE_UP 'u'
 #define HERO_MOVE_DOWN 'd'
 #define HERO_MOVE_LEFT 'l'
@@ -10,9 +14,6 @@ namespace game_framework {
 #define HERO_FACING_LEFT	'l'
 #define HERO_FACING_RIGHT	'r'
 
-#ifndef _HHERO_H_
-#define _HHERO_H_
-
 	enum HeroMoveType {
 		HMT_NONE,
 		HMT_PLAINMOVE,
@@ -21,7 +22,9 @@ namespace game_framework {
 		HMT_KICKENEMY,
 		HMT_KILLENEMY,
 		HMT_PICKKEY,
-		HMT_UNLOCK
+		HMT_UNLOCK_WITHKEY,
+		HMT_UNLOCK_NOKEY,
+		HMT_MEETPRINCESS
 	};
 
 	class HHero : public HMapObject

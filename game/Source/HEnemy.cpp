@@ -108,4 +108,5 @@ namespace game_framework {
 		}
 	}
 
+	bool HEnemy::IsAlive() { return is_alive; }
 }

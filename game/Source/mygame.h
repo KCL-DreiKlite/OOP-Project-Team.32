@@ -59,7 +59,14 @@ namespace game_framework {
 
 	enum AUDIO_ID {				// 定義各種音效的編號
 		AUDIO_BGM,
-		AUDIO_CHARACTER_MOVE
+		AUDIO_CHARACTER_MOVE,
+		AUDIO_ROCK_KICKED,
+		AUDIO_ROCK_MOVED,
+		AUDIO_ENEMY_KICK,
+		AUDIO_ENEMY_KILL,
+		AUDIO_PICKKEY,
+		AUDIO_LOCK_WITHKEY,
+		AUDIO_LOCK_NOKEY
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

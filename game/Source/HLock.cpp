@@ -43,4 +43,5 @@ namespace game_framework {
 		}
 	}
 
+	bool HLock::IsAlive() { return is_alive; }
 }

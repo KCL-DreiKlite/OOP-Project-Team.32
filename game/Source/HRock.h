@@ -1,6 +1,10 @@
 #include "HMapObject.h"
 
 namespace game_framework {
+
+#ifndef _HROCK_H_
+#define _HROCK_H_
+
 #define ROCK_MOVE_UP	'u'
 #define ROCK_MOVE_DOWN	'd'
 #define ROCK_MOVE_LEFT	'l'
@@ -10,9 +14,6 @@ namespace game_framework {
 #define ROCK_BMP_0		0
 #define ROCK_BMP_1		1
 #define ROCK_BMP_2		2
-
-#ifndef _HROCK_H_
-#define _HROCK_H_
 
 	class HRock : public HMapObject {
 	public:
@@ -27,6 +28,7 @@ namespace game_framework {
 
 		void SetIsAlive(bool alive);    //¬O§_¬¡µÛ
 
+		bool IsAlive();
 	protected:
 		int whichRockImage;
 

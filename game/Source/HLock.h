@@ -14,6 +14,8 @@ namespace game_framework {
 		void OnShow() override;
 
 		void SetIsAlive(bool alive);    //¬O§_¬¡µÛ
+
+		bool IsAlive();
 	protected:
 
 		bool is_alive;

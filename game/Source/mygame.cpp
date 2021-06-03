@@ -296,26 +296,24 @@ void CGameStateRun::OnInit()  								// 嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭�及
 	// 嚙踝蕭嚙誕很多嚙褕，OnInit嚙踝蕭嚙皚嚙課佗蕭嚙踝蕭嚙誕要嚙踝蕭雃h嚙褕塚蕭嚙瘠嚙踝蕭嚙論免嚙踝蕭嚙瘠嚙踝蕭嚙踝蕭嚙瘡
 	//     嚙踝蕭嚙踝蕭嚙踝蕭嚙瑾嚙請，嚙瘠嚙踝蕭嚙罵嚙碼嚙緹嚙線Loading ...嚙緞嚙璀嚙踝蕭嚙盤oading嚙踝蕭嚙箠嚙論。
 	//
-	ShowInitProgress(33);	// 嚙踝蕭嚙諉前嚙瑾嚙諉迎蕭嚙璀嚙踝蕭嚙箠嚙論，嚙踝蕭嚙畿嚙箠嚙論蛛蕭嚙踝蕭33%
-	//
-	// 嚙罷嚙締嚙踝蕭嚙皚嚙踝蕭嚙�
-	//
-	//int i;
-	//for (i = 0; i < NUMBALLS; i++)	
-	//	ball[i].LoadBitmap();								// 嚙踝蕭嚙皚嚙踝蕭i嚙諉球嚙踝蕭嚙誕改蕭
-	//eraser.LoadBitmap();
-	//background.LoadBitmap(IDB_BACKGROUND);					// 嚙踝蕭嚙皚嚙瘢嚙踝蕭嚙踝蕭嚙誕改蕭
-	//
-	// 嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭Loading嚙褊作嚙璀嚙踝蕭嚙踝蕭嚙箠嚙踝蕭
-	//
-	ShowInitProgress(50);
-	Sleep(300); // 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
+	//ShowInitProgress(33);
+	//ShowInitProgress(50);
+	//Sleep(300); // 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
+
 	CAudio::Instance()->Load(AUDIO_BGM,  "sounds\\bgm1.mp3");	// 嚙踝蕭嚙皚嚙編嚙踝蕭2嚙踝蕭嚙緯嚙踝蕭ntut.mid
 	//
 	// 嚙踝蕭OnInit嚙褊作嚙罵嚙踝蕭嚙踝蕭CGameStaterOver::OnInit()嚙璀嚙課以嚙箠嚙踝蕭嚙誶沒嚙踝蕭100%
 	//
 	//gamemap.LoadBitMap(); //嚙窮嚙踝蕭
 	CAudio::Instance()->Load(AUDIO_CHARACTER_MOVE, ".\\sounds\\character_move_01.wav");
+	CAudio::Instance()->Load(AUDIO_ROCK_KICKED, ".\\sounds\\stone_kick_02.wav");
+	CAudio::Instance()->Load(AUDIO_ROCK_MOVED, ".\\sounds\\stone_move_01.wav");
+	CAudio::Instance()->Load(AUDIO_ENEMY_KICK, ".\\sounds\\enemy_kick_02.wav");
+	CAudio::Instance()->Load(AUDIO_ENEMY_KILL, ".\\sounds\\enemy_die_02.wav");
+	CAudio::Instance()->Load(AUDIO_PICKKEY, ".\\sounds\\key_pick_up_01.wav");
+	CAudio::Instance()->Load(AUDIO_LOCK_WITHKEY, ".\\sounds\\door_opening_01.wav");
+	CAudio::Instance()->Load(AUDIO_LOCK_NOKEY, ".\\sounds\\door_closed_kick_02.wav");
+
 	stg1.LoadBitmap();
 }
 

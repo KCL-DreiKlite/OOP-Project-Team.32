@@ -112,4 +112,5 @@ namespace game_framework {
 		}
 	}
 
+	bool HRock::IsAlive() { return is_alive; }
 }

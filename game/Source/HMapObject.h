@@ -34,6 +34,7 @@ namespace game_framework {
 	protected:
 		const int animation_tickPerFrame = 2;
 		CAnimation animation = CAnimation(animation_tickPerFrame);
+
 		int x, y;
 		int xOffset, yOffset;
 		int onMapX, onMapY;		// The coordinate on mapEdge
