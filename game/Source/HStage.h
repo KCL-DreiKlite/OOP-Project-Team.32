@@ -6,21 +6,23 @@ namespace game_framework {
 #define MAX_AVAILABLE_MAP_WIDTH		20
 #define MAX_AVAILABLE_MAP_HEIGHT	20
 
-#define MAPOBJ_MAPEND		-1
-#define MAPOBJ_EDGE			0
-#define MAPOBJ_MOVABLE		1
-#define MAPOBJ_HERO			2
-#define MAPOBJ_PRINCESS		3
-#define MAPOBJ_ROCK			4
-#define MAPOBJ_ENEMY		5
-#define MAPOBJ_KEY			6
-#define MAPOBJ_LOCK			7
-
 #define objectInMap(x, y)	map.at(y).at(x)
 #define getRandom(min, max)	 (rand() % (max-max+1)) + min
 
 #ifndef _HSTAGE_H_
 #define _HSTAGE_H_
+
+	enum MapObject {
+		MAPOBJ_MAPEND = -1,
+		MAPOBJ_EDGE,
+		MAPOBJ_MOVABLE,
+		MAPOBJ_HERO,
+		MAPOBJ_PRINCESS,
+		MAPOBJ_ROCK,
+		MAPOBJ_ENEMY,
+		MAPOBJ_KEY,
+		MAPOBJ_LOCK
+	};
 
 	class HStage {
 	public:

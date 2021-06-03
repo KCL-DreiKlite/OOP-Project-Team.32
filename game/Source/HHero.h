@@ -13,6 +13,17 @@ namespace game_framework {
 #ifndef _HHERO_H_
 #define _HHERO_H_
 
+	enum HeroMoveType {
+		HMT_NONE,
+		HMT_PLAINMOVE,
+		HMT_KICKROCK_MOVABLE,
+		HMT_KICKROCK_UNMOVABLE,
+		HMT_KICKENEMY,
+		HMT_KILLENEMY,
+		HMT_PICKKEY,
+		HMT_UNLOCK
+	};
+
 	class HHero : public HMapObject
 	{
 	public:

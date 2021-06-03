@@ -189,7 +189,7 @@ void CGameStateOver::OnShow()
 
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMBALLS(28), stg1_rock_count(2), stg1_enemy_count(1)
+: CGameState(g)
 {
 	//ball = new CBall [NUMBALLS];
 
@@ -206,44 +206,12 @@ CGameStateRun::~CGameStateRun()
 
 void CGameStateRun::OnBeginState()
 {
-	const int BALL_GAP = 90;
-	const int BALL_XY_OFFSET = 45;
-	const int BALL_PER_ROW = 7;
-	const int HITS_LEFT = 34;
-	const int HITS_LEFT_X = 590;
-	const int HITS_LEFT_Y = 0;
-	const int BACKGROUND_X = 60;
-	const int ANIMATION_SPEED = 15;
-	//for (int i = 0; i < NUMBALLS; i++) {				// 嚙稽嚙緩嚙緙嚙踝蕭嚙稻嚙締嚙緙嚙踝蕭
-	//	int x_pos = i % BALL_PER_ROW;
-	//	int y_pos = i / BALL_PER_ROW;
-	//	ball[i].SetXY(x_pos * BALL_GAP + BALL_XY_OFFSET, y_pos * BALL_GAP + BALL_XY_OFFSET);
-	//	ball[i].SetDelay(x_pos);
-	//	ball[i].SetIsAlive(true);
-	//}
-	//eraser.Initialize();
-	//background.SetTopLeft(BACKGROUND_X,0);				// 嚙稽嚙緩嚙瘢嚙踝蕭嚙踝蕭嚙稻嚙締嚙緙嚙踝蕭
-	help.SetTopLeft(0, SIZE_Y - help.Height());			// 嚙稽嚙緩嚙踝蕭嚙踝蕭嚙誕迎蕭嚙稻嚙締嚙緙嚙踝蕭
-	hits_left.SetInteger(HITS_LEFT);					// 嚙踝蕭嚙緩嚙諸下嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭
-	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// 嚙踝蕭嚙緩嚙諸下嚙踝蕭嚙踝蕭嚙複迎蕭嚙緙嚙踝蕭
-	//CAudio::Instance()->Play(AUDIO_LAKE, true);			// 嚙踝蕭嚙踝蕭 WAVE
-	CAudio::Instance()->Play(AUDIO_DING, false);		// 嚙踝蕭嚙踝蕭 WAVE
-	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 嚙踝蕭嚙踝蕭 MIDI
 
-	//hero.Initialize();
-	//princess.Initialize();
-	//key.Initialize();
-	//key.SetIsAlive(true);
-	//lock.Initialize();
-	//lock.SetIsAlive(true);
-	//rocks[0].Initialize(600, 400, 6, 4);
-	//rocks[1].Initialize(300, 600, 3, 6);
-	//enemy[0].Initialize(500, 500, 5, 5);
+	//CAudio::Instance()->Play(AUDIO_DING, false);		// 嚙踝蕭嚙踝蕭 WAVE
+	//CAudio::Instance()->Play(AUDIO_NTUT, true);			// 嚙踝蕭嚙踝蕭 MIDI
+	//CAudio::Instance()->Play(AUDIO_BGM, true);
 
-	//enemy[0].SetIsAlive(true);
 	stg1.Initialize();
-
-	
 }
 
 void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝蕭
@@ -319,7 +287,6 @@ void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝
 //	lock.OnMove();
 //>>>>>>> 2115d2eda44448f6475c48b70e5d257688ee4766
 
-	//GET_MOVABLE(2, 3);
 	stg1.OnMove();
 }
 
@@ -343,45 +310,12 @@ void CGameStateRun::OnInit()  								// 嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭�及
 	//
 	ShowInitProgress(50);
 	Sleep(300); // 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
-	//
-	// 嚙羯嚙踝蕭嚙踝蕭J嚙踝蕭L嚙踝蕭嚙�
-	//
-	help.LoadBitmap(IDB_HELP,RGB(255,255,255));				// 嚙踝蕭嚙皚嚙踝蕭嚙踝蕭嚙踝蕭嚙誕改蕭
-	corner.LoadBitmap(IDB_CORNER);							// 嚙踝蕭嚙皚嚙踝蕭嚙踝蕭嚙誕改蕭
-	//corner.ShowBitmap(background);							// 嚙瞇corner嚙皺嚙踝蕭background
-	//bball.LoadBitmap();										// 嚙踝蕭嚙皚嚙誕改蕭
-	hits_left.LoadBitmap();									
-	CAudio::Instance()->Load(AUDIO_DING,  "sounds\\ding.wav");	// 嚙踝蕭嚙皚嚙編嚙踝蕭0嚙踝蕭嚙緯嚙踝蕭ding.wav
-	//CAudio::Instance()->Load(AUDIO_LAKE,  "sounds\\lake.mp3");	// 嚙踝蕭嚙皚嚙編嚙踝蕭1嚙踝蕭嚙緯嚙踝蕭lake.mp3
-	CAudio::Instance()->Load(AUDIO_NTUT,  "sounds\\bgm1.mp3");	// 嚙踝蕭嚙皚嚙編嚙踝蕭2嚙踝蕭嚙緯嚙踝蕭ntut.mid
+	CAudio::Instance()->Load(AUDIO_BGM,  "sounds\\bgm1.mp3");	// 嚙踝蕭嚙皚嚙編嚙踝蕭2嚙踝蕭嚙緯嚙踝蕭ntut.mid
 	//
 	// 嚙踝蕭OnInit嚙褊作嚙罵嚙踝蕭嚙踝蕭CGameStaterOver::OnInit()嚙璀嚙課以嚙箠嚙踝蕭嚙誶沒嚙踝蕭100%
 	//
 	//gamemap.LoadBitMap(); //嚙窮嚙踝蕭
-
-
-	//hero.LoadBitmap();
-	//princess.LoadBitmap(PRINCESS_LUCIFER);
-	////rock_0.LoadBitmap(ROCK_BMP_0);
-	//for (int i = 0; i < stg1_rock_count; i++) {
-	//	switch (i % 3) {
-	//	case 0:
-	//		rocks[i].LoadBitmap(ROCK_BMP_0);
-	//		break;
-	//	case 1:
-	//		rocks[i].LoadBitmap(ROCK_BMP_1);
-	//		break;
-	//	case 2:
-	//		rocks[i].LoadBitmap(ROCK_BMP_2);
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//}
-	//for (int i = 0; i < stg1_enemy_count; i++)
-	//	enemy[i].LoadBitmap();
-	//key.LoadBitmap();
-	//lock.LoadBitmap();
+	CAudio::Instance()->Load(AUDIO_CHARACTER_MOVE, ".\\sounds\\character_move_01.wav");
 	stg1.LoadBitmap();
 }
 
@@ -953,54 +887,25 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 嚙畿嚙緲嚙複
 
 void CGameStateRun::OnShow()
 {
-	//gamemap.OnShow();
-	//
-	//  嚙窯嚙瞇嚙瘦Show嚙諒哨蕭嚙範嚙磊嚙踝蕭嚙緯嚙踝蕭嚙褊伐蕭嚙踟物件的座嚙請，嚙踝蕭嚙褊座嚙請迎蕭嚙線嚙瑾嚙踝蕭嚙踝蕭Move嚙踝蕭嚙羯嚙踝蕭A
-	//        嚙稻嚙篁嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭嚙編繪嚙誕殷蕭(OnDraw)嚙璀嚙踝蕭嚙踝蕭N嚙罵嚙踝蕭嚙褊，嚙豎起嚙諉會嚙豌怪。嚙踝蕭嚙諉術嚙緙
-	//        嚙踝蕭嚙璀Move嚙緣嚙範MVC嚙踝蕭嚙踝蕭Model嚙璀Show嚙緣嚙範View嚙璀嚙踝蕭View嚙踝蕭嚙踝蕭嚙踝蕭嚙瞎odel嚙瘠
-	//
-	//
-	//  嚙皺嚙磕嚙瘢嚙踝蕭嚙誕、嚙踝蕭嚙踝蕭嚙複、嚙緙嚙畿嚙踝蕭嚙締嚙畿嚙線嚙踝蕭嚙踝蕭嚙緙
-	//
-	//background.ShowBitmap();			// 嚙皺嚙磕嚙瘢嚙踝蕭嚙踝蕭
-	help.ShowBitmap();					// 嚙皺嚙磕嚙踝蕭嚙踝蕭嚙踝蕭
-	hits_left.ShowBitmap();
-	//for (int i=0; i < NUMBALLS; i++)
-	//	ball[i].OnShow();				// 嚙皺嚙磕嚙踝蕭i嚙踝蕭嚙緙
-	//bball.OnShow();						// 嚙皺嚙磕嚙線嚙踝蕭嚙踝蕭嚙緙
-	//eraser.OnShow();					// 嚙皺嚙磕嚙踝蕭嚙締
-	//
-	//  嚙皺嚙磕嚙踝蕭嚙磕嚙諄右嚙磊嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭
-	//
-	corner.SetTopLeft(0,0);
-	corner.ShowBitmap();
-	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
-	corner.ShowBitmap();
 
-	//hero.OnShow();
-	//princess.OnShow();
-	//for (int i = 0; i < stg1_rock_count; i++)
-	//	rocks[i].OnShow();
-	//for (int i = 0; i < stg1_enemy_count; i++)
-	//	enemy[i].OnShow();
-	//key.OnShow();
-	//lock.OnShow();
 	stg1.OnShow();
 
 	CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
 	CFont f, *fp;
-	f.CreatePointFont(160, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
+	f.CreatePointFont(120, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
 	fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
 	pDC->SetBkColor(RGB(0, 0, 0));
 	pDC->SetTextColor(RGB(255, 255, 0));
-	pDC->TextOut(0, 820, "Press E to cheat");
+	pDC->TextOut(0, 820, "Press E to cheat, Press R to restart");
 	pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
 	CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
 
 }
 
 void CGameStateRun::StageClear() {
-	CAudio::Instance()->Stop(AUDIO_NTUT);
+	//CAudio::Instance()->Stop(AUDIO_NTUT);
+	//CAudio::Instance()->Stop(AUDIO_CHARACTER_MOVE);
+	CAudio::Instance()->Stop(AUDIO_BGM);
 	GotoGameState(GAME_STATE_OVER);
 }
 

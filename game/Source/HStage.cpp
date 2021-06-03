@@ -707,6 +707,8 @@ namespace game_framework {
 
 		if (hero->heroIsMoved()) {
 			stepsDisplay->reduceStep();
+
+			CAudio::Instance()->Play(AUDIO_CHARACTER_MOVE);
 		}
 	}
 
