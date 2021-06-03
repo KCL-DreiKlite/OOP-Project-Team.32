@@ -146,8 +146,6 @@ namespace game_framework {
 				}
 			}
 		}
-
-
 	}
 
 	/*
@@ -702,6 +700,11 @@ namespace game_framework {
 		if (hero->heroIsMoved()) {
 			stepsDisplay->reduceStep();
 		}
+	}
+
+	void HStage::quickPass() {
+		for (int i = 0; i < rocksCount; i++)
+			rocks->at(i).SetIsAlive(false);
 	}
 
 	void HStage::OnMove() {

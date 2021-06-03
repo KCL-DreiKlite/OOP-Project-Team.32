@@ -25,6 +25,8 @@ namespace game_framework {
 
 		void SetMovingDirection(char direction);
 
+		void SetIsAlive(bool alive);    //是否活著
+
 	protected:
 		int whichRockImage;
 
@@ -34,7 +36,7 @@ namespace game_framework {
 		bool isMoving;
 		int stepCounter;
 		char movingDirection;
-
+		bool is_alive;				// 是否活著
 	};
 
 #endif

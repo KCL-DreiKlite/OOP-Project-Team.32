@@ -209,7 +209,7 @@ void CGameStateRun::OnBeginState()
 	const int BALL_GAP = 90;
 	const int BALL_XY_OFFSET = 45;
 	const int BALL_PER_ROW = 7;
-	const int HITS_LEFT = 20;
+	const int HITS_LEFT = 34;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
@@ -879,15 +879,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x26; // keyboard嚙磕嚙箭嚙磐
 	const char KEY_RIGHT = 0x27; // keyboard嚙糊嚙箭嚙磐
 	const char KEY_DOWN  = 0x28; // keyboard嚙磊嚙箭嚙磐
+
 	const char KEY_R = 82;
-	//if (nChar == KEY_LEFT)
-	//	eraser.SetMovingLeft(true);
-	//if (nChar == KEY_RIGHT)
-	//	eraser.SetMovingRight(true);
-	//if (nChar == KEY_UP)
-	//	eraser.SetMovingUp(true);
-	//if (nChar == KEY_DOWN)
-	//	eraser.SetMovingDown(true);
+
+	const char KEY_PASS = 0x45;
+
 	switch (nChar) {
 	case KEY_UP:
 		stg1.HeroWantToMove(HERO_MOVE_UP);
@@ -905,6 +901,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case KEY_R:
 		stg1.RestartStage();
+		break;
+	case KEY_PASS:
+		stg1.quickPass();
 		break;
 	default:
 		break;
@@ -987,6 +986,17 @@ void CGameStateRun::OnShow()
 	//key.OnShow();
 	//lock.OnShow();
 	stg1.OnShow();
+
+	CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
+	CFont f, *fp;
+	f.CreatePointFont(160, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
+	fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
+	pDC->SetBkColor(RGB(0, 0, 0));
+	pDC->SetTextColor(RGB(255, 255, 0));
+	pDC->TextOut(0, 820, "Press E to cheat");
+	pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
+	CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
+
 }
 
 void CGameStateRun::StageClear() {

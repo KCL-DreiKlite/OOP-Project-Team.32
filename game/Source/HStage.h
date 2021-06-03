@@ -49,6 +49,7 @@ namespace game_framework {
 		const int getY();
 
 		const vector<vector<int>>* getMap();
+		void quickPass();
 
 		//const int getWidth();
 		//const int getHeight();
