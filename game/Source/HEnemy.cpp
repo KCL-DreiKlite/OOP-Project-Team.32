@@ -13,8 +13,8 @@ namespace game_framework {
 		is_alive = true;
 	}
 
-	void HEnemy::Initialize(int onMapX, int onMapY, int objectWidth) {
-		HMapObject::Initialize(onMapX, onMapY, objectWidth);
+	void HEnemy::Initialize(int onMapX, int onMapY, int xOffset, int yOffset, int objectWidth) {
+		HMapObject::Initialize(onMapX, onMapY, xOffset, yOffset, objectWidth);
 
 		isMoving = false;
 		stepCounter = 0;

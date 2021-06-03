@@ -37,7 +37,9 @@ namespace game_framework {
 	void HStage_1::basicSetup() {
 		// Set the maximum move steps.
 		steps_left = MAX_MOVE_STEPS = STG1_MAX_MOVE_STEP;
-		//MAX_MOVE_STEPS;
+
+		// Set XY offset.
+		xOffset = 0;	yOffset = 0;
 
 		// Set StepsDisplay.
 		stepsDisplay = new HStepsDisplay(STG1_MAX_MOVE_STEP);
@@ -74,7 +76,7 @@ namespace game_framework {
 			}
 		}
 
-		// Initialize 'rocks' & 'enemies' objects.
+		// Initialize 'rocks' & 'enemies' vectors.
 		rocks = new vector<HRock>(rocksCount, HRock());
 		enemies = new vector<HEnemy>(enemiesCount, HEnemy());
 	}

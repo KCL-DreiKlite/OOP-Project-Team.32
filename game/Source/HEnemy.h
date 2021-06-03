@@ -15,7 +15,7 @@ namespace game_framework {
 	public:
 		HEnemy();
 
-		void Initialize(int xOnMap, int yOnMap, int objectWidth) override;				// 設定擦子為初始值
+		void Initialize(int onMapX, int onMapY, int xOffset = 0, int yOffset = 0, int objectWidth = 100) override;				// 設定擦子為初始值
 		void LoadBitmap() override;
 		void OnMove() override;
 		void OnShow() override;

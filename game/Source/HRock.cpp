@@ -13,8 +13,8 @@ namespace game_framework {
 		is_alive = true;
 	}
 
-	void HRock::Initialize(int xOnMap, int yOnMap, int objectWidth) {
-		HMapObject::Initialize(xOnMap, yOnMap, objectWidth);
+	void HRock::Initialize(int onMapX, int onMapY, int xOffset, int yOffset, int objectWidth) {
+		HMapObject::Initialize(onMapX, onMapY, xOffset, yOffset, objectWidth);
 
 		isMoving = false;
 		stepCounter = 0;

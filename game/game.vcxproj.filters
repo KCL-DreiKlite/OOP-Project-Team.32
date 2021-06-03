@@ -20,6 +20,18 @@
     <Filter Include="MyGame\HelltakerSrc\HelltakerStages">
       <UniqueIdentifier>{569c20d1-644c-493f-85ca-c29dd262588b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyGame\HelltakerSrc\MapObject">
+      <UniqueIdentifier>{0bbfc5d5-1986-42bf-a068-092905015344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\HelltakerSrc\OtherObject">
+      <UniqueIdentifier>{f8435872-ca0f-47e3-b589-4c22e75f75c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\HelltakerSrc\MapObject\Parent">
+      <UniqueIdentifier>{c0505197-243a-48db-a755-c77fa3e0ac61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\HelltakerSrc\HelltakerStages\Parent">
+      <UniqueIdentifier>{ea4a3dfe-7923-4fe6-835e-de1635d1629c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Res\ball.bmp">
@@ -135,35 +147,35 @@
     <ClCompile Include="Source\CBouncingBall.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\HHero.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HRock.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HPrincess.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HEnemy.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HStage.cpp">
-      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HKey.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\HLock.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClCompile>
     <ClCompile Include="Source\HStage_1.cpp">
       <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClCompile>
-    <ClCompile Include="Source\HMapObject.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
+    <ClCompile Include="Source\HEnemy.cpp">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HHero.cpp">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HKey.cpp">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HLock.cpp">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HPrincess.cpp">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HRock.cpp">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\HStepsDisplay.cpp">
-      <Filter>MyGame\HelltakerSrc</Filter>
+      <Filter>MyGame\HelltakerSrc\OtherObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HMapObject.cpp">
+      <Filter>MyGame\HelltakerSrc\MapObject\Parent</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HStage.cpp">
+      <Filter>MyGame\HelltakerSrc\HelltakerStages\Parent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -203,35 +215,35 @@
     <ClInclude Include="Source\CBouncingBall.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="Source\HHero.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HRock.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HPrincess.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HEnemy.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HStage.h">
-      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HKey.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HLock.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
-    </ClInclude>
     <ClInclude Include="Source\HStage_1.h">
       <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClInclude>
-    <ClInclude Include="Source\HMapObject.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
+    <ClInclude Include="Source\HRock.h">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HEnemy.h">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HHero.h">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HKey.h">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HLock.h">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HPrincess.h">
+      <Filter>MyGame\HelltakerSrc\MapObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\HStepsDisplay.h">
-      <Filter>MyGame\HelltakerSrc</Filter>
+      <Filter>MyGame\HelltakerSrc\OtherObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HMapObject.h">
+      <Filter>MyGame\HelltakerSrc\MapObject\Parent</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HStage.h">
+      <Filter>MyGame\HelltakerSrc\HelltakerStages\Parent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

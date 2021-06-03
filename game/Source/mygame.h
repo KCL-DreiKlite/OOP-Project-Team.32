@@ -87,16 +87,16 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 
 	//Map
-	class CGameMap {
-	public:
-		CGameMap();
-		void LoadBitMap();
-		void OnShow();
-	protected:
-		CMovingBitmap chapter9;
-		const int x, y;
-		const int mw, mh;
-	};
+	//class CGameMap {
+	//public:
+	//	CGameMap();
+	//	void LoadBitMap();
+	//	void OnShow();
+	//protected:
+	//	CMovingBitmap chapter9;
+	//	const int x, y;
+	//	const int mw, mh;
+	//};
 
 
 	class CGameStateRun : public CGameState {

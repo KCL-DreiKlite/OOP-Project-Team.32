@@ -127,24 +127,24 @@ namespace game_framework {
 				case MAPOBJ_MOVABLE:
 					continue;
 				case MAPOBJ_HERO:
-					hero->Initialize(x, y, objectWidth);
+					hero->Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				case MAPOBJ_PRINCESS:
-					princess->Initialize(x, y, objectWidth);
+					princess->Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				case MAPOBJ_ROCK:
-					rocks->at(rc++).Initialize(x, y, objectWidth);
+					rocks->at(rc++).Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				case MAPOBJ_ENEMY:
-					enemies->at(ec++).Initialize(x, y, objectWidth);
+					enemies->at(ec++).Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				case MAPOBJ_KEY:
 					if (hasLock)
-						key->Initialize(x, y, objectWidth);
+						key->Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				case MAPOBJ_LOCK:
 					if (hasLock)
-						lock->Initialize(x, y, objectWidth);
+						lock->Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				default:
 					break;

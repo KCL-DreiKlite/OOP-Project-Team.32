@@ -15,8 +15,8 @@ namespace game_framework {
 
 	}
 
-	void HLock::Initialize(int onMapX, int onMapY, int objectWidth) {
-		HMapObject::Initialize(onMapX, onMapY, objectWidth);
+	void HLock::Initialize(int onMapX, int onMapY, int xOffset, int yOffset, int objectWidth) {
+		HMapObject::Initialize(onMapX, onMapY, xOffset, yOffset, objectWidth);
 	}
 
 	void HLock::LoadBitmap() {

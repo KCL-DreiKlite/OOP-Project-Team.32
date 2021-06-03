@@ -1,6 +1,8 @@
 
 namespace game_framework {
 
+#define IMAGE_STAGE_1		".\\Bitmaps\\Chapter 9-1.bmp"
+
 	class HStage_1 : public HStage {
 	public:
 		HStage_1();

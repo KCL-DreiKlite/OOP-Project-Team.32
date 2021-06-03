@@ -16,8 +16,8 @@ namespace game_framework {
 
 	}
 
-	void HPrincess::Initialize(int onMapX, int onMapY, int objectWidth) {
-		HMapObject::Initialize(onMapX, onMapY, objectWidth);
+	void HPrincess::Initialize(int onMapX, int onMapY, int xOffset, int yOffset, int objectWidth) {
+		HMapObject::Initialize(onMapX, onMapY, xOffset, yOffset, objectWidth);
 	}
 
 	void HPrincess::LoadBitmap(int whichPrincess) {

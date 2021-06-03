@@ -16,8 +16,8 @@ namespace game_framework {
 
 	}
 
-	void HKey::Initialize(int onMapX, int onMapY, int objectWidth) {
-		HMapObject::Initialize(onMapX, onMapY, objectWidth);
+	void HKey::Initialize(int onMapX, int onMapY, int xOffset, int yOffset, int objectWidth) {
+		HMapObject::Initialize(onMapX, onMapY, xOffset, yOffset, objectWidth);
 	}
 
 	void HKey::LoadBitmap() {

@@ -17,7 +17,7 @@ namespace game_framework {
 	{
 	public:
 		HHero();
-		void Initialize(int onMapX, int onMapY, int objectWidth) override;				// 設定擦子為初始值
+		void Initialize(int onMapX, int onMapY, int xOffset = 0, int yOffset = 0, int objectWidth = 100) override;				// 設定擦子為初始值
 		void LoadBitmap() override;				// 載入圖形
 		void OnMove() override;					// 移動擦子
 		void OnShow() override;					// 將擦子圖形貼到畫面

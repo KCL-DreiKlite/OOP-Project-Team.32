@@ -1004,16 +1004,16 @@ void CGameStateRun::StageClear() {
 	GotoGameState(GAME_STATE_OVER);
 }
 
-CGameMap::CGameMap() :x(0), y(0), mh(400), mw(400) {
-
-}
-
-void CGameMap::LoadBitMap() {
-	//chapter9.LoadBitmap(IDB_MAP);
-}
-void CGameMap::OnShow() {
-	//chapter9.SetTopLeft(x, y);
-	//chapter9.ShowBitmap();
-}
-
+//CGameMap::CGameMap() :x(0), y(0), mh(400), mw(400) {
+//
+//}
+//
+//void CGameMap::LoadBitMap() {
+//	//chapter9.LoadBitmap(IDB_MAP);
+//}
+//void CGameMap::OnShow() {
+//	//chapter9.SetTopLeft(x, y);
+//	//chapter9.ShowBitmap();
+//}
+//
 }

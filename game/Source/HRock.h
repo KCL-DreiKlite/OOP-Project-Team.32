@@ -18,7 +18,7 @@ namespace game_framework {
 	public:
 		HRock();
 
-		void Initialize(int xOnMap, int yOnMap, int objectWidth) override;				// 設定擦子為初始值
+		void Initialize(int onMapX, int onMapY, int xOffset = 0, int yOffset = 0, int objectWidth = 100) override;				// 設定擦子為初始值
 		void LoadBitmap(int whichRockImage);
 		void OnMove() override;
 		void OnShow() override;

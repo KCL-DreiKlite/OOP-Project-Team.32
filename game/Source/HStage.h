@@ -2,6 +2,7 @@
 #include "HStepsDisplay.h"
 
 namespace game_framework {
+
 #define MAX_AVAILABLE_MAP_WIDTH		20
 #define MAX_AVAILABLE_MAP_HEIGHT	20
 
@@ -14,8 +15,6 @@ namespace game_framework {
 #define MAPOBJ_ENEMY		5
 #define MAPOBJ_KEY			6
 #define MAPOBJ_LOCK			7
-
-#define IMAGE_STAGE_1		".\\Bitmaps\\Chapter 9-1.bmp"
 
 #define objectInMap(x, y)	map.at(y).at(x)
 #define getRandom(min, max)	 (rand() % (max-max+1)) + min
@@ -40,6 +39,8 @@ namespace game_framework {
 
 		void HeroWantToMove(char direction);
 
+		void quickPass();
+
 		void setXY(int nx, int ny);
 
 		const int findObjectsX(int xInMap);
@@ -49,10 +50,8 @@ namespace game_framework {
 		const int getY();
 
 		const vector<vector<int>>* getMap();
-		void quickPass();
 
-		//const int getWidth();
-		//const int getHeight();
+		HStage* getNextStage();
 
 		HHero* getHero();
 		HPrincess* getPrincess();
@@ -76,6 +75,12 @@ namespace game_framework {
 		// The location in frame.
 		int x, y;
 
+		// Determine that when any map object's setXYOnMap() called, these
+		// values should added on their coordinate.
+		// This will be needed by some stage which their maps' height and
+		// width cannot be devided by 100.
+		int xOffset, yOffset;
+
 		// The width of every object. Every object in the map should be
 		// square, and their actual location in frame should be calculated
 		// by adding the multiply of objectWidth and their location in map
@@ -93,6 +98,9 @@ namespace game_framework {
 		int MAX_MOVE_STEPS;
 		// How many steps hero can move last.
 		int steps_left;
+
+		// Next stage. When stage clear, jump to this stage.
+		HStage* nextStage;
 
 		HStepsDisplay* stepsDisplay;
 

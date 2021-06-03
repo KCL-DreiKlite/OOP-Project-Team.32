@@ -12,8 +12,8 @@ namespace game_framework {
 	HHero::HHero() {
 		
 	}
-	void HHero::Initialize(int onMapX, int onMapY, int objectWidth) {
-		HMapObject::Initialize(onMapX, onMapY, objectWidth);
+	void HHero::Initialize(int onMapX, int onMapY, int xOffset, int yOffset, int objectWidth) {
+		HMapObject::Initialize(onMapX, onMapY, xOffset, yOffset, objectWidth);
 
 		isMoving = false;
 		stepCounter = 0;
