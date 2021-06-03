@@ -877,6 +877,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x26; // keyboard嚙磕嚙箭嚙磐
 	const char KEY_RIGHT = 0x27; // keyboard嚙糊嚙箭嚙磐
 	const char KEY_DOWN  = 0x28; // keyboard嚙磊嚙箭嚙磐
+	const char KEY_R = 82;
 	//if (nChar == KEY_LEFT)
 	//	eraser.SetMovingLeft(true);
 	//if (nChar == KEY_RIGHT)
@@ -899,6 +900,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	case KEY_RIGHT:
 		stg1.HeroWantToMove(HERO_MOVE_RIGHT);
 		stg1.getHero()->SetHeroDirectionBitmap(HERO_FACING_RIGHT);
+		break;
+	case KEY_R:
+		stg1.RestartStage();
 		break;
 	default:
 		break;

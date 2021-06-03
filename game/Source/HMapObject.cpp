@@ -21,7 +21,6 @@ namespace game_framework {
 	void HMapObject::OnMove() {}
 	void HMapObject::OnShow() {}
 
-
 	void HMapObject::setXY(int nx, int ny) {
 		this->x = nx;
 		this->y = ny;
@@ -30,6 +29,8 @@ namespace game_framework {
 	void HMapObject::setXYOnMap(int nx, int ny) {
 		this->onMapX = nx;
 		this->onMapY = ny;
+		this->x = onMapX * objectWidth;
+		this->y = onMapY * objectWidth;
 	}
 	
 	int HMapObject::getX1() { return x; }

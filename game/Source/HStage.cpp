@@ -68,30 +68,33 @@ namespace game_framework {
 				case MAPOBJ_MOVABLE:
 					continue;
 				case MAPOBJ_HERO:
-					
+					hero->setXYOnMap(x, y);
+					hero->SetHeroDirectionBitmap(HERO_FACING_RIGHT);
 					break;
 				case MAPOBJ_PRINCESS:
-					princess->Initialize(x, y, objectWidth);
+					princess->setXYOnMap(x, y);
 					break;
 				case MAPOBJ_ROCK:
-					rocks->at(rc++).Initialize(x, y, objectWidth);
+					rocks->at(rc++).setXYOnMap(x, y);
 					break;
 				case MAPOBJ_ENEMY:
-					enemies->at(ec++).Initialize(x, y, objectWidth);
+					enemies->at(ec++).setXYOnMap(x, y);
 					break;
 				case MAPOBJ_KEY:
 					if (hasLock)
-						key->Initialize(x, y, objectWidth);
+						key->setXYOnMap(x, y);
 					break;
 				case MAPOBJ_LOCK:
 					if (hasLock)
-						lock->Initialize(x, y, objectWidth);
+						lock->setXYOnMap(x, y);
 					break;
 				default:
 					break;
 				}
 			}
 		}
+
+		
 	}
 
 	/*
