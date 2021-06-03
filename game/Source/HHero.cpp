@@ -154,7 +154,7 @@ namespace game_framework {
 		heroMoved = false;
 	}
 
-	bool HHero::CostSteps() {
+	bool HHero::heroIsMoved() {
 		return heroMoved;
 	}
 

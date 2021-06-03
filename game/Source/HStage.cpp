@@ -10,6 +10,8 @@
 #include <vector>
 #include <stdlib.h>
 
+#include "HStepsDisplay.h"
+
 #include "HHero.h"
 #include "HPrincess.h"
 #include "HRock.h"
@@ -48,6 +50,9 @@ namespace game_framework {
 	void HStage::RestartStage() {
 		// Reset current move steps.
 		steps_left = MAX_MOVE_STEPS;
+
+		// Reset steps display.
+		stepsDisplay->resetCurrentSteps();
 
 		// Reset key & lock's alive status.
 		if (hasLock) {
@@ -104,35 +109,11 @@ namespace game_framework {
 	void HStage::Initialize(vector<vector<int>> init_map) {
 		map = init_map;
 
-		//// Find the end of the map
-		//for (int i = 0; i < MAX_AVAILABLE_MAP_WIDTH; i++)
-		//	if (objectInMap(i, 0) == MAPOBJ_MAPEND) {
-		//		map_width = i;
-		//		break;
-		//	}
-		//for (int i = 0; i < MAX_AVAILABLE_MAP_HEIGHT; i++)
-		//	if (objectInMap(0, i) == MAPOBJ_MAPEND) {
-		//		map_height = i;
-		//		break;
-		//	}
-
-
-		//// Find out how many rocks and enemies in map
-		//for (int x = 0; x < map_width; x++) {
-		//	for (int y = 0; y < map_height; y++) {
-		//		if (objectInMap(x, y) == MAPOBJ_ROCK) {
-		//			rocksCount++;
-		//		}
-		//		else if (objectInMap(x, y) == MAPOBJ_ENEMY) {
-		//			enemiesCount++;
-		//		}
-		//	}
-		//}
+		// Initialize StepsDisplay.
+		stepsDisplay->Initialize(0, 0);
 
 		// Call each object's Initialize()
 		int rc = 0, ec = 0;
-		//rocks = new vector<HRock*>(rocksCount, new HRock());
-		//enemies = new vector<HEnemy*>(enemiesCount, new HEnemy());
 		for (int x = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
 				switch (objectInMap(x, y)) {
@@ -165,6 +146,8 @@ namespace game_framework {
 				}
 			}
 		}
+
+
 	}
 
 	/*
@@ -180,6 +163,9 @@ namespace game_framework {
 	}
 
 	void HStage::loadOtherBitmaps() {
+		// Load stepsDisplay's beginning bitmap
+		stepsDisplay->LoadBitmap();
+
 		// Load hero's bitmap
 		hero->LoadBitmap();
 
@@ -205,6 +191,8 @@ namespace game_framework {
 		backgroundImage.SetTopLeft(0, 0);
 		backgroundImage.OnShow();
 
+		stepsDisplay->OnShow();
+
 		hero->OnShow();
 		princess->OnShow();
 		for (int r = 0; r < rocksCount; r++)
@@ -224,6 +212,11 @@ namespace game_framework {
 		const int hx = hero->getXOnMap(), hy = hero->getYOnMap();
 		const int kx = key->getXOnMap(), ky = key->getYOnMap();
 		const int lx = lock->getXOnMap(), ly = lock->getYOnMap();
+
+		if (stepsDisplay->getCurrentSteps() <= 0) {
+			RestartStage();
+			return;
+		}
 
 		// 4 steps to move hero:
 		// 1. Check if hero want to crash the edge
@@ -706,10 +699,16 @@ namespace game_framework {
 
 		}
 
+		if (hero->heroIsMoved()) {
+			stepsDisplay->reduceStep();
+		}
 	}
 
 	void HStage::OnMove() {
 		backgroundImage.OnMove();
+
+		stepsDisplay->OnMove();
+
 		hero->OnMove();
 		princess->OnMove();
 		for (int i = 0; i < rocksCount; i++)
@@ -740,5 +739,7 @@ namespace game_framework {
 	HPrincess* HStage::getPrincess() { return princess; }
 	vector<HRock>* HStage::getRocks() { return rocks; }
 	vector<HEnemy>* HStage::getEnemies() { return enemies; }
+	HKey* HStage::getKey() { return key; }
+	HLock* HStage::getLock() { return lock; }
 
 }

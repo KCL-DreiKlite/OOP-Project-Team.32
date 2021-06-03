@@ -1,4 +1,6 @@
 
+#include "HStepsDisplay.h"
+
 namespace game_framework {
 #define MAX_AVAILABLE_MAP_WIDTH		20
 #define MAX_AVAILABLE_MAP_HEIGHT	20
@@ -91,6 +93,7 @@ namespace game_framework {
 		// How many steps hero can move last.
 		int steps_left;
 
+		HStepsDisplay* stepsDisplay;
 
 		HHero* hero = new HHero();
 		HPrincess* princess = new HPrincess();

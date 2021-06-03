@@ -8,6 +8,8 @@
 #include <vector>
 #include <stdlib.h>
 
+#include "HStepsDisplay.h"
+
 #include "HHero.h"
 #include "HPrincess.h"
 #include "HRock.h"
@@ -34,8 +36,11 @@ namespace game_framework {
 
 	void HStage_1::basicSetup() {
 		// Set the maximum move steps.
-		MAX_MOVE_STEPS = STG1_MAX_MOVE_STEP;
-		steps_left = MAX_MOVE_STEPS;
+		steps_left = MAX_MOVE_STEPS = STG1_MAX_MOVE_STEP;
+		//MAX_MOVE_STEPS;
+
+		// Set StepsDisplay.
+		stepsDisplay = new HStepsDisplay(STG1_MAX_MOVE_STEP);
 
 		// Copy the whole map data to father class' 'map' object.
 		for (int y = 0; y < 9; y++)

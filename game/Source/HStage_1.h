@@ -27,7 +27,7 @@ namespace game_framework {
 		void loadMyBitmap() override;
 
 		// The maximum steps of stage 1.
-		const int STG1_MAX_MOVE_STEP = 23;
+		const int STG1_MAX_MOVE_STEP = 33;
 
 	};
 }

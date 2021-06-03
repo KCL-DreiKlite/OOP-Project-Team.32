@@ -242,6 +242,8 @@ void CGameStateRun::OnBeginState()
 
 	//enemy[0].SetIsAlive(true);
 	stg1.Initialize();
+
+	
 }
 
 void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝蕭
@@ -894,12 +896,12 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		stg1.HeroWantToMove(HERO_MOVE_DOWN);
 		break;
 	case KEY_LEFT:
-		stg1.HeroWantToMove(HERO_MOVE_LEFT);
 		stg1.getHero()->SetHeroDirectionBitmap(HERO_FACING_LEFT);
+		stg1.HeroWantToMove(HERO_MOVE_LEFT);
 		break;
 	case KEY_RIGHT:
-		stg1.HeroWantToMove(HERO_MOVE_RIGHT);
 		stg1.getHero()->SetHeroDirectionBitmap(HERO_FACING_RIGHT);
+		stg1.HeroWantToMove(HERO_MOVE_RIGHT);
 		break;
 	case KEY_R:
 		stg1.RestartStage();

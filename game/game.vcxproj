@@ -284,6 +284,7 @@
     <ClCompile Include="Source\HPrincess.cpp" />
     <ClCompile Include="Source\HRock.cpp" />
     <ClCompile Include="Source\HStage.cpp" />
+    <ClCompile Include="Source\HStepsDisplay.cpp" />
     <ClCompile Include="Source\MainFrm.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -327,6 +328,7 @@
     <ClInclude Include="Source\HPrincess.h" />
     <ClInclude Include="Source\HRock.h" />
     <ClInclude Include="Source\HStage.h" />
+    <ClInclude Include="Source\HStepsDisplay.h" />
     <ClInclude Include="Source\MainFrm.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\HStage_1.h" />

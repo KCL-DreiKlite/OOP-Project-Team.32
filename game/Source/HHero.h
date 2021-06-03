@@ -27,7 +27,7 @@ namespace game_framework {
 		void HeroAttacking();
 		void SetHeroMoved();
 		void SetHeroStopped();
-		bool CostSteps();  //hero是否移動
+		bool heroIsMoved();  //hero是否移動
 
 	protected:
 		const int stepPerTick = 50;
