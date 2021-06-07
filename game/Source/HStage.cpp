@@ -33,6 +33,12 @@ namespace game_framework {
 		basicSetup();
 	}
 
+	HStage::HStage(CGameStateStage_2* mainState2) {
+		this->mainState2 = mainState2;
+
+		basicSetup();
+	}
+
 	void HStage::basicSetup() {
 		map.assign(MAX_AVAILABLE_MAP_HEIGHT, vector<int>(MAX_AVAILABLE_MAP_WIDTH, MAPOBJ_MAPEND));
 	}
@@ -89,12 +95,12 @@ namespace game_framework {
 					enemies->at(ec++).setXYOnMap(x, y);
 					break;
 				case MAPOBJ_KEY:
-					if (hasLock)
-						key->setXYOnMap(x, y);
+					key->setXYOnMap(x, y);
+					//hasLock = true;
 					break;
 				case MAPOBJ_LOCK:
-					if (hasLock)
-						lock->setXYOnMap(x, y);
+					lock->setXYOnMap(x, y);
+					//hasLock = true;
 					break;
 				default:
 					break;
@@ -146,12 +152,12 @@ namespace game_framework {
 					enemies->at(ec++).Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				case MAPOBJ_KEY:
-					if (hasLock)
-						key->Initialize(x, y, xOffset, yOffset, objectWidth);
+					key->Initialize(x, y, xOffset, yOffset, objectWidth);
+					//hasLock = true;
 					break;
 				case MAPOBJ_LOCK:
-					if (hasLock)
-						lock->Initialize(x, y, xOffset, yOffset, objectWidth);
+					lock->Initialize(x, y, xOffset, yOffset, objectWidth);
+					//hasLock = true;
 					break;
 				default:
 					break;
@@ -194,9 +200,20 @@ namespace game_framework {
 			enemies->at(e).LoadBitmap();
 
 		// Load lock and key's bitmap
-		if (hasLock) {
-			key->LoadBitmap();
-			lock->LoadBitmap();
+		//if (hasLock) {
+		//	key->LoadBitmap();
+		//	lock->LoadBitmap();
+		//}
+
+		for (int x = 0; x < map_width; x++) {
+			for (int y = 0; y < map_height; y++) {
+				if (getMapObjNum(x, y) == MAPOBJ_KEY) {
+					key->LoadBitmap();
+				}
+				else if (getMapObjNum(x, y) == MAPOBJ_LOCK) {
+					lock->LoadBitmap();
+				}
+			}
 		}
 	}
 
@@ -212,9 +229,19 @@ namespace game_framework {
 			rocks->at(r).OnShow();
 		for (int e = 0; e < enemiesCount; e++)
 			enemies->at(e).OnShow();
-		if (hasLock) {
-			key->OnShow();
-			lock->OnShow();
+		//if (hasLock) {
+		//	key->OnShow();
+		//	lock->OnShow();
+		//}
+		for (int x = 0; x < map_width; x++) {
+			for (int y = 0; y < map_height; y++) {
+				if (getMapObjNum(x, y) == MAPOBJ_KEY) {
+					key->OnShow();
+				}
+				else if (getMapObjNum(x, y) == MAPOBJ_LOCK) {
+					lock->OnShow();
+				}
+			}
 		}
 
 	}
@@ -261,7 +288,7 @@ namespace game_framework {
 				hmt = HMT_KICKROCK_MOVABLE;
 			}
 			else {
-				hmt = HMT_KICKROCK_UNMOVABLE;
+				hmt = HMT_NONE; //HMT_KICKROCK_UNMOVABLE;
 			}
 		}
 		else if (thingOnTheWay == MAPOBJ_ENEMY) {
@@ -291,6 +318,10 @@ namespace game_framework {
 		}
 		else if (thingOnTheWay == MAPOBJ_PRINCESS) {
 			mainState->StageClear();
+			hmt = HMT_MEETPRINCESS;
+		}
+		else if (false/*thingOnTheWay == MAPOBJ_PRINCESS*/) {
+			mainState2->StageClear();
 			hmt = HMT_MEETPRINCESS;
 		}
 		else {}
@@ -363,15 +394,23 @@ namespace game_framework {
 			else
 				getMapObjNum(enemies->at(ec).getXOnMap(), enemies->at(ec).getYOnMap()) = MAPOBJ_MOVABLE;
 		}
-		if (key->IsAlive())
-			getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_KEY;
-		else
-			getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_MOVABLE;
 
-		if (lock->IsAlive())
-			getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_LOCK;
-		else
-			getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_MOVABLE;
+		//here need to be revised
+		for (int x = 0; x < map_width; x++) {
+			for (int y = 0; y < map_height; y++) {
+				if (getMapObjNum(x, y) == MAPOBJ_KEY || getMapObjNum(x, y) == MAPOBJ_LOCK) {
+					if (key->IsAlive())
+						getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_KEY;
+					else
+						getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_MOVABLE;
+
+					if (lock->IsAlive())
+						getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_LOCK;
+					else
+						getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_MOVABLE;
+				}
+			}
+		}
 
 		// And finally, remember those whatever it is stuff? Right,
 		// now replace them to MOVABLE.
@@ -394,9 +433,14 @@ namespace game_framework {
 			rocks->at(i).OnMove();
 		for (int i = 0; i < enemiesCount; i++)
 			enemies->at(i).OnMove();
-		key->OnMove();
-		lock->OnMove();
-
+		for (int x = 0; x < map_width; x++) {
+			for (int y = 0; y < map_height; y++) {
+				if (getMapObjNum(x, y) == MAPOBJ_KEY || getMapObjNum(x, y) == MAPOBJ_LOCK) {
+					key->OnMove();
+					lock->OnMove();
+				}
+			}
+		}
 		updateDynamicMap();
 	}
 

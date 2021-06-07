@@ -177,6 +177,9 @@
     <ClCompile Include="Source\HStage.cpp">
       <Filter>MyGame\HelltakerSrc\HelltakerStages\Parent</Filter>
     </ClCompile>
+    <ClCompile Include="Source\HStage_2.cpp">
+      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="Source\HStage.h">
       <Filter>MyGame\HelltakerSrc\HelltakerStages\Parent</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HStage_2.h">
+      <Filter>MyGame\HelltakerSrc\HelltakerStages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
