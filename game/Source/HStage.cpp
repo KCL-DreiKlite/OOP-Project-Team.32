@@ -146,12 +146,12 @@ namespace game_framework {
 					enemies->at(ec++).Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				case MAPOBJ_KEY:
-					if (hasLock)
-						key->Initialize(x, y, xOffset, yOffset, objectWidth);
+					key->Initialize(x, y, xOffset, yOffset, objectWidth);
+					hasLock = true;
 					break;
 				case MAPOBJ_LOCK:
-					if (hasLock)
-						lock->Initialize(x, y, xOffset, yOffset, objectWidth);
+					lock->Initialize(x, y, xOffset, yOffset, objectWidth);
+					hasLock = true;
 					break;
 				default:
 					break;

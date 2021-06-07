@@ -136,7 +136,7 @@ namespace game_framework {
 		int rocksCount = 0;
 		int enemiesCount = 0;
 
-		bool hasLock;
+		bool hasLock = false;
 
 		CGameStateRun* mainState;
 
