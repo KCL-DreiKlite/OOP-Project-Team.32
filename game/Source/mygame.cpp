@@ -142,8 +142,8 @@ namespace game_framework {
 	void CGameStateOver::OnMove()
 	{
 		counter--;
-		//if (counter < 0)
-		//	GotoGameState(GAME_STATE_STAGE_2);
+		if (counter < 0)
+			GotoGameState(GAME_STATE_INIT);
 	}
 
 	void CGameStateOver::OnBeginState()
@@ -177,7 +177,7 @@ namespace game_framework {
 		pDC->SetBkColor(RGB(0, 0, 0));
 		pDC->SetTextColor(RGB(255, 255, 0));
 		char str[80];								// Demo 嚙複字嚙踝蕭r嚙赭的嚙賞換
-		sprintf(str, "Stage 1 Clear. Go to Stage 2 in (%d)", counter / 30);
+		sprintf(str, "Game over!(%d)", counter / 30);
 		pDC->TextOut(240, 210, str);
 		pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
 		CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
@@ -341,30 +341,37 @@ namespace game_framework {
 		const char KEY_RIGHT = 0x27; // keyboard嚙糊嚙箭嚙磐
 		const char KEY_DOWN = 0x28; // keyboard嚙磊嚙箭嚙磐
 
-		const char KEY_R = 82;
+		const char KEY_W = 0x57;
+		const char KEY_A = 0x41;
+		const char KEY_D = 0x44;
+		const char KEY_S = 0x53;
+		
 
-		const char KEY_PASS = 0x45;
+		const char KEY_E = 0x45;
+		const char KEY_R = 0x52;
+
+
 
 		if (currentStage == STAGE_1) {
 			switch (nChar) {
-			case KEY_UP:
+			case KEY_UP:	case KEY_W:
 				stg1.HeroWantToMove(HERO_MOVE_UP);
 				break;
-			case KEY_DOWN:
+			case KEY_DOWN:	case KEY_S:
 				stg1.HeroWantToMove(HERO_MOVE_DOWN);
 				break;
-			case KEY_LEFT:
+			case KEY_LEFT:	case KEY_A:
 				stg1.getHero()->SetHeroDirectionBitmap(HERO_FACING_LEFT);
 				stg1.HeroWantToMove(HERO_MOVE_LEFT);
 				break;
-			case KEY_RIGHT:
+			case KEY_RIGHT:	case KEY_D:
 				stg1.getHero()->SetHeroDirectionBitmap(HERO_FACING_RIGHT);
 				stg1.HeroWantToMove(HERO_MOVE_RIGHT);
 				break;
 			case KEY_R:
 				stg1.RestartStage();
 				break;
-			case KEY_PASS:
+			case KEY_E:
 				stg1.quickPass();
 				break;
 			default:
@@ -374,24 +381,24 @@ namespace game_framework {
 		}
 		else if (currentStage == STAGE_2) {
 			switch (nChar) {
-			case KEY_UP:
+			case KEY_UP:	case KEY_W:
 				stg2.HeroWantToMove(HERO_MOVE_UP);
 				break;
-			case KEY_DOWN:
+			case KEY_DOWN:	case KEY_S:
 				stg2.HeroWantToMove(HERO_MOVE_DOWN);
 				break;
-			case KEY_LEFT:
+			case KEY_LEFT:	case KEY_A:
 				stg2.getHero()->SetHeroDirectionBitmap(HERO_FACING_LEFT);
 				stg2.HeroWantToMove(HERO_MOVE_LEFT);
 				break;
-			case KEY_RIGHT:
+			case KEY_RIGHT:	case KEY_D:
 				stg2.getHero()->SetHeroDirectionBitmap(HERO_FACING_RIGHT);
 				stg2.HeroWantToMove(HERO_MOVE_RIGHT);
 				break;
 			case KEY_R:
 				stg2.RestartStage();
 				break;
-			case KEY_PASS:
+			case KEY_E:
 				stg2.quickPass();
 				break;
 			default:
@@ -401,24 +408,24 @@ namespace game_framework {
 		}
 		else if (currentStage == STAGE_3) {
 			switch (nChar) {
-			case KEY_UP:
+			case KEY_UP:	case KEY_W:
 				stg3.HeroWantToMove(HERO_MOVE_UP);
 				break;
-			case KEY_DOWN:
+			case KEY_DOWN:	case KEY_S:
 				stg3.HeroWantToMove(HERO_MOVE_DOWN);
 				break;
-			case KEY_LEFT:
+			case KEY_LEFT:	case KEY_A:
 				stg3.getHero()->SetHeroDirectionBitmap(HERO_FACING_LEFT);
 				stg3.HeroWantToMove(HERO_MOVE_LEFT);
 				break;
-			case KEY_RIGHT:
+			case KEY_RIGHT:	case KEY_D:
 				stg3.getHero()->SetHeroDirectionBitmap(HERO_FACING_RIGHT);
 				stg3.HeroWantToMove(HERO_MOVE_RIGHT);
 				break;
 			case KEY_R:
 				stg3.RestartStage();
 				break;
-			case KEY_PASS:
+			case KEY_E:
 				stg3.quickPass();
 				break;
 			default:
@@ -498,7 +505,10 @@ namespace game_framework {
 	}
 
 	void CGameStateRun::GotoNextStage() {
-		currentStage++;
+		if (++currentStage == STAGE_OVER) {
+			GotoGameState(GAME_STATE_OVER);
+		}
+		
 	}
 
 	void CGameStateRun::StageClear() {

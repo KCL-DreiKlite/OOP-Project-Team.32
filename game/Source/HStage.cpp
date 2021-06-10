@@ -264,7 +264,7 @@ namespace game_framework {
 				hmt = HMT_KICKROCK_MOVABLE;
 			}
 			else {
-				hmt = HMT_NONE; //HMT_KICKROCK_UNMOVABLE;
+				hmt = HMT_KICKROCK_UNMOVABLE;
 			}
 		}
 		else if (thingOnTheWay == MAPOBJ_ENEMY) {

@@ -41,7 +41,7 @@ namespace game_framework {
 		steps_left = MAX_MOVE_STEPS = STG1_MAX_MOVE_STEP;
 
 		// Set XY offset.
-		xOffset = 0;	yOffset = 0;
+		xOffset = 245;	yOffset = 42;
 
 		// Set StepsDisplay.
 		stepsDisplay = new HStepsDisplay(STG1_MAX_MOVE_STEP);
