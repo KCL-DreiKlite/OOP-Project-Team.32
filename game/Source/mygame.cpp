@@ -143,12 +143,12 @@ void CGameStateOver::OnMove()
 {
 	counter--;
 	if (counter < 0)
-		GotoGameState(GAME_STATE_INIT);
+		GotoGameState(GAME_STATE_STAGE_2);
 }
 
 void CGameStateOver::OnBeginState()
 {
-	counter = 30 * 5; // 5 seconds
+	counter = 30 * 3; // 5 seconds
 }
 
 void CGameStateOver::OnInit()
@@ -177,7 +177,7 @@ void CGameStateOver::OnShow()
 	pDC->SetBkColor(RGB(0,0,0));
 	pDC->SetTextColor(RGB(255,255,0));
 	char str[80];								// Demo 嚙複字嚙踝蕭r嚙赭的嚙賞換
-	sprintf(str, "Game Over ! (%d)", counter / 30);
+	sprintf(str, "Stage 1 Clear. Go to Stage 2 in (%d)", counter / 30);
 	pDC->TextOut(240,210,str);
 	pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
 	CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
@@ -925,4 +925,360 @@ void CGameStateRun::StageClear() {
 //	//chapter9.ShowBitmap();
 //}
 //
+
+/////////////////////////////////////////////////////////////////////////////
+// Stage_2
+/////////////////////////////////////////////////////////////////////////////
+
+
+CGameStateStage_2::CGameStateStage_2(CGame *g)
+	: CGameState(g)
+{
+
+}
+
+CGameStateStage_2::~CGameStateStage_2()
+{
+
+}
+
+void CGameStateStage_2::OnBeginState()
+{
+	stg2.Initialize();
+}
+
+void CGameStateStage_2::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝蕭
+{
+	stg2.OnMove();
+}
+
+void CGameStateStage_2::OnInit()  								// 嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭�及圖形設嚙緩
+{
+	
+	//CAudio::Instance()->Load(AUDIO_BGM, "sounds\\bgm1.mp3");	// 嚙踝蕭嚙皚嚙編嚙踝蕭2嚙踝蕭嚙緯嚙踝蕭ntut.mid
+	////
+	//// 嚙踝蕭OnInit嚙褊作嚙罵嚙踝蕭嚙踝蕭CGameStaterOver::OnInit()嚙璀嚙課以嚙箠嚙踝蕭嚙誶沒嚙踝蕭100%
+	////
+	////gamemap.LoadBitMap(); //嚙窮嚙踝蕭
+	//CAudio::Instance()->Load(AUDIO_CHARACTER_MOVE, ".\\sounds\\character_move_01.wav");
+	//CAudio::Instance()->Load(AUDIO_ROCK_KICKED, ".\\sounds\\stone_kick_02.wav");
+	//CAudio::Instance()->Load(AUDIO_ROCK_MOVED, ".\\sounds\\stone_move_01.wav");
+	//CAudio::Instance()->Load(AUDIO_ENEMY_KICK, ".\\sounds\\enemy_kick_02.wav");
+	//CAudio::Instance()->Load(AUDIO_ENEMY_KILL, ".\\sounds\\enemy_die_02.wav");
+	//CAudio::Instance()->Load(AUDIO_PICKKEY, ".\\sounds\\key_pick_up_01.wav");
+	//CAudio::Instance()->Load(AUDIO_LOCK_WITHKEY, ".\\sounds\\door_opening_01.wav");
+	//CAudio::Instance()->Load(AUDIO_LOCK_NOKEY, ".\\sounds\\door_closed_kick_02.wav");
+
+	stg2.LoadBitmap();
+}
+
+void CGameStateStage_2::HeroWantToMove(char direction) {
+
+}
+
+void CGameStateStage_2::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	const char KEY_LEFT = 0x25; 
+	const char KEY_UP = 0x26; 
+	const char KEY_RIGHT = 0x27;
+	const char KEY_DOWN = 0x28; 
+
+	const char KEY_R = 82;
+
+	const char KEY_PASS = 0x45;
+
+	switch (nChar) {
+	case KEY_UP:
+		stg2.HeroWantToMove(HERO_MOVE_UP);
+		break;
+	case KEY_DOWN:
+		stg2.HeroWantToMove(HERO_MOVE_DOWN);
+		break;
+	case KEY_LEFT:
+		stg2.getHero()->SetHeroDirectionBitmap(HERO_FACING_LEFT);
+		stg2.HeroWantToMove(HERO_MOVE_LEFT);
+		break;
+	case KEY_RIGHT:
+		stg2.getHero()->SetHeroDirectionBitmap(HERO_FACING_RIGHT);
+		stg2.HeroWantToMove(HERO_MOVE_RIGHT);
+		break;
+	case KEY_R:
+		stg2.RestartStage();
+		break;
+	case KEY_PASS:
+		stg2.quickPass();
+		break;
+	default:
+		break;
+	}
+}
+
+void CGameStateStage_2::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	const char KEY_LEFT = 0x25; // keyboard嚙踝蕭嚙箭嚙磐
+	const char KEY_UP = 0x26; // keyboard嚙磕嚙箭嚙磐
+	const char KEY_RIGHT = 0x27; // keyboard嚙糊嚙箭嚙磐
+	const char KEY_DOWN = 0x28; // keyboard嚙磊嚙箭嚙磐
+	//if (nChar == KEY_LEFT)
+	//	eraser.SetMovingLeft(false);
+	//if (nChar == KEY_RIGHT)
+	//	eraser.SetMovingRight(false);
+	//if (nChar == KEY_UP)
+	//	eraser.SetMovingUp(false);
+	//if (nChar == KEY_DOWN)
+	//	eraser.SetMovingDown(false);
+}
+
+void CGameStateStage_2::OnLButtonDown(UINT nFlags, CPoint point)  // 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	//eraser.SetMovingLeft(true);
+}
+
+void CGameStateStage_2::OnLButtonUp(UINT nFlags, CPoint point)	// 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	//eraser.SetMovingLeft(false);
+}
+
+void CGameStateStage_2::OnMouseMove(UINT nFlags, CPoint point)	// 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	// 嚙磅嚙複。嚙緘嚙瘦嚙豎要嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊迎蕭嚙豌，嚙篇code嚙箭嚙緻嚙踝蕭
+}
+
+void CGameStateStage_2::OnRButtonDown(UINT nFlags, CPoint point)  // 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	//eraser.SetMovingRight(true);
+}
+
+void CGameStateStage_2::OnRButtonUp(UINT nFlags, CPoint point)	// 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	//eraser.SetMovingRight(false);
+}
+
+void CGameStateStage_2::OnShow()
+{
+
+	stg2.OnShow();
+
+	CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
+	CFont f, *fp;
+	f.CreatePointFont(120, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
+	fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
+	pDC->SetBkColor(RGB(0, 0, 0));
+	pDC->SetTextColor(RGB(255, 255, 0));
+	pDC->TextOut(0, 820, "Press E to cheat, Press R to restart");
+	pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
+	CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
+
+}
+
+void CGameStateStage_2::StageClear() {
+	//CAudio::Instance()->Stop(AUDIO_NTUT);
+	//CAudio::Instance()->Stop(AUDIO_CHARACTER_MOVE);
+	CAudio::Instance()->Stop(AUDIO_BGM);
+	GotoGameState(GAME_STATE_OVER_2);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+//stage 2 clear
+/////////////////////////////////////////////////////////////////////////////
+
+CGameStateOver2::CGameStateOver2(CGame *g)
+	: CGameState(g)
+{
+}
+
+void CGameStateOver2::OnMove()
+{
+	counter--;
+	if (counter < 0)
+		GotoGameState(GAME_STATE_STAGE_3);
+}
+
+void CGameStateOver2::OnBeginState()
+{
+	counter = 30 * 3; // 5 seconds
+}
+
+void CGameStateOver2::OnInit()
+{
+	//
+	// 嚙踝蕭嚙誕很多嚙褕，OnInit嚙踝蕭嚙皚嚙課佗蕭嚙踝蕭嚙誕要嚙踝蕭雃h嚙褕塚蕭嚙瘠嚙踝蕭嚙論免嚙踝蕭嚙瘠嚙踝蕭嚙踝蕭嚙瘡
+	//     嚙踝蕭嚙踝蕭嚙踝蕭嚙瑾嚙請，嚙瘠嚙踝蕭嚙罵嚙碼嚙緹嚙線Loading ...嚙緞嚙璀嚙踝蕭嚙盤oading嚙踝蕭嚙箠嚙論。
+	//
+	ShowInitProgress(66);	// 嚙踝蕭嚙諉前嚙瑾嚙諉迎蕭嚙璀嚙踝蕭嚙箠嚙論，嚙踝蕭嚙畿嚙箠嚙論蛛蕭嚙踝蕭66%
+	//
+	// 嚙罷嚙締嚙踝蕭嚙皚嚙踝蕭嚙�
+	//
+	Sleep(300);				// 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
+	//
+	// 嚙諒終進嚙論穿蕭100%
+	//
+	ShowInitProgress(100);
+}
+
+void CGameStateOver2::OnShow()
+{
+	CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
+	CFont f, *fp;
+	f.CreatePointFont(160, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
+	fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
+	pDC->SetBkColor(RGB(0, 0, 0));
+	pDC->SetTextColor(RGB(255, 255, 0));
+	char str[80];								// Demo 嚙複字嚙踝蕭r嚙赭的嚙賞換
+	sprintf(str, "Stage 2 Clear. Go to Stage 3 in (%d)", counter / 30);
+	pDC->TextOut(240, 210, str);
+	pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
+	CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// Stage_3
+/////////////////////////////////////////////////////////////////////////////
+
+CGameStateStage_3::CGameStateStage_3(CGame *g)
+	: CGameState(g)
+{
+
+}
+
+CGameStateStage_3::~CGameStateStage_3()
+{
+
+}
+
+void CGameStateStage_3::OnBeginState()
+{
+	stg3.Initialize();
+}
+
+void CGameStateStage_3::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝蕭
+{
+	stg3.OnMove();
+}
+
+void CGameStateStage_3::OnInit()  								// 嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭�及圖形設嚙緩
+{
+
+	//CAudio::Instance()->Load(AUDIO_BGM, "sounds\\bgm1.mp3");	// 嚙踝蕭嚙皚嚙編嚙踝蕭2嚙踝蕭嚙緯嚙踝蕭ntut.mid
+	////
+	//// 嚙踝蕭OnInit嚙褊作嚙罵嚙踝蕭嚙踝蕭CGameStaterOver::OnInit()嚙璀嚙課以嚙箠嚙踝蕭嚙誶沒嚙踝蕭100%
+	////
+	////gamemap.LoadBitMap(); //嚙窮嚙踝蕭
+	//CAudio::Instance()->Load(AUDIO_CHARACTER_MOVE, ".\\sounds\\character_move_01.wav");
+	//CAudio::Instance()->Load(AUDIO_ROCK_KICKED, ".\\sounds\\stone_kick_02.wav");
+	//CAudio::Instance()->Load(AUDIO_ROCK_MOVED, ".\\sounds\\stone_move_01.wav");
+	//CAudio::Instance()->Load(AUDIO_ENEMY_KICK, ".\\sounds\\enemy_kick_02.wav");
+	//CAudio::Instance()->Load(AUDIO_ENEMY_KILL, ".\\sounds\\enemy_die_02.wav");
+	//CAudio::Instance()->Load(AUDIO_PICKKEY, ".\\sounds\\key_pick_up_01.wav");
+	//CAudio::Instance()->Load(AUDIO_LOCK_WITHKEY, ".\\sounds\\door_opening_01.wav");
+	//CAudio::Instance()->Load(AUDIO_LOCK_NOKEY, ".\\sounds\\door_closed_kick_02.wav");
+
+	stg3.LoadBitmap();
+}
+
+void CGameStateStage_3::HeroWantToMove(char direction) {
+
+}
+
+void CGameStateStage_3::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	const char KEY_LEFT = 0x25;
+	const char KEY_UP = 0x26;
+	const char KEY_RIGHT = 0x27;
+	const char KEY_DOWN = 0x28;
+
+	const char KEY_R = 82;
+
+	const char KEY_PASS = 0x45;
+
+	switch (nChar) {
+	case KEY_UP:
+		stg3.HeroWantToMove(HERO_MOVE_UP);
+		break;
+	case KEY_DOWN:
+		stg3.HeroWantToMove(HERO_MOVE_DOWN);
+		break;
+	case KEY_LEFT:
+		stg3.getHero()->SetHeroDirectionBitmap(HERO_FACING_LEFT);
+		stg3.HeroWantToMove(HERO_MOVE_LEFT);
+		break;
+	case KEY_RIGHT:
+		stg3.getHero()->SetHeroDirectionBitmap(HERO_FACING_RIGHT);
+		stg3.HeroWantToMove(HERO_MOVE_RIGHT);
+		break;
+	case KEY_R:
+		stg3.RestartStage();
+		break;
+	case KEY_PASS:
+		stg3.quickPass();
+		break;
+	default:
+		break;
+	}
+}
+
+void CGameStateStage_3::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	const char KEY_LEFT = 0x25; // keyboard嚙踝蕭嚙箭嚙磐
+	const char KEY_UP = 0x26; // keyboard嚙磕嚙箭嚙磐
+	const char KEY_RIGHT = 0x27; // keyboard嚙糊嚙箭嚙磐
+	const char KEY_DOWN = 0x28; // keyboard嚙磊嚙箭嚙磐
+	//if (nChar == KEY_LEFT)
+	//	eraser.SetMovingLeft(false);
+	//if (nChar == KEY_RIGHT)
+	//	eraser.SetMovingRight(false);
+	//if (nChar == KEY_UP)
+	//	eraser.SetMovingUp(false);
+	//if (nChar == KEY_DOWN)
+	//	eraser.SetMovingDown(false);
+}
+
+void CGameStateStage_3::OnLButtonDown(UINT nFlags, CPoint point)  // 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	//eraser.SetMovingLeft(true);
+}
+
+void CGameStateStage_3::OnLButtonUp(UINT nFlags, CPoint point)	// 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	//eraser.SetMovingLeft(false);
+}
+
+void CGameStateStage_3::OnMouseMove(UINT nFlags, CPoint point)	// 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	// 嚙磅嚙複。嚙緘嚙瘦嚙豎要嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊迎蕭嚙豌，嚙篇code嚙箭嚙緻嚙踝蕭
+}
+
+void CGameStateStage_3::OnRButtonDown(UINT nFlags, CPoint point)  // 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	//eraser.SetMovingRight(true);
+}
+
+void CGameStateStage_3::OnRButtonUp(UINT nFlags, CPoint point)	// 嚙畿嚙緲嚙複對蕭嚙踝蕭嚙褊作
+{
+	//eraser.SetMovingRight(false);
+}
+
+void CGameStateStage_3::OnShow()
+{
+
+	stg3.OnShow();
+
+	CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
+	CFont f, *fp;
+	f.CreatePointFont(120, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
+	fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
+	pDC->SetBkColor(RGB(0, 0, 0));
+	pDC->SetTextColor(RGB(255, 255, 0));
+	pDC->TextOut(0, 820, "Press E to cheat, Press R to restart");
+	pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
+	CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
+
+}
+
+void CGameStateStage_3::StageClear() {
+	//CAudio::Instance()->Stop(AUDIO_NTUT);
+	//CAudio::Instance()->Stop(AUDIO_CHARACTER_MOVE);
+	CAudio::Instance()->Stop(AUDIO_BGM);
+	GotoGameState(GAME_STATE_INIT);
+}
 }

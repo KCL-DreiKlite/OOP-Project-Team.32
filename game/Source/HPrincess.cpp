@@ -37,6 +37,34 @@ namespace game_framework {
 			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_10.bmp", RGB(0, 255, 0));
 			animation.AddBitmap(".\\Bitmaps\\LUCIFER\\lucifer_11.bmp", RGB(0, 255, 0));
 		}
+		else if (whichPrincess == PRINCESS_CERBERUS) {
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_0.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_1.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_2.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_3.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_4.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_5.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_6.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_7.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_8.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_9.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_10.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\CERBERUS\\0\\cerberus_11.bmp", RGB(0, 255, 0));
+		}
+		else if (whichPrincess == PRINCESS_AZAZEL) {
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_0.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_1.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_2.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_3.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_4.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_5.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_6.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_7.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_8.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_9.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_10.bmp", RGB(0, 255, 0));
+			animation.AddBitmap(".\\Bitmaps\\AZAZEL\\azazel_11.bmp", RGB(0, 255, 0));
+		}
 	}
 
 

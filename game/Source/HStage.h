@@ -31,13 +31,17 @@ namespace game_framework {
 		MAPOBJ_ROCK,
 		MAPOBJ_ENEMY,
 		MAPOBJ_KEY,
-		MAPOBJ_LOCK
+		MAPOBJ_LOCK,
+		MAPOBJ_PRINCESS2,
+		MAPOBJ_PRINCESS3
 	};
 
 	class HStage {
 	public:
 		HStage();
 		HStage(CGameStateRun* mainState);
+		HStage(CGameStateStage_2* mainState2);
+		HStage(CGameStateStage_3* mainState3);
 		~HStage();
 
 		void RestartStage();
@@ -139,7 +143,8 @@ namespace game_framework {
 		bool hasLock = false;
 
 		CGameStateRun* mainState;
-
+		CGameStateStage_2* mainState2;
+		CGameStateStage_3* mainState3;
 	};
 
 #endif
