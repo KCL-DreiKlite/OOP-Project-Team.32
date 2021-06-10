@@ -8,6 +8,8 @@
 #include <vector>
 #include <stdlib.h>
 
+#include "mygame.h"
+
 #include "HStepsDisplay.h"
 
 #include "HHero.h"
@@ -95,7 +97,7 @@ namespace game_framework {
 			for (int y = 0; y < 9; y++)
 				init_map.at(y).at(x) = stg1_map[y][x];
 
-		HStage::Initialize(init_map);
+		HStage::Initialize(init_map, STAGE_2);
 
 
 	}

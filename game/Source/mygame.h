@@ -71,6 +71,13 @@ namespace game_framework {
 		AUDIO_LOCK_NOKEY
 	};
 
+	enum STAGE_ID {
+		STAGE_1,
+		STAGE_2,
+		STAGE_3,
+		STAGE_OVER
+	};
+
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class為遊戲的遊戲開頭畫面物件
 	// 每個Member function的Implementation都要弄懂
@@ -121,13 +128,18 @@ namespace game_framework {
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
 		void HeroWantToMove(char direction);
+
+		void GotoNextStage();
 		void StageClear();
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		int currentStage = STAGE_1;
 
 		HStage_1 stg1 = HStage_1(this);
+		HStage_2 stg2 = HStage_2(this);
+		HStage_3 stg3 = HStage_3(this);
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -148,64 +160,4 @@ namespace game_framework {
 		int counter;	// 倒數之計數器
 	};
 
-	//stage 2
-	class CGameStateStage_2 : public CGameState {
-	public:
-		CGameStateStage_2(CGame *g);
-		~CGameStateStage_2();
-		void OnBeginState();							// 設定每次重玩所需的變數
-		void OnInit();  								// 遊戲的初值及圖形設定
-		void OnKeyDown(UINT, UINT, UINT);
-		void OnKeyUp(UINT, UINT, UINT);
-		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
-		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
-		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
-		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
-		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
-		void HeroWantToMove(char direction);
-		void StageClear();
-	protected:
-		void OnMove();									// 移動遊戲元素
-		void OnShow();									// 顯示這個狀態的遊戲畫面
-	private:
-
-		HStage_2 stg2 = HStage_2(this);
-	};
-
-	//stage 3
-	class CGameStateStage_3 : public CGameState {
-	public:
-		CGameStateStage_3(CGame *g);
-		~CGameStateStage_3();
-		void OnBeginState();							// 設定每次重玩所需的變數
-		void OnInit();  								// 遊戲的初值及圖形設定
-		void OnKeyDown(UINT, UINT, UINT);
-		void OnKeyUp(UINT, UINT, UINT);
-		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
-		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
-		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
-		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
-		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
-		void HeroWantToMove(char direction);
-		void StageClear();
-	protected:
-		void OnMove();									// 移動遊戲元素
-		void OnShow();									// 顯示這個狀態的遊戲畫面
-	private:
-
-		HStage_3 stg3 = HStage_3(this);
-	};
-
-	//stage 2 clear screen
-	class CGameStateOver2 : public CGameState {
-	public:
-		CGameStateOver2(CGame *g);
-		void OnBeginState();							// 設定每次重玩所需的變數
-		void OnInit();
-	protected:
-		void OnMove();									// 移動遊戲元素
-		void OnShow();									// 顯示這個狀態的遊戲畫面
-	private:
-		int counter;	// 倒數之計數器
-	};
 }

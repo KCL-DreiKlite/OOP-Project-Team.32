@@ -9,7 +9,7 @@ namespace game_framework {
 	class HStage_3 : public HStage {
 	public:
 		HStage_3();
-		HStage_3(CGameStateStage_3* mainState);
+		HStage_3(CGameStateRun* mainState);
 
 		~HStage_3();
 
@@ -26,7 +26,7 @@ namespace game_framework {
 									  {0,0,5,0,4,4,1,1,0},
 									  {0,0,1,1,4,1,5,0,0},
 									  {0,0,0,0,0,7,4,1,0},
-									  {0,0,0,0,0,1,9,0,0},
+									  {0,0,0,0,0,1,3,0,0},
 									  {0,0,0,0,0,0,0,0,0} };
 
 		// Inherit the father method.

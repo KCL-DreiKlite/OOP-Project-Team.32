@@ -1,4 +1,3 @@
-
 #include "HStepsDisplay.h"
 
 namespace game_framework {
@@ -31,22 +30,20 @@ namespace game_framework {
 		MAPOBJ_ROCK,
 		MAPOBJ_ENEMY,
 		MAPOBJ_KEY,
-		MAPOBJ_LOCK,
-		MAPOBJ_PRINCESS2,
-		MAPOBJ_PRINCESS3
+		MAPOBJ_LOCK
+		//MAPOBJ_PRINCESS2,
+		//MAPOBJ_PRINCESS3
 	};
 
 	class HStage {
 	public:
 		HStage();
 		HStage(CGameStateRun* mainState);
-		HStage(CGameStateStage_2* mainState2);
-		HStage(CGameStateStage_3* mainState3);
 		~HStage();
 
 		void RestartStage();
 
-		void Initialize(vector<vector<int>> init_map);
+		void Initialize(vector<vector<int>> init_map, int nextStageID);
 
 		void LoadBitmap();
 
@@ -54,6 +51,8 @@ namespace game_framework {
 		void OnMove();
 
 		void HeroWantToMove(char direction);
+
+		void gotoNextStage();
 
 		void quickPass();
 
@@ -66,10 +65,7 @@ namespace game_framework {
 		const int getY();
 
 		const vector<vector<int>>* getMap();
-
 		HMapObject* getMapObject(int xOnMap, int yOnMap);
-
-		HStage* getNextStage();
 
 		HHero* getHero();
 		HPrincess* getPrincess();
@@ -77,6 +73,8 @@ namespace game_framework {
 		vector<HEnemy>* getEnemies();
 		HKey* getKey();
 		HLock* getLock();
+
+		int getNextStageID();
 
 	protected:
 		virtual void basicSetup();
@@ -124,7 +122,7 @@ namespace game_framework {
 		int steps_left;
 
 		// Next stage. When stage clear, jump to this stage.
-		HStage* nextStage;
+		int nextStageID;
 
 		HStepsDisplay* stepsDisplay;
 
@@ -143,8 +141,7 @@ namespace game_framework {
 		bool hasLock = false;
 
 		CGameStateRun* mainState;
-		CGameStateStage_2* mainState2;
-		CGameStateStage_3* mainState3;
+
 	};
 
 #endif

@@ -33,18 +33,6 @@ namespace game_framework {
 		basicSetup();
 	}
 
-	HStage::HStage(CGameStateStage_2* mainState2) {
-		this->mainState2 = mainState2;
-
-		basicSetup();
-	}
-
-	HStage::HStage(CGameStateStage_3* mainState3) {
-		this->mainState3 = mainState3;
-
-		basicSetup();
-	}
-
 	void HStage::basicSetup() {
 		map.assign(MAX_AVAILABLE_MAP_HEIGHT, vector<int>(MAX_AVAILABLE_MAP_WIDTH, MAPOBJ_MAPEND));
 	}
@@ -102,18 +90,16 @@ namespace game_framework {
 					break;
 				case MAPOBJ_KEY:
 					key->setXYOnMap(x, y);
-					//hasLock = true;
 					break;
 				case MAPOBJ_LOCK:
 					lock->setXYOnMap(x, y);
-					//hasLock = true;
 					break;
-				case MAPOBJ_PRINCESS2:
-					princess->setXYOnMap(x, y);
-					break;
-				case MAPOBJ_PRINCESS3:
-					princess->setXYOnMap(x, y);
-					break;
+				//case MAPOBJ_PRINCESS2:
+				//	princess->setXYOnMap(x, y);
+				//	break;
+				//case MAPOBJ_PRINCESS3:
+				//	princess->setXYOnMap(x, y);
+				//	break;
 				default:
 					break;
 				}
@@ -132,9 +118,12 @@ namespace game_framework {
 	In this method, define this stage's map by the passed argument, and
 	initialize every Helltaker object (class like HHero, HRock, etc.)
 	*/
-	void HStage::Initialize(vector<vector<int>> init_map) {
+	void HStage::Initialize(vector<vector<int>> init_map, int nextStageID) {
 		// Load stage map.
 		STAGE_MAP = init_map;
+
+		// Copy Next Stage's ID to nextStageID.
+		this->nextStageID = nextStageID;
 
 		// Copy stage map to dynamic map.
 		map = vector<vector<int>>(STAGE_MAP);
@@ -170,12 +159,6 @@ namespace game_framework {
 				case MAPOBJ_LOCK:
 					lock->Initialize(x, y, xOffset, yOffset, objectWidth);
 					hasLock = true;
-					break;
-				case MAPOBJ_PRINCESS2:
-					princess->Initialize(x, y, xOffset, yOffset, objectWidth);
-					break;
-				case MAPOBJ_PRINCESS3:
-					princess->Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				default:
 					break;
@@ -220,17 +203,6 @@ namespace game_framework {
 		// Load lock and key's bitmap
 		key->LoadBitmap();
 		lock->LoadBitmap();
-
-		for (int x = 0; x < map_width; x++) {
-			for (int y = 0; y < map_height; y++) {
-				if (getMapObjNum(x, y) == MAPOBJ_KEY) {
-					key->LoadBitmap();
-				}
-				else if (getMapObjNum(x, y) == MAPOBJ_LOCK) {
-					lock->LoadBitmap();
-				}
-			}
-		}
 	}
 
 	void HStage::OnShow() {
@@ -245,21 +217,9 @@ namespace game_framework {
 			rocks->at(r).OnShow();
 		for (int e = 0; e < enemiesCount; e++)
 			enemies->at(e).OnShow();
-		//if (hasLock) {
-		//	key->OnShow();
-		//	lock->OnShow();
-		//}
-		for (int x = 0; x < map_width; x++) {
-			for (int y = 0; y < map_height; y++) {
-				if (getMapObjNum(x, y) == MAPOBJ_KEY) {
-					key->OnShow();
-				}
-				else if (getMapObjNum(x, y) == MAPOBJ_LOCK) {
-					lock->OnShow();
-				}
-			}
-		}
 
+		key->OnShow();
+		lock->OnShow();
 	}
 
 	void HStage::HeroWantToMove(char direction) {
@@ -333,17 +293,18 @@ namespace game_framework {
 			}
 		}
 		else if (thingOnTheWay == MAPOBJ_PRINCESS) {
-			mainState->StageClear();
+			//mainState->StageClear();
+			mainState->GotoNextStage();
 			hmt = HMT_MEETPRINCESS;
 		}
-		else if (thingOnTheWay == MAPOBJ_PRINCESS2) {
-			mainState2->StageClear();
-			hmt = HMT_MEETPRINCESS;
-		}
-		else if (thingOnTheWay == MAPOBJ_PRINCESS3) {
-			mainState3->StageClear();
-			hmt = HMT_MEETPRINCESS;
-		}
+		//else if (thingOnTheWay == MAPOBJ_PRINCESS2) {
+		//	mainState2->StageClear();
+		//	hmt = HMT_MEETPRINCESS;
+		//}
+		//else if (thingOnTheWay == MAPOBJ_PRINCESS3) {
+		//	mainState3->StageClear();
+		//	hmt = HMT_MEETPRINCESS;
+		//}
 		else {}
 
 		// Update StepsDisplay.
@@ -401,12 +362,13 @@ namespace game_framework {
 
 		// Next, assign every single object into dynamic map.
 		getMapObjNum(hero->getXOnMap(), hero->getYOnMap()) = MAPOBJ_HERO;
-		if (whichPrincess == PRINCESS_LUCIFER)
+		//if (whichPrincess == PRINCESS_LUCIFER)
 			getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS;
-		else if (whichPrincess == PRINCESS_CERBERUS)
-			getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS2;
-		else if (whichPrincess == PRINCESS_AZAZEL)
-			getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS3;
+		//else if (whichPrincess == PRINCESS_CERBERUS)
+		//	getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS2;
+		//else if (whichPrincess == PRINCESS_AZAZEL)
+		//	getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS3;
+
 		for (int rc = 0; rc < rocksCount; rc++) {
 			if (rocks->at(rc).IsAlive())
 				getMapObjNum(rocks->at(rc).getXOnMap(), rocks->at(rc).getYOnMap()) = MAPOBJ_ROCK;
@@ -420,21 +382,17 @@ namespace game_framework {
 				getMapObjNum(enemies->at(ec).getXOnMap(), enemies->at(ec).getYOnMap()) = MAPOBJ_MOVABLE;
 		}
 
-		//here need to be revised
-		for (int x = 0; x < map_width; x++) {
-			for (int y = 0; y < map_height; y++) {
-				if (getMapObjNum(x, y) == MAPOBJ_KEY || getMapObjNum(x, y) == MAPOBJ_LOCK) {
-					if (key->IsAlive())
-						getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_KEY;
-					else
-						getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_MOVABLE;
+		if (hasLock) {
+			if (key->IsAlive())
+				getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_KEY;
+			else
+				getMapObjNum(key->getXOnMap(), key->getYOnMap()) = MAPOBJ_MOVABLE;
 
-					if (lock->IsAlive())
-						getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_LOCK;
-					else
-						getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_MOVABLE;
-				}
-			}
+			if (lock->IsAlive())
+				getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_LOCK;
+			else
+				getMapObjNum(lock->getXOnMap(), lock->getYOnMap()) = MAPOBJ_MOVABLE;
+
 		}
 
 		// And finally, remember those whatever it is stuff? Right,
@@ -460,10 +418,10 @@ namespace game_framework {
 			enemies->at(i).OnMove();
 		for (int x = 0; x < map_width; x++) {
 			for (int y = 0; y < map_height; y++) {
-				if (getMapObjNum(x, y) == MAPOBJ_KEY || getMapObjNum(x, y) == MAPOBJ_LOCK) {
+				if (getMapObjNum(x, y) == MAPOBJ_KEY)
 					key->OnMove();
+				else if (getMapObjNum(x, y) == MAPOBJ_LOCK)
 					lock->OnMove();
-				}
 			}
 		}
 		updateDynamicMap();
@@ -472,6 +430,12 @@ namespace game_framework {
 	void HStage::quickPass() {
 		for (int i = 0; i < rocksCount; i++)
 			rocks->at(i).SetIsAlive(false);
+		for (int ec = 0; ec < enemiesCount; ec++)
+			enemies->at(ec).SetIsAlive(false);
+	}
+
+	void HStage::gotoNextStage() {
+		//mainState->GotoNextStage(nextStageID);
 	}
 
 	void HStage::setXY(int nx, int ny) {

@@ -8,6 +8,8 @@
 #include <vector>
 #include <stdlib.h>
 
+#include "mygame.h"
+
 #include "HStepsDisplay.h"
 
 #include "HHero.h"
@@ -25,8 +27,8 @@ namespace game_framework {
 	HStage_3::HStage_3() {
 		basicSetup();
 	}
-	HStage_3::HStage_3(CGameStateStage_3* mainState3) {
-		this->mainState3 = mainState3;
+	HStage_3::HStage_3(CGameStateRun* mainState) {
+		this->mainState = mainState;
 
 		basicSetup();
 	}
@@ -36,7 +38,7 @@ namespace game_framework {
 		steps_left = MAX_MOVE_STEPS = STG3_MAX_MOVE_STEP;
 
 		// Set XY offset.
-		xOffset = 0;	yOffset = 0;
+		xOffset = 390;	yOffset = -50;
 
 		// Set StepsDisplay.
 		stepsDisplay = new HStepsDisplay(STG3_MAX_MOVE_STEP);
@@ -90,7 +92,7 @@ namespace game_framework {
 			for (int y = 0; y < 10; y++)
 				init_map.at(y).at(x) = stg3_map[y][x];
 
-		HStage::Initialize(init_map);
+		HStage::Initialize(init_map, STAGE_OVER);
 
 
 	}
