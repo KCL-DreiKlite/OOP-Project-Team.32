@@ -814,6 +814,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 	const char KEY_R = 82;
 
+	const char KEY_S = 83;
+
 	const char KEY_PASS = 0x45;
 
 	switch (nChar) {
@@ -836,6 +838,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case KEY_PASS:
 		stg1.quickPass();
+		break;
+	case KEY_S:
+		//CDDraw::Init(500, 500);
 		break;
 	default:
 		break;
@@ -898,6 +903,7 @@ void CGameStateRun::OnShow()
 	pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
 	CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
 
+	 
 }
 
 void CGameStateRun::StageClear() {

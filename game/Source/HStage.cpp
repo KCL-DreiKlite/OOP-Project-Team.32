@@ -194,10 +194,8 @@ namespace game_framework {
 			enemies->at(e).LoadBitmap();
 
 		// Load lock and key's bitmap
-		if (hasLock) {
-			key->LoadBitmap();
-			lock->LoadBitmap();
-		}
+		key->LoadBitmap();
+		lock->LoadBitmap();
 	}
 
 	void HStage::OnShow() {
