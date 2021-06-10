@@ -24,14 +24,14 @@ namespace game_framework {
 									{0,0,1,5,1,5,0,0,0},
 									{0,1,1,0,0,0,0,0,0},
 									{0,1,4,1,1,4,1,0,0},
-									{0,1,4,1,4,1,1,3,0},
+									{0,1,4,1,4,1,1,8,0},
 									{0,0,0,0,0,0,0,0,0} };
 
 		// Inherit the father method.
 		void loadMyBitmap() override;
 
-		// The maximum steps of stage 1.
-		const int STG2_MAX_MOVE_STEP = 33;
+		// The maximum steps of stage 2.
+		const int STG2_MAX_MOVE_STEP = 24;
 	};
 
 #endif

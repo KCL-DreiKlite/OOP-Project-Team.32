@@ -18,36 +18,36 @@
 #include "HLock.h"
 #include "HStage.h"
 
-#include "HStage_2.h"
+#include "HStage_3.h"
 
 
 namespace game_framework {
-	HStage_2::HStage_2() {
+	HStage_3::HStage_3() {
 		basicSetup();
 	}
-	HStage_2::HStage_2(CGameStateStage_2* mainState2) {
-		this->mainState2 = mainState2;
+	HStage_3::HStage_3(CGameStateStage_3* mainState3) {
+		this->mainState3 = mainState3;
 
 		basicSetup();
 	}
 
-	void HStage_2::basicSetup() {
+	void HStage_3::basicSetup() {
 		// Set the maximum move steps.
-		steps_left = MAX_MOVE_STEPS = STG2_MAX_MOVE_STEP;
+		steps_left = MAX_MOVE_STEPS = STG3_MAX_MOVE_STEP;
 
 		// Set XY offset.
 		xOffset = 0;	yOffset = 0;
 
 		// Set StepsDisplay.
-		stepsDisplay = new HStepsDisplay(STG2_MAX_MOVE_STEP);
+		stepsDisplay = new HStepsDisplay(STG3_MAX_MOVE_STEP);
 
 		// Copy the whole map data to father class' 'map' object.
-		for (int y = 0; y < 8; y++)
+		for (int y = 0; y < 10; y++)
 			for (int x = 0; x < 9; x++)
-				map[y][x] = stg2_map[y][x];
+				map[y][x] = stg3_map[y][x];
 
 		// Determine this stage's princess.
-		whichPrincess = PRINCESS_CERBERUS;
+		whichPrincess = PRINCESS_AZAZEL;
 
 		// Find the end of the map and assign height and width.
 		for (int i = 0; i < MAX_AVAILABLE_MAP_WIDTH; i++)
@@ -78,24 +78,24 @@ namespace game_framework {
 		enemies = new vector<HEnemy>(enemiesCount, HEnemy());
 	}
 
-	HStage_2::~HStage_2() {
+	HStage_3::~HStage_3() {
 
 	}
 
-	void HStage_2::Initialize() {
+	void HStage_3::Initialize() {
 		vector<vector<int>> init_map =
 			vector<vector<int>>(MAX_AVAILABLE_MAP_HEIGHT, vector<int>(MAX_AVAILABLE_MAP_WIDTH, MAPOBJ_MAPEND));
 
 		for (int x = 0; x < 9; x++)
-			for (int y = 0; y < 8; y++)
-				init_map.at(y).at(x) = stg2_map[y][x];
+			for (int y = 0; y < 10; y++)
+				init_map.at(y).at(x) = stg3_map[y][x];
 
 		HStage::Initialize(init_map);
 
 
 	}
 
-	void HStage_2::loadMyBitmap() {
-		backgroundImage.AddBitmap(".\\Bitmaps\\chapter_1.bmp", RGB(0, 1, 0));
+	void HStage_3::loadMyBitmap() {
+		backgroundImage.AddBitmap(".\\Bitmaps\\chapter_6.bmp", RGB(0, 1, 0));
 	}
 }

@@ -32,7 +32,8 @@ namespace game_framework {
 		MAPOBJ_ENEMY,
 		MAPOBJ_KEY,
 		MAPOBJ_LOCK,
-		MAPOBJ_PRINCESS2
+		MAPOBJ_PRINCESS2,
+		MAPOBJ_PRINCESS3
 	};
 
 	class HStage {
@@ -40,6 +41,7 @@ namespace game_framework {
 		HStage();
 		HStage(CGameStateRun* mainState);
 		HStage(CGameStateStage_2* mainState2);
+		HStage(CGameStateStage_3* mainState3);
 		~HStage();
 
 		void RestartStage();
@@ -142,6 +144,7 @@ namespace game_framework {
 
 		CGameStateRun* mainState;
 		CGameStateStage_2* mainState2;
+		CGameStateStage_3* mainState3;
 	};
 
 #endif

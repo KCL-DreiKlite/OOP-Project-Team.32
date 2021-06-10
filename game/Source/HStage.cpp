@@ -39,6 +39,12 @@ namespace game_framework {
 		basicSetup();
 	}
 
+	HStage::HStage(CGameStateStage_3* mainState3) {
+		this->mainState3 = mainState3;
+
+		basicSetup();
+	}
+
 	void HStage::basicSetup() {
 		map.assign(MAX_AVAILABLE_MAP_HEIGHT, vector<int>(MAX_AVAILABLE_MAP_WIDTH, MAPOBJ_MAPEND));
 	}
@@ -102,6 +108,12 @@ namespace game_framework {
 					lock->setXYOnMap(x, y);
 					//hasLock = true;
 					break;
+				case MAPOBJ_PRINCESS2:
+					princess->setXYOnMap(x, y);
+					break;
+				case MAPOBJ_PRINCESS3:
+					princess->setXYOnMap(x, y);
+					break;
 				default:
 					break;
 				}
@@ -158,6 +170,12 @@ namespace game_framework {
 				case MAPOBJ_LOCK:
 					lock->Initialize(x, y, xOffset, yOffset, objectWidth);
 					//hasLock = true;
+					break;
+				case MAPOBJ_PRINCESS2:
+					princess->Initialize(x, y, xOffset, yOffset, objectWidth);
+					break;
+				case MAPOBJ_PRINCESS3:
+					princess->Initialize(x, y, xOffset, yOffset, objectWidth);
 					break;
 				default:
 					break;
@@ -320,8 +338,12 @@ namespace game_framework {
 			mainState->StageClear();
 			hmt = HMT_MEETPRINCESS;
 		}
-		else if (false/*thingOnTheWay == MAPOBJ_PRINCESS*/) {
+		else if (thingOnTheWay == MAPOBJ_PRINCESS2) {
 			mainState2->StageClear();
+			hmt = HMT_MEETPRINCESS;
+		}
+		else if (thingOnTheWay == MAPOBJ_PRINCESS3) {
+			mainState3->StageClear();
 			hmt = HMT_MEETPRINCESS;
 		}
 		else {}
@@ -381,7 +403,12 @@ namespace game_framework {
 
 		// Next, assign every single object into dynamic map.
 		getMapObjNum(hero->getXOnMap(), hero->getYOnMap()) = MAPOBJ_HERO;
-		getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS;
+		if (whichPrincess == PRINCESS_LUCIFER)
+			getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS;
+		else if (whichPrincess == PRINCESS_CERBERUS)
+			getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS2;
+		else if (whichPrincess == PRINCESS_AZAZEL)
+			getMapObjNum(princess->getXOnMap(), princess->getYOnMap()) = MAPOBJ_PRINCESS3;
 		for (int rc = 0; rc < rocksCount; rc++) {
 			if (rocks->at(rc).IsAlive())
 				getMapObjNum(rocks->at(rc).getXOnMap(), rocks->at(rc).getYOnMap()) = MAPOBJ_ROCK;
