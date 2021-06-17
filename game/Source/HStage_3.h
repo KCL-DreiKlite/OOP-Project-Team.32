@@ -4,7 +4,7 @@ namespace game_framework {
 #ifndef _HStage_3_
 #define _HStage_3_
 
-#define IMAGE_STAGE_3		".\\Bitmaps\\chapter_6.bmp"
+#define IMAGE_STAGE_3		".\\Bitmaps\\STAGE_MAP\\stg3.bmp"
 
 	class HStage_3 : public HStage {
 	public:

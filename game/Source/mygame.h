@@ -68,7 +68,10 @@ namespace game_framework {
 		AUDIO_ENEMY_KILL,
 		AUDIO_PICKKEY,
 		AUDIO_LOCK_WITHKEY,
-		AUDIO_LOCK_NOKEY
+		AUDIO_LOCK_NOKEY,
+
+		AUDIO_GAMEOVER
+
 	};
 
 	enum STAGE_ID {
@@ -93,7 +96,9 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		CMovingBitmap logo;								// csie的logo
+		//CMovingBitmap logo;								// csie的logo0
+
+		CMovingBitmap backgroundImage;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -154,10 +159,13 @@ namespace game_framework {
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();
 	protected:
+		void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		int counter;	// 倒數之計數器
+		CMovingBitmap backgroundImage;
+		bool isFirstRelease = false;
 	};
 
 }

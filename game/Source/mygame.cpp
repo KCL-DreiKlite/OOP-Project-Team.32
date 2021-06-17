@@ -79,11 +79,23 @@ namespace game_framework {
 		//
 		// 嚙罷嚙締嚙踝蕭嚙皚嚙踝蕭嚙�
 		//
-		logo.LoadBitmap(IDB_BACKGROUND);
+		//logo.LoadBitmap(IDB_BACKGROUND);
 		//Sleep(30000);				// 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
 		//
 		// 嚙踝蕭OnInit嚙褊作嚙罵嚙踝蕭嚙踝蕭CGameStaterRun::OnInit()嚙璀嚙課以嚙箠嚙踝蕭嚙誶沒嚙踝蕭100%
 		//
+		backgroundImage.LoadBitmap(".\\Bitmaps\\startMap.bmp", RGB(0, 0, 0));
+		CAudio::Instance()->Load(AUDIO_BGM, "sounds\\bgm1.mp3");
+		CAudio::Instance()->Load(AUDIO_CHARACTER_MOVE, ".\\sounds\\character_move_01.wav");
+		CAudio::Instance()->Load(AUDIO_ROCK_KICKED, ".\\sounds\\stone_kick_02.wav");
+		CAudio::Instance()->Load(AUDIO_ROCK_MOVED, ".\\sounds\\stone_move_01.wav");
+		CAudio::Instance()->Load(AUDIO_ENEMY_KICK, ".\\sounds\\enemy_kick_02.wav");
+		CAudio::Instance()->Load(AUDIO_ENEMY_KILL, ".\\sounds\\enemy_die_02.wav");
+		CAudio::Instance()->Load(AUDIO_PICKKEY, ".\\sounds\\key_pick_up_01.wav");
+		CAudio::Instance()->Load(AUDIO_LOCK_WITHKEY, ".\\sounds\\door_opening_01.wav");
+		CAudio::Instance()->Load(AUDIO_LOCK_NOKEY, ".\\sounds\\door_closed_kick_02.wav");
+		CAudio::Instance()->Load(AUDIO_GAMEOVER, ".\\sounds\\gameover.mp3");
+
 	}
 
 	void CGameStateInit::OnBeginState()
@@ -94,10 +106,10 @@ namespace game_framework {
 	{
 		const char KEY_ESC = 27;
 		const char KEY_SPACE = ' ';
-		if (nChar == KEY_SPACE)
-			GotoGameState(GAME_STATE_RUN);						// 嚙踝蕭嚙踝蕭嚙踝蕭GAME_STATE_RUN
-		else if (nChar == KEY_ESC)								// Demo 嚙踝蕭嚙踝蕭嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭k
+		if (nChar == KEY_ESC)								// Demo 嚙踝蕭嚙踝蕭嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭k
 			PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// 嚙踝蕭嚙踝蕭嚙瘠嚙踝蕭
+		else
+			GotoGameState(GAME_STATE_RUN);						// 嚙踝蕭嚙踝蕭嚙踝蕭GAME_STATE_RUN
 	}
 
 	void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -110,24 +122,40 @@ namespace game_framework {
 		//
 		// 嚙皺嚙磕logo
 		//
-		logo.SetTopLeft((SIZE_X - logo.Width()) / 2, SIZE_Y / 8);
-		logo.ShowBitmap();
+		//logo.SetTopLeft((SIZE_X - logo.Width()) / 2, SIZE_Y / 8);
+		//logo.ShowBitmap();
 		//
 		// Demo嚙衛對蕭嚙緝嚙踝蕭嚙踝蕭嚙誕用，嚙踝蕭嚙盤嚙罷嚙緻嚙褕請盡量嚙論免嚙踝蕭嚙踝蕭嚙誕用字嚙踝蕭嚙璀嚙踝蕭嚙瘠MovingBitmap嚙踝蕭嚙踝蕭n
 		//
-		CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
+		backgroundImage.SetTopLeft(0, 0);
+		backgroundImage.ShowBitmap();
+
+		CDC *pDC = CDDraw::GetBackCDC();
 		CFont f, *fp;
-		f.CreatePointFont(160, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
-		fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
-		pDC->SetBkColor(RGB(0, 0, 0));
-		pDC->SetTextColor(RGB(255, 255, 0));
-		pDC->TextOut(120, 220, "Please click mouse or press SPACE to begin.");
-		pDC->TextOut(5, 395, "Press Ctrl-F to switch in between window mode and full screen mode.");
-		if (ENABLE_GAME_PAUSE)
-			pDC->TextOut(5, 425, "Press Ctrl-Q to pause the Game.");
-		pDC->TextOut(5, 455, "Press Alt-F4 or ESC to Quit.");
-		pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
-		CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
+		f.CreatePointFont(160, "BIZ UDMincho Medium");
+	
+		fp = pDC->SelectObject(&f);
+
+		pDC->SetBkColor(RGB(1, 1, 13));
+		pDC->SetTextColor(RGB(127, 0, 0));
+		//pDC->TextOut(120, 220, "Please click mouse or press SPACE to begin.");
+		//pDC->TextOut(5, 395, "Press Ctrl-F to switch in between window mode and full screen mode.");
+		//if (ENABLE_GAME_PAUSE)
+		//	pDC->TextOut(5, 425, "Press Ctrl-Q to pause the Game.");
+		//pDC->TextOut(5, 455, "Press Alt-F4 or ESC to Quit.");
+
+		//pDC->TextOutA(50, 50, "HELLTAKER");
+		pDC->TextOutA(20, 20, "NTUT CSIE OOP 2021");
+		pDC->TextOutA(20, 40, "Team 32");
+		pDC->TextOutA(20, 60, "資工二 108590013 郭建麟");
+		pDC->TextOutA(20, 80, "資工二 108590040 林誠祐");
+
+		pDC->TextOutA(20, 860, "Press any key to start a new game. Press ESC to exit.");
+
+		pDC->SelectObject(fp);
+		CDDraw::ReleaseBackCDC();
+
+
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -141,14 +169,17 @@ namespace game_framework {
 
 	void CGameStateOver::OnMove()
 	{
-		counter--;
-		if (counter < 0)
-			GotoGameState(GAME_STATE_INIT);
+		//counter--;
+		//if (counter < 0)
+		//	GotoGameState(GAME_STATE_INIT);
 	}
 
 	void CGameStateOver::OnBeginState()
 	{
-		counter = 30 * 3; // 5 seconds
+		//counter = 30 * 3; // 5 seconds
+		
+		CAudio::Instance()->Play(AUDIO_GAMEOVER, true);
+
 	}
 
 	void CGameStateOver::OnInit()
@@ -157,30 +188,45 @@ namespace game_framework {
 		// 嚙踝蕭嚙誕很多嚙褕，OnInit嚙踝蕭嚙皚嚙課佗蕭嚙踝蕭嚙誕要嚙踝蕭雃h嚙褕塚蕭嚙瘠嚙踝蕭嚙論免嚙踝蕭嚙瘠嚙踝蕭嚙踝蕭嚙瘡
 		//     嚙踝蕭嚙踝蕭嚙踝蕭嚙瑾嚙請，嚙瘠嚙踝蕭嚙罵嚙碼嚙緹嚙線Loading ...嚙緞嚙璀嚙踝蕭嚙盤oading嚙踝蕭嚙箠嚙論。
 		//
-		ShowInitProgress(66);	// 嚙踝蕭嚙諉前嚙瑾嚙諉迎蕭嚙璀嚙踝蕭嚙箠嚙論，嚙踝蕭嚙畿嚙箠嚙論蛛蕭嚙踝蕭66%
-		//
-		// 嚙罷嚙締嚙踝蕭嚙皚嚙踝蕭嚙�
-		//
-		Sleep(300);				// 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
-		//
-		// 嚙諒終進嚙論穿蕭100%
-		//
-		ShowInitProgress(100);
+		//ShowInitProgress(66);	// 嚙踝蕭嚙諉前嚙瑾嚙諉迎蕭嚙璀嚙踝蕭嚙箠嚙論，嚙踝蕭嚙畿嚙箠嚙論蛛蕭嚙踝蕭66%
+		////
+		//// 嚙罷嚙締嚙踝蕭嚙皚嚙踝蕭嚙�
+		////
+		//Sleep(300);				// 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
+		////
+		//// 嚙諒終進嚙論穿蕭100%
+		////
+		//ShowInitProgress(100);
+		//Sleep(1000);
+		backgroundImage.LoadBitmap(".\\Bitmaps\\gameOver.bmp", RGB(0, 0, 0));
+	}
+
+	void CGameStateOver::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) {
+		if (!isFirstRelease) {
+			isFirstRelease = true;
+			return;
+		}
+
+
+		GotoGameState(GAME_STATE_INIT);
+		CAudio::Instance()->Stop(AUDIO_GAMEOVER);
 	}
 
 	void CGameStateOver::OnShow()
 	{
-		CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
-		CFont f, *fp;
-		f.CreatePointFont(160, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
-		fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
-		pDC->SetBkColor(RGB(0, 0, 0));
-		pDC->SetTextColor(RGB(255, 255, 0));
-		char str[80];								// Demo 嚙複字嚙踝蕭r嚙赭的嚙賞換
-		sprintf(str, "Game over!(%d)", counter / 30);
-		pDC->TextOut(240, 210, str);
-		pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
-		CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
+		//CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
+		//CFont f, *fp;
+		//f.CreatePointFont(160, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
+		//fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
+		//pDC->SetBkColor(RGB(0, 0, 0));
+		//pDC->SetTextColor(RGB(255, 255, 0));
+		//char str[80];								// Demo 嚙複字嚙踝蕭r嚙赭的嚙賞換
+		//sprintf(str, "Game over!(%d)", counter / 30);
+		//pDC->TextOut(240, 210, str);
+		//pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
+		//CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
+		backgroundImage.SetTopLeft(0, 0);
+		backgroundImage.ShowBitmap();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -214,6 +260,8 @@ namespace game_framework {
 		stg1.Initialize();
 		stg2.Initialize();
 		stg3.Initialize();
+
+		currentStage = STAGE_1;
 	}
 
 	void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝蕭
@@ -315,19 +363,6 @@ namespace game_framework {
 		//ShowInitProgress(50);
 		//Sleep(300); // 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
 
-		CAudio::Instance()->Load(AUDIO_BGM, "sounds\\bgm1.mp3");	// 嚙踝蕭嚙皚嚙編嚙踝蕭2嚙踝蕭嚙緯嚙踝蕭ntut.mid
-		//
-		// 嚙踝蕭OnInit嚙褊作嚙罵嚙踝蕭嚙踝蕭CGameStaterOver::OnInit()嚙璀嚙課以嚙箠嚙踝蕭嚙誶沒嚙踝蕭100%
-		//
-		//gamemap.LoadBitMap(); //嚙窮嚙踝蕭
-		CAudio::Instance()->Load(AUDIO_CHARACTER_MOVE, ".\\sounds\\character_move_01.wav");
-		CAudio::Instance()->Load(AUDIO_ROCK_KICKED, ".\\sounds\\stone_kick_02.wav");
-		CAudio::Instance()->Load(AUDIO_ROCK_MOVED, ".\\sounds\\stone_move_01.wav");
-		CAudio::Instance()->Load(AUDIO_ENEMY_KICK, ".\\sounds\\enemy_kick_02.wav");
-		CAudio::Instance()->Load(AUDIO_ENEMY_KILL, ".\\sounds\\enemy_die_02.wav");
-		CAudio::Instance()->Load(AUDIO_PICKKEY, ".\\sounds\\key_pick_up_01.wav");
-		CAudio::Instance()->Load(AUDIO_LOCK_WITHKEY, ".\\sounds\\door_opening_01.wav");
-		CAudio::Instance()->Load(AUDIO_LOCK_NOKEY, ".\\sounds\\door_closed_kick_02.wav");
 
 		stg1.LoadBitmap();
 		stg2.LoadBitmap();
@@ -491,15 +526,15 @@ namespace game_framework {
 			break;
 		}
 
-		CDC *pDC = CDDraw::GetBackCDC();			// 嚙踝蕭嚙緻 Back Plain 嚙踝蕭 CDC 
+		CDC *pDC = CDDraw::GetBackCDC();
 		CFont f, *fp;
-		f.CreatePointFont(120, "Times New Roman");	// 嚙踝蕭嚙踝蕭 font f; 160嚙踝蕭嚙踝蕭16 point嚙踝蕭嚙緝
-		fp = pDC->SelectObject(&f);					// 嚙踝蕭嚙� font f
-		pDC->SetBkColor(RGB(0, 0, 0));
-		pDC->SetTextColor(RGB(255, 255, 0));
-		pDC->TextOut(0, 820, "Press E to cheat, Press R to restart");
-		pDC->SelectObject(fp);						// 嚙踝蕭 font f (嚙範嚙磊嚙踝蕭嚙緯嚙罵嚙瘤嚙踝蕭)
-		CDDraw::ReleaseBackCDC();					// 嚙踝蕭 Back Plain 嚙踝蕭 CDC
+		f.CreatePointFont(140, "BIZ UDMincho Medium");
+		fp = pDC->SelectObject(&f);
+		pDC->SetBkColor(RGB(2, 2, 27));
+		pDC->SetTextColor(RGB(140, 28, 49));
+		pDC->TextOut(1205, 875, "Press <E> to cheat,Press <R> to restart");
+		pDC->SelectObject(fp);
+		CDDraw::ReleaseBackCDC();
 
 
 	}

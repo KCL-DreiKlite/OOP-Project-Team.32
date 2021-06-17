@@ -98,6 +98,6 @@ namespace game_framework {
 	}
 
 	void HStage_3::loadMyBitmap() {
-		backgroundImage.AddBitmap(".\\Bitmaps\\chapter_6.bmp", RGB(0, 1, 0));
+		backgroundImage.AddBitmap(IMAGE_STAGE_3, RGB(0, 1, 0));
 	}
 }
