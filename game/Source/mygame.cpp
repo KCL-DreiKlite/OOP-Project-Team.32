@@ -75,12 +75,12 @@ namespace game_framework {
 		// 嚙踝蕭嚙誕很多嚙褕，OnInit嚙踝蕭嚙皚嚙課佗蕭嚙踝蕭嚙誕要嚙踝蕭雃h嚙褕塚蕭嚙瘠嚙踝蕭嚙論免嚙踝蕭嚙瘠嚙踝蕭嚙踝蕭嚙瘡
 		//     嚙踝蕭嚙踝蕭嚙踝蕭嚙瑾嚙請，嚙瘠嚙踝蕭嚙罵嚙碼嚙緹嚙線Loading ...嚙緞嚙璀嚙踝蕭嚙盤oading嚙踝蕭嚙箠嚙論。
 		//
-		ShowInitProgress(0);	// 嚙瑾嚙罷嚙締嚙踝蕭loading嚙箠嚙論穿蕭0%
+		//ShowInitProgress(0);	// 嚙瑾嚙罷嚙締嚙踝蕭loading嚙箠嚙論穿蕭0%
 		//
 		// 嚙罷嚙締嚙踝蕭嚙皚嚙踝蕭嚙�
 		//
 		logo.LoadBitmap(IDB_BACKGROUND);
-		Sleep(300);				// 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
+		//Sleep(30000);				// 嚙踝蕭C嚙璀嚙瘡嚙皺嚙豎清嚙踝蕭嚙箠嚙論，嚙踝蕭盚C嚙踝蕭嚙請刪嚙踝蕭嚙踝蕭Sleep
 		//
 		// 嚙踝蕭OnInit嚙褊作嚙罵嚙踝蕭嚙踝蕭CGameStaterRun::OnInit()嚙璀嚙課以嚙箠嚙踝蕭嚙誶沒嚙踝蕭100%
 		//
