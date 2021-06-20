@@ -146,11 +146,13 @@ namespace game_framework {
 
 		//pDC->TextOutA(50, 50, "HELLTAKER");
 		pDC->TextOutA(20, 20, "NTUT CSIE OOP 2021");
-		pDC->TextOutA(20, 40, "Team 32");
-		pDC->TextOutA(20, 60, "資工二 108590013 郭建麟");
-		pDC->TextOutA(20, 80, "資工二 108590040 林誠祐");
+		pDC->TextOutA(20, 50, "Team 32");
+		pDC->TextOutA(20, 80, "資工二 108590013 郭建麟");
+		pDC->TextOutA(20, 110, "資工二 108590040 林誠祐"); 
+		pDC->TextOutA(20, 140, "授課老師: 陳碩漢");
 
 		pDC->TextOutA(20, 860, "Press any key to start a new game. Press ESC to exit.");
+		pDC->TextOutA(1030, 860, "Press WASD or ↑↓←→ to control your character");
 
 		pDC->SelectObject(fp);
 		CDDraw::ReleaseBackCDC();
