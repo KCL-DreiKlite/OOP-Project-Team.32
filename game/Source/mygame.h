@@ -99,6 +99,7 @@ namespace game_framework {
 		//CMovingBitmap logo;								// csie的logo0
 
 		CMovingBitmap backgroundImage;
+		int releaseCount = 0;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -165,7 +166,7 @@ namespace game_framework {
 	private:
 		int counter;	// 倒數之計數器
 		CMovingBitmap backgroundImage;
-		bool isFirstRelease = false;
+		int releaseCount = 0;
 	};
 
 }

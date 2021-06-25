@@ -100,10 +100,14 @@ namespace game_framework {
 
 	void CGameStateInit::OnBeginState()
 	{
+		releaseCount = 0;
 	}
 
 	void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
+		if (++releaseCount < 2)
+			return;
+
 		const char KEY_ESC = 27;
 		const char KEY_SPACE = ' ';
 		if (nChar == KEY_ESC)								// Demo 嚙踝蕭嚙踝蕭嚙瘠嚙踝蕭嚙踝蕭嚙踝蕭k
@@ -179,7 +183,7 @@ namespace game_framework {
 		//counter = 30 * 3; // 5 seconds
 		
 		CAudio::Instance()->Play(AUDIO_GAMEOVER, true);
-
+		releaseCount = 0;
 	}
 
 	void CGameStateOver::OnInit()
@@ -202,11 +206,8 @@ namespace game_framework {
 	}
 
 	void CGameStateOver::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) {
-		if (!isFirstRelease) {
-			isFirstRelease = true;
+		if (++releaseCount < 2)
 			return;
-		}
-
 
 		GotoGameState(GAME_STATE_INIT);
 		CAudio::Instance()->Stop(AUDIO_GAMEOVER);
@@ -262,6 +263,7 @@ namespace game_framework {
 		stg3.Initialize();
 
 		currentStage = STAGE_1;
+
 	}
 
 	void CGameStateRun::OnMove()							// 嚙踝蕭嚙褊遊嚙踝蕭嚙踝蕭嚙踝蕭
