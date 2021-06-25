@@ -21,8 +21,8 @@ namespace game_framework {
 		const int stg3_map[10][9] = { {0,0,0,0,0,0,0,0,0},
 									  {0,0,1,2,1,0,0,0,0},
 									  {0,0,4,4,4,0,0,0,0},
-									  {0,1,1,1,6,0,0,0,0},
-									  {0,0,1,4,1,1,0,0,0},
+									  {0,4,1,1,6,0,0,0,0},
+									  {0,0,1,1,1,1,0,0,0},
 									  {0,0,5,0,4,4,1,1,0},
 									  {0,0,1,1,4,1,5,0,0},
 									  {0,0,0,0,0,7,4,1,0},
@@ -33,7 +33,7 @@ namespace game_framework {
 		void loadMyBitmap() override;
 
 		// The maximum steps of stage 3.
-		const int STG3_MAX_MOVE_STEP = 30;
+		const int STG3_MAX_MOVE_STEP = 28;
 	};
 
 #endif

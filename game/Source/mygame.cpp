@@ -137,7 +137,7 @@ namespace game_framework {
 		CDC *pDC = CDDraw::GetBackCDC();
 		CFont f, *fp;
 		f.CreatePointFont(160, "BIZ UDMincho Medium");
-	
+
 		fp = pDC->SelectObject(&f);
 
 		pDC->SetBkColor(RGB(1, 1, 13));
@@ -181,7 +181,7 @@ namespace game_framework {
 	void CGameStateOver::OnBeginState()
 	{
 		//counter = 30 * 3; // 5 seconds
-		
+
 		CAudio::Instance()->Play(AUDIO_GAMEOVER, true);
 		releaseCount = 0;
 	}
@@ -253,9 +253,6 @@ namespace game_framework {
 
 	void CGameStateRun::OnBeginState()
 	{
-
-		//CAudio::Instance()->Play(AUDIO_DING, false);		// 嚙踝蕭嚙踝蕭 WAVE
-		//CAudio::Instance()->Play(AUDIO_NTUT, true);			// 嚙踝蕭嚙踝蕭 MIDI
 		//CAudio::Instance()->Play(AUDIO_BGM, true);
 
 		stg1.Initialize();
@@ -382,7 +379,7 @@ namespace game_framework {
 		const char KEY_A = 0x41;
 		const char KEY_D = 0x44;
 		const char KEY_S = 0x53;
-		
+
 
 		const char KEY_E = 0x45;
 		const char KEY_R = 0x52;
@@ -545,7 +542,7 @@ namespace game_framework {
 		if (++currentStage == STAGE_OVER) {
 			GotoGameState(GAME_STATE_OVER);
 		}
-		
+
 	}
 
 	void CGameStateRun::StageClear() {
@@ -554,6 +551,5 @@ namespace game_framework {
 		CAudio::Instance()->Stop(AUDIO_BGM);
 		GotoGameState(GAME_STATE_OVER);
 	}
-
 
 }
