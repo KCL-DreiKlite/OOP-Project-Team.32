@@ -68,7 +68,7 @@ namespace game_framework {
 		: CGameState(g)
 	{
 	}
-
+	
 	void CGameStateInit::OnInit()
 	{
 		//
@@ -153,8 +153,10 @@ namespace game_framework {
 		pDC->TextOutA(20, 40, "Team 32");
 		pDC->TextOutA(20, 60, "資工二 108590013 郭建麟");
 		pDC->TextOutA(20, 80, "資工二 108590040 林誠祐");
+		pDC->TextOutA(20, 100, "授課老師: 陳碩漢");
 
 		pDC->TextOutA(20, 860, "Press any key to start a new game. Press ESC to exit.");
+		pDC->TextOutA(1060, 860, "Press WASD or ↑↓←→ to control your character");
 
 		pDC->SelectObject(fp);
 		CDDraw::ReleaseBackCDC();
@@ -181,6 +183,8 @@ namespace game_framework {
 	void CGameStateOver::OnBeginState()
 	{
 		//counter = 30 * 3; // 5 seconds
+
+		CAudio::Instance()->Stop(AUDIO_BGM);
 
 		CAudio::Instance()->Play(AUDIO_GAMEOVER, true);
 		releaseCount = 0;
@@ -253,7 +257,7 @@ namespace game_framework {
 
 	void CGameStateRun::OnBeginState()
 	{
-		//CAudio::Instance()->Play(AUDIO_BGM, true);
+		CAudio::Instance()->Play(AUDIO_BGM, true);
 
 		stg1.Initialize();
 		stg2.Initialize();
